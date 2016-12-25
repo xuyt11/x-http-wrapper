@@ -55,18 +55,12 @@ public class FileUtil {
     }
 
     //将file转化成string
-    public static String getContent(String filePath) throws IOException {
+    public static String getContent(String filePath, String charset) throws IOException {
         //对一串字符进行操作
-        StringBuffer fileData = new StringBuffer();
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader(filePath));
-            char[] buf = new char[1024];
-            int numRead;
-            while ((numRead = reader.read(buf)) != -1) {
-                String readData = String.valueOf(buf, 0, numRead);
-                fileData.append(readData);
-            }
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), charset));
+            StringBuffer fileData = getBufferData(reader);
             return fileData.toString();
         } finally {
             try {
@@ -77,6 +71,26 @@ public class FileUtil {
                 e.printStackTrace();
             }
         }
+    }
+
+    private static StringBuffer getBufferData2(BufferedReader reader) throws IOException {
+        StringBuffer fileData = new StringBuffer();
+        char[] buf = new char[1024];
+        int numRead;
+        while ((numRead = reader.read(buf)) != -1) {
+            String readData = String.valueOf(buf, 0, numRead);
+            fileData.append(readData);
+        }
+        return fileData;
+    }
+
+    private static StringBuffer getBufferData(BufferedReader reader) throws IOException {
+        StringBuffer fileData = new StringBuffer();
+        String strLine;
+        while (null != (strLine = reader.readLine())) {
+            fileData.append(strLine).append("\n");
+        }
+        return fileData;
     }
 
 }
