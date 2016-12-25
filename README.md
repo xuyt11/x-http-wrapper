@@ -2,13 +2,23 @@
 a auto creation tool for http request, request param, response entity and status code of response body
 
 
-# [工作流程](guide/global-process.png)
+# 快速使用入门
+1. 从xhwt文件夹下，获取其中的一个包装器的模板文件夹的所有文件，例如：xhwt/asynchttp/non_version文件夹的所有文件；
+2. 获取api_data.json文件，并修改x-http-wrapper.json中api_data.file_path_infos的配置信息，将api_data.json的绝对路径添加上去；
+3. 修改模板文件夹中，xhwt后缀模板文件中<t:header>标签内，生成文件的目标路径；
+4. 命令行：java -jar x-http-wrapper.jar x-http-wrapper.json；
+5. 在x-http-wrapper.json中，template_file_infos.need_generate属性：是否需要生成该类文件的开关；[详细的配置文件介绍](guide/config-structure.md)
 
+
+# [工作流程](guide/global-process.png)
 1. 解析x-http-wrapper.json这个配置文件；
 2. 在配置文件中，有API数据文件(在api_data中)，再根据配置数据，将API数据解析为x-http-wrapper中的model datas；
 3. 在配置文件中，有所有的x-http-wrapper的template文件(在template_file_infos中)，根据template文件中的内容与model datas和配置一起，生成目标文件；
 
+
 # [最新的jar](guide/x-http-wrapper.jar)
-使用方式：java -jar x-http-wrapper.jar x-http-wrapper.json
-x-http-wrapper.json文件，必须是绝对路径，该文件是整个wrapper的配置文件；
-若有多个json文件，也可以；
+1. 使用方式：java -jar x-http-wrapper.jar x-http-wrapper.json
+2. x-http-wrapper.json文件，必须是绝对路径，该文件是整个wrapper的配置文件；
+3. 若有多个json文件，也可以(如：有多个程序(ios,android)需要生成代码)；
+
+
