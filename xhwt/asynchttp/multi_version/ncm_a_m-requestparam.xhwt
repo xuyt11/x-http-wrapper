@@ -1,0 +1,52 @@
+<t:header>
+{
+    "fileName":"${request_param_class_name}.java",
+    "fileDirs":[
+        {
+            "osName":"Windows",
+            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.model/src/main/java/com/newchama/api/V${version_code}/request_param/${request_group_newchama}/"
+        },
+        {
+            "osName":"Mac OS X",
+            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.model/src/main/java/com/newchama/api/V${version_code}/request_param/${request_group_newchama}/"
+        }
+    ]
+}
+</t:header>
+package com.newchama.api.V${version_code}.request_param.${request_group_newchama};
+
+import java.io.Serializable;
+import java.io.File;
+import java.util.List;
+
+<t:retain type="import"/>
+
+/**
+ * @title ${request_title}
+ * @version ${request_version}
+ * @requestUrl ${request_url}
+ */
+public class ${request_param_class_name} implements Serializable {
+
+<t:retain type="field"/>
+
+<t:foreach each="input_groups">
+
+    public static final class ${input_group_class_name} implements Serializable {
+        <t:foreach each="input_group_fileds">
+        /**
+         * type: ${field_read_type}<br>
+         * isOptional : ${input_isOptional}<br>
+         * desc: ${input_desc}
+         */
+        public ${input_request_param_type} ${input_name};
+        </t:foreach>
+    }
+
+</t:foreach>
+
+<t:retain type="method"/>
+
+<t:retain type="other"/>
+
+}
