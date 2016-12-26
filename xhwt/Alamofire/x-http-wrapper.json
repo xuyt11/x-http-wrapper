@@ -19,7 +19,7 @@
       "path": "ncm_ios_n-httpapi.xhwt"
     },
     "Request": {
-      "need_generate": false,
+      "need_generate": true,
       "path": "ncm_ios_n-request.xhwt"
     },
     "RequestParam": {
@@ -68,7 +68,7 @@
   },
   "request": {
     "RESTful": {
-      "replaceString": "%s",
+      "replaceString": "%@",
       "multi_replace": [
         "ios"
       ],

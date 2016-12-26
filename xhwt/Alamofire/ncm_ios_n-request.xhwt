@@ -1,51 +1,39 @@
 <t:header>
 {
-    "fileName":"${request_group_class_name}.java",
+    "fileName":"${request_group_class_name}.swift",
     "fileDirs":[
         {
             "osName":"Windows",
-            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/api/"
+            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama_ios/api/"
         },
         {
             "osName":"Mac OS X",
-            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.common/src/main/java/com/newchama/api/api/"
+            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.common/src/main/java/com/newchama_ios/api/"
         }
     ]
 }
 </t:header>
-package com.newchama.api.api;
-
-import android.content.Context;
-
-import com.loopj.android.http.RequestHandle;
-import com.loopj.android.http.ResponseHandlerInterface;
-
-import com.newchama.api.BaseApi;
-<t:if isTrue="needImportOptionalRequestParamPackage">
-import com.newchama.api.request_param.${request_group_newchama}.*;
-</t:if_end>
-
-import com.newchama.tool.net.NetRequest;
-import com.newchama.tool.net.NetRequest.Method;
-import com.newchama.tool.net.NetWorker;
-
-import java.io.File;
+import Foundation
+import UIKit
+import Alamofire
+import ObjectMapper
+import SwiftyJSON
 
 <t:retain type="import"/>
 
-public class ${request_group_class_name} extends BaseApi {
+let defaultSuccess: VoidClosure = {
+    HitMessage.dismiss()
+}
 
-	public static ${request_group_class_name} getInstance() {
-		return Helper.instance;
-	}
+let defaultError: ErrorClosure = { (code, msg) in
+    HitMessage.showErrorWithMessage(msg)
+}
 
-	private static class Helper {
-		public static final ${request_group_class_name} instance = new ${request_group_class_name}();
-	}
+let defaultFailure: FailedClosure = { _ in
+    HitMessage.showNetErrorMessage()
+}
 
-	private ${request_group_class_name}() {
-	    super();
-	}
+class ${request_group_class_name}: NSObject {
 
 <t:retain type="field"/>
 
@@ -71,90 +59,19 @@ public class ${request_group_class_name} extends BaseApi {
 	 </t:if_end>
 	 </t:foreach>
 	 */
-	public RequestHandle ${request_name}(Context cxt001,
-	    <t:list each="RESTful_fields" singleLine>
-            </t:start value="		"/>
-            </t:eachTemp value="String ${RESTful_field_name}, "/>
-            </t:end value=""/>
-	    </t:list>
-	    <t:list each="filtered_headers" singleLine>
-            </t:start value="		"/>
-            </t:eachTemp value="${header_request_param_type} ${header_name}, "/>
-            </t:end value=""/>
-	    </t:list>
-	    <t:list each="inputs" singleLine>
-	        </t:start value="		"/>
-	        </t:eachTemp value="${input_request_param_type} ${input_name}, "/>
-	        </t:end value=""/>
-	    </t:list>
-		ResponseHandlerInterface response) {
-		NetRequest request = new NetRequest();
-		request.setMethod(Method.${request_METHOD});
-
+    <t:list_replace each="RESTful_fields" replace_key="restful_name_list" list_value="${RESTful_field_name}: String, ">
+    static func ${request_name}(${restful_name_list}para: Dic, success: SuccessedClosure, error: ErrorClosure, failure: FailedClosure) -> Request {
+    </t:list_replace>
         <t:if isTrue="request_url_is_RESTful">
         <t:list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
-		request.setUrl(String.format(getFullUrl("${request_convert_url}")${restful_name_list}));
+		let url = String.init(format: getFullUrl("${request_convert_url}")${restful_name_list})
 		</t:list_replace>
         <t:else>
-		request.setUrl(getFullUrl("${request_normal_url}"));
+        let url = getFullUrl("${request_convert_url}")
         </t:if_end>
-
-	    <t:foreach each="headers">
-        <t:if isTrue="isFilterParam">
-   	    // request.addHeader("${header_name}", ${header_name});// 被过滤的header字段
-        <t:else>
-   	    request.addHeader("${header_name}", ${header_name});
-        </t:if_end>
-        </t:foreach>
-	    <t:foreach each="inputs">
-	    <t:if isTrue="input_isOptional">
-	    if (null != ${input_name}) request.addParam("${input_name}", ${input_name});
-	    <t:else>
-	    request.addParam("${input_name}", ${input_name});
-	    </t:if_end>
-        </t:foreach>
-
-		return NetWorker.execute(cxt001, request, response);
+        return HttpClient.request(type: .${request_METHOD}, urlStr: url, params: para, success: success, failed: failure, error: error)
 	}
 
-    <t:if isTrue="needGenerateOptionalRequestMethod">
-	public RequestHandle ${request_name}(Context cxt001,
-        <t:list each="RESTful_fields" singleLine>
-            </t:start value="		"/>
-            </t:eachTemp value="String ${RESTful_field_name}, "/>
-            </t:end value=""/>
-        </t:list>
-        <t:list each="filtered_headers" singleLine>
-            </t:start value="		"/>
-            </t:eachTemp value="${header_request_param_type} ${header_name}, "/>
-            </t:end value=""/>
-        </t:list>
-        <t:list each="input_groups" singleLine>
-            </t:start value="		"/>
-            </t:eachTemp value="${request_param_class_name}.${input_group_class_name} ${input_group_name}, "/>
-            </t:end value=""/>
-        </t:list>
-        ResponseHandlerInterface response) {
-        return ${request_name}(cxt001,
-        <t:list each="RESTful_fields" singleLine>
-            </t:start value="		"/>
-            </t:eachTemp value="${RESTful_field_name}, "/>
-            </t:end value=""/>
-        </t:list>
-        <t:list each="filtered_headers" singleLine>
-            </t:start value="		"/>
-            </t:eachTemp value="${header_name}, "/>
-            </t:end value=""/>
-        </t:list>
-        <t:list each="input_groups_fileds" singleLine>
-            </t:start value="		"/>
-            </t:eachTemp value="${input_group_name}.${input_name}, "/>
-            </t:end value=""/>
-        </t:list>
-        response);
-    }
-
-    </t:if_end>
 </t:foreach>
 
 <t:retain type="method"/>
