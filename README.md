@@ -60,7 +60,11 @@ java -jar x-http-wrapper.jar x-http-wrapper.json
 3. 现阶段只有6个标签类型：使用反射来进行数据的加工
     * text, foreach, retain, list_single_line, if_else, list_replace
     * 标签内部的匹配都为反射的方法名称；
-        * 例如：在foreach标签中，<t:foreach each="request_groups">，
+        * 例如：在foreach标签中
+        ```xhtml
+        <t:foreach each="request_groups">
+        </t:foreach>
+        ```
         匹配的request_groups即为反射后去request_groups方法的数据，然后利用该数据去遍历；
 
 
