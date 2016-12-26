@@ -26,13 +26,15 @@ public class LRSRCreater {
     }
 
     public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
+        String listValue;
         List subModels = ReflectiveUtil.getList(reflectModel, methodName);
         if (subModels == null || subModels.isEmpty()) {
-            return new StringBuffer();
+            listValue = "";
+        } else {
+            // 需要在解析完成listValue之后，才能生成subs，因为需要替换replaceContent
+            listValue = parseAndGetListValue(retain, subModels);
         }
 
-        // 需要在解析完成listValue之后，才能生成subs，因为需要替换replaceContent
-        String listValue = parseAndGetListValue(retain, subModels);
         List<String> newContents = getNewContents(listValue);
         List<ExpressionRecord> subs = createSubs(newContents);
 
