@@ -16,27 +16,27 @@
   "template_file_infos": {
     "HttpApi": {
       "need_generate": true,
-      "path": "ncm_a_n-httpapi.xhwt"
+      "path": "ncm_ios_n-httpapi.xhwt"
     },
     "Request": {
-      "need_generate": true,
-      "path": "ncm_a_n-request.xhwt"
+      "need_generate": false,
+      "path": "ncm_ios_n-request.xhwt"
     },
     "RequestParam": {
-      "need_generate": true,
-      "path": "ncm_a_n-requestparam.xhwt"
+      "need_generate": false,
+      "path": "ncm_ios_n-requestparam.xhwt"
     },
     "Response": {
       "need_generate": false,
-      "path": "ncm_a_n-response.xhwt"
+      "path": "ncm_ios_n-response.xhwt"
     },
     "StatusCode": {
       "need_generate": false,
-      "path": "ncm_a_n-statuscode.xhwt"
+      "path": "ncm_ios_n-statuscode.xhwt"
     },
     "BaseResponse": {
       "need_generate": false,
-      "path": "ncm_a_n-baseresponse.xhwt",
+      "path": "ncm_ios_n-baseresponse.xhwt",
       "is_polymerization": true
     }
   },
@@ -70,7 +70,7 @@
     "RESTful": {
       "replaceString": "%s",
       "multi_replace": [
-        "android"
+        "ios"
       ],
       "date_replace": [
         {
