@@ -1,0 +1,43 @@
+<t:header>
+{
+    "fileName":"HttpApi.java",
+    "fileDirs":[
+        {
+            "osName":"Windows",
+            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/"
+        },
+        {
+            "osName":"Mac OS X",
+            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.common/src/main/java/com/newchama/api/"
+        }
+    ]
+}
+</t:header>
+
+import Foundation
+
+<t:retain type="import"/>
+
+class HttpApi: NSObject {
+
+<t:foreach each="request_groups">
+	let ${request_group_name} : ${request_group_class_name}
+</t:foreach>
+
+<t:retain type="field"/>
+
+<t:foreach each="request_groups">
+	public static ${request_group_class_name} ${request_group_name}() {
+		if (null == ${request_group_name}) {
+			${request_group_name} = ${request_group_class_name}.getInstance();
+		}
+		return ${request_group_name};
+	}
+
+</t:foreach>
+
+<t:retain type="method"/>
+
+<t:retain type="other"/>
+
+}
