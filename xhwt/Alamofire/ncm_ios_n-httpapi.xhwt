@@ -1,14 +1,14 @@
 <t:header>
 {
-    "fileName":"HttpApi.java",
+    "fileName":"HttpApi.swift",
     "fileDirs":[
         {
             "osName":"Windows",
-            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/"
+            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama_ios/api/"
         },
         {
             "osName":"Mac OS X",
-            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.common/src/main/java/com/newchama/api/"
+            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.common/src/main/java/com/newchama_ios/api/"
         }
     ]
 }
@@ -21,18 +21,18 @@ import Foundation
 class HttpApi: NSObject {
 
 <t:foreach each="request_groups">
-	let ${request_group_name} : ${request_group_class_name}
+    static var ${request_group_name} : ${request_group_class_name}
 </t:foreach>
 
 <t:retain type="field"/>
 
 <t:foreach each="request_groups">
-	public static ${request_group_class_name} ${request_group_name}() {
-		if (null == ${request_group_name}) {
-			${request_group_name} = ${request_group_class_name}.getInstance();
-		}
-		return ${request_group_name};
-	}
+	static func ${request_group_name}() -> ${request_group_class_name} {
+        if (${request_group_name} == nil) {
+            ${request_group_name} = ${request_group_class_name}()
+        }
+        return ${request_group_name}
+    }
 
 </t:foreach>
 
