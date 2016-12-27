@@ -1,6 +1,8 @@
 package cn.ytxu.http_wrapper.template.expression;
 
 import cn.ytxu.http_wrapper.model.BaseModel;
+import cn.ytxu.http_wrapper.template.engine.converter.C2ERCallback;
+import cn.ytxu.http_wrapper.template.engine.converter.Content2ExpressionRecordConverter;
 import cn.ytxu.http_wrapper.template.expression.record.retain.RetainModel;
 
 import java.util.List;
@@ -36,6 +38,10 @@ public abstract class ExpressionRecord {
         this.maybeHasSubRecords = maybeHasSubRecords;
     }
 
+    public String getStartLineContent() {
+        return startLineContent;
+    }
+
     public List<ExpressionRecord> getSubRecords() {
         return subRecords;
     }
@@ -54,7 +60,7 @@ public abstract class ExpressionRecord {
         return Objects.nonNull(endTag);
     }
 
-    protected boolean isEndTagLine(String content) {
+    public boolean isEndTagLine(String content) {
         return endTag.equals(content.trim());
     }
 
@@ -92,7 +98,7 @@ public abstract class ExpressionRecord {
      * @return convertEndTagLine 是否解析到了end tag
      */
     protected boolean convertContentsIfHas(ListIterator<String> contentListIterator) {
-        return new Content2ExpressionRecordConverter.Normal(contentListIterator, this, new Content2ExpressionRecordConverter.Callback() {
+        return new Content2ExpressionRecordConverter.Normal(contentListIterator, this, new C2ERCallback() {
             @Override
             public void middleTagLine(String content, List<ExpressionRecord> records) {
             }

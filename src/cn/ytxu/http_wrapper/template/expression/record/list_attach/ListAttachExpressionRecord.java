@@ -32,7 +32,7 @@ public class ListAttachExpressionRecord extends ExpressionRecord {
     }
 
     @Override
-    protected boolean isEndTagLine(String content) {
+    public boolean isEndTagLine(String content) {
         throw new IllegalAccessError("list attach type not has end tag");
     }
 

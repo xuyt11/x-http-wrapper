@@ -32,7 +32,7 @@ public class TextExpressionRecord extends ExpressionRecord {
     }
 
     @Override
-    protected boolean isEndTagLine(String content) {
+    public boolean isEndTagLine(String content) {
         throw new IllegalAccessError("text type not has end tag");
     }
 

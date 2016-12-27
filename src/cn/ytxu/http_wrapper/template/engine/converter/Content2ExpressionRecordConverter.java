@@ -1,4 +1,7 @@
-package cn.ytxu.http_wrapper.template.expression;
+package cn.ytxu.http_wrapper.template.engine.converter;
+
+import cn.ytxu.http_wrapper.template.expression.ExpressionEnum;
+import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 
 import java.util.*;
 
@@ -12,36 +15,14 @@ public class Content2ExpressionRecordConverter {
     protected final ListIterator<String> contentListIterator;// 表达式内容(template文件的内容)的遍历器
     protected final ExpressionRecord parentERecord;// 在records中所有的record的parent
     protected final LinkedList<ExpressionRecord> records;// 表达式的记录(分析后所有的表达式记录)
-    protected final Callback callback;//
+    protected final C2ERCallback callback;//
 
-    protected Content2ExpressionRecordConverter(ListIterator<String> contentListIterator, ExpressionRecord parentERecord, Callback callback) {
+    protected Content2ExpressionRecordConverter(ListIterator<String> contentListIterator, ExpressionRecord parentERecord, C2ERCallback callback) {
         this.contentListIterator = contentListIterator;
         this.parentERecord = parentERecord;
         this.callback = callback;
         this.records = new LinkedList<>();
     }
-
-
-    /**
-     * 若是有中间标签(middleTag)的表达式，callback不能为null
-     */
-    public interface Callback {
-        /**
-         * 碰到了表达式中间的那些标签
-         *
-         * @param content 中间标签的content，没有trim，没有做任何操作的数据
-         * @param records 该中间标签之上的所有的记录
-         */
-        void middleTagLine(String content, List<ExpressionRecord> records);
-
-        /**
-         * 解析到了结束标签
-         *
-         * @param records 解析到的所有记录
-         */
-        void endTagLine(List<ExpressionRecord> records);
-    }
-
 
     public static final class Top extends Content2ExpressionRecordConverter {
 
@@ -63,12 +44,11 @@ public class Content2ExpressionRecordConverter {
             }
             return records;
         }
-
     }
 
     public static final class Normal extends Content2ExpressionRecordConverter {
 
-        public Normal(ListIterator<String> contentListIterator, ExpressionRecord parentERecord, Callback callback) {
+        public Normal(ListIterator<String> contentListIterator, ExpressionRecord parentERecord, C2ERCallback callback) {
             super(contentListIterator, parentERecord, callback);
             if (Objects.isNull(parentERecord)) {
                 throw new NullPointerException("u must setup parent expression record...");
@@ -106,8 +86,7 @@ public class Content2ExpressionRecordConverter {
                 record.convertContents2SubRecordsIfCan(contentListIterator);
             }
 
-            throw new IllegalArgumentException("this expression(" + parentERecord.startLineContent + ") has not end tag....");
+            throw new IllegalArgumentException("this expression(" + parentERecord.getStartLineContent() + ") has not end tag....");
         }
-
     }
 }

@@ -36,7 +36,7 @@ public class RetainExpressionRecord extends ExpressionRecord {
     }
 
     @Override
-    protected boolean isEndTagLine(String content) {
+    public boolean isEndTagLine(String content) {
         throw new IllegalAccessError("retain type not has end tag");
     }
 
