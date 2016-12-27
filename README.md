@@ -2,6 +2,14 @@
 a auto creation tool for http request, request param, response entity and status code of response body
 
 
+# Requirements
+* x-http-wrapper.jar package dependency: java8+
+* development environment:
+    * java version: java8+
+    * java tool: intellij idea
+    * external libs: gson:2.8.0, fastjson:1.2.17, rxjava:1.2.2, junit:4.12
+
+
 # 快速使用入门
 1. 从xhwt文件夹下，获取其中的一个包装器的模板文件夹的所有文件，例如：xhwt/asynchttp/non_version文件夹的所有文件；
 2. 获取api_data.json文件，并修改x-http-wrapper.json中api_data.file_path_infos的配置信息，将api_data.json的绝对路径添加上去；
