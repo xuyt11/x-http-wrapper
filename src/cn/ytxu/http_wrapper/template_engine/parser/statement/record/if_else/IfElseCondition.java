@@ -1,5 +1,6 @@
 package cn.ytxu.http_wrapper.template_engine.parser.statement.record.if_else;
 
+import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.template_engine.parser.util.ReflectiveUtil;
 
 import java.util.Objects;
@@ -13,14 +14,14 @@ public enum IfElseCondition {
     // boolean
     Boolean("布尔类型判断", "isTrue=\"", "\"", Pattern.compile("(isTrue=\")\\w+(\")")) {
         @Override
-        public boolean getBoolean(Object reflectModel, String methodName) {
+        public boolean getBoolean(BaseModel reflectModel, String methodName) {
             return ReflectiveUtil.getBoolean(reflectModel, methodName);
         }
     },
     // String
     NotEmpty("String类型判断", "isNotEmpty=\"", "\"", Pattern.compile("(isNotEmpty=\")\\w+(\")")) {
         @Override
-        public boolean getBoolean(Object reflectModel, String methodName) {
+        public boolean getBoolean(BaseModel reflectModel, String methodName) {
             String text = ReflectiveUtil.getString(reflectModel, methodName);
             if (Objects.isNull(text) || text.trim().isEmpty()) {
                 return false;
@@ -84,6 +85,6 @@ public enum IfElseCondition {
         return matcher.find();
     }
 
-    public abstract boolean getBoolean(Object reflectModel, String methodName);
+    public abstract boolean getBoolean(BaseModel reflectModel, String methodName);
 
 }

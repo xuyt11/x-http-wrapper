@@ -1,5 +1,6 @@
 package cn.ytxu.http_wrapper.template.expression.text;
 
+import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.template.expression.ExpressionEnum;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
@@ -48,16 +49,16 @@ public class TextExpressionRecord extends ExpressionRecord {
 
 
     @Override
-    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
+    public StringBuffer getWriteBuffer(BaseModel reflectModel, RetainModel retain) {
         return getNormalWriteBuffer(reflectModel, retain).append(NextLine);
     }
 
-    public StringBuffer getNormalWriteBuffer(Object reflectModel, RetainModel retain) {
+    public StringBuffer getNormalWriteBuffer(BaseModel reflectModel, RetainModel retain) {
         getAndSetContent2Range(reflectModel);
         return getFragmentBuffer();
     }
 
-    private void getAndSetContent2Range(Object reflectModel) {
+    private void getAndSetContent2Range(BaseModel reflectModel) {
         for (Range range : ranges) {
             String content = ReflectiveUtil.getString(reflectModel, range.getMethodName());
             range.setContent(content);

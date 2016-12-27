@@ -13,8 +13,8 @@ import java.util.Objects;
  */
 public class ReflectiveUtil {
 
-    public static Object invokeMethod(Object reflectObj, String methodName, String printTag) {
-        Object realReflectObj = reflectObj;
+    public static Object invokeMethod(BaseModel reflectObj, String methodName, String printTag) {
+        BaseModel realReflectObj = reflectObj;
         Method method;
         do {
             try {
@@ -24,8 +24,7 @@ public class ReflectiveUtil {
                 try {
                     realReflectObj = getHigherLevelReflectObject(realReflectObj);
                 } catch (NotCallThisMethodException e) {
-                    throw new RuntimeException("error : the data tree can not call this (" + methodName + ") method," +
-                            " and the reflectObj is " + reflectObj.getClass().getSimpleName());
+                    throw new NotCallThisMethodException(methodName, reflectObj.getClass().getSimpleName());
                 }
             }
         } while (true);
@@ -40,7 +39,7 @@ public class ReflectiveUtil {
         throw new IllegalArgumentException(printTag + ", do not find this method :" + methodName);
     }
 
-    private static Method getMethod4CurrReflectiveObject(Object reflectObj, String methodName) throws NoSuchMethodException {
+    private static Method getMethod4CurrReflectiveObject(BaseModel reflectObj, String methodName) throws NoSuchMethodException {
         try {
             Class clazz = reflectObj.getClass();
             return clazz.getDeclaredMethod(methodName);
@@ -54,42 +53,51 @@ public class ReflectiveUtil {
         }
     }
 
-    private static Object getHigherLevelReflectObject(Object reflectObj) throws NotCallThisMethodException {
-        if (!(reflectObj instanceof BaseModel)) {
-            throw new IllegalArgumentException(reflectObj.getClass().toString() + " is not extends BaseModel, you need extends it...");
-        }
-
+    private static BaseModel getHigherLevelReflectObject(BaseModel reflectObj) throws NotCallThisMethodException {
         // 是数据树中的对象，则调用父对象的方法
-        Object higherLevel = ((BaseModel) reflectObj).getHigherLevel();
+        BaseModel higherLevel = reflectObj.getHigherLevel();
         if (higherLevel == null) {// reflectObj is VersionModel, so it have not super base model
             throw new NotCallThisMethodException();
         }
-
         return higherLevel;
     }
 
     private static final class NotCallThisMethodException extends IllegalArgumentException {
+        public NotCallThisMethodException() {
+            super();
+        }
+
+        public NotCallThisMethodException(String methodName, String reflectObjectSimpleName) {
+            super("error : the data tree can not call this (" + methodName + ") method, and the reflectObj is " + reflectObjectSimpleName);
+        }
     }
 
 
     //*********************** reflect sub type ***********************
-    public static String getString(Object reflectObj, String methodName) {
-        Object data = invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
+    public static String getString(BaseModel reflectObj, String methodName) {
+        Object data = null;
+        try {
+            data = invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
+        } catch (NotCallThisMethodException e) {
+
+            e.printStackTrace();
+        }
+
         if (Objects.isNull(data)) {
             return null;
         }
         return data.toString();
     }
 
-    public static List<?> getList(Object reflectObj, String methodName) {
-        return (List<?>) invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
+    public static List<BaseModel> getList(BaseModel reflectObj, String methodName) {
+        return (List<BaseModel>) invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
     }
 
-    public static boolean getBoolean(Object reflectObj, String methodName) {
+    public static boolean getBoolean(BaseModel reflectObj, String methodName) {
         return (boolean) invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
     }
 
-    public static long getNumber(Object reflectObj, String methodName) {
+    public static long getNumber(BaseModel reflectObj, String methodName) {
         return (long) invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
     }
 

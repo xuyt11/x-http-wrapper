@@ -1,5 +1,6 @@
 package cn.ytxu.http_wrapper.template.expression.list_single_line;
 
+import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.template.expression.ExpressionEnum;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.text.TextExpressionRecord;
@@ -56,15 +57,15 @@ public class ListSingleLineExpressionRecord extends ExpressionRecord {
 
 
     @Override
-    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
-        List subModels = ReflectiveUtil.getList(reflectModel, parser.getMethodName());
+    public StringBuffer getWriteBuffer(BaseModel reflectModel, RetainModel retain) {
+        List<BaseModel> subModels = ReflectiveUtil.getList(reflectModel, parser.getMethodName());
         StringBuffer listSingleLineBuffer = new StringBuffer();
 
         if (subModels == null || subModels.isEmpty()) {
             return listSingleLineBuffer;
         }
 
-        for (Object subModel : subModels) {
+        for (BaseModel subModel : subModels) {
             TextExpressionRecord record = parser.getEachTempStatementRecord();
             StringBuffer buffer = record.getNormalWriteBuffer(subModel, retain);
             listSingleLineBuffer.append(buffer);

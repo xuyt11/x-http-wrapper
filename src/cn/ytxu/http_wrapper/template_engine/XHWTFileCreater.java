@@ -3,6 +3,7 @@ package cn.ytxu.http_wrapper.template_engine;
 import cn.ytxu.http_wrapper.common.util.FileUtil;
 import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
+import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.model.version.VersionModel;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.text.TextExpressionRecord;
@@ -39,7 +40,7 @@ public class XHWTFileCreater {
             try {
                 XHWTModel tModel = getXHWTModelByParseTemplateFile(xhwtFileType);
 
-                List reflectDatas = xhwtFileType.getReflectiveDatas(versions);
+                List<? extends BaseModel> reflectDatas = xhwtFileType.getReflectiveDatas(versions);
 
                 loopGenerateTargetFilesByReflectDatas(tModel, reflectDatas);
 
@@ -54,13 +55,13 @@ public class XHWTFileCreater {
         return new XHWTFileParser(xhwtFileType).start();
     }
 
-    private void loopGenerateTargetFilesByReflectDatas(XHWTModel tModel, List reflectDatas) {
-        for (Object reflectData : reflectDatas) {
+    private void loopGenerateTargetFilesByReflectDatas(XHWTModel tModel, List<? extends BaseModel> reflectDatas) {
+        for (BaseModel reflectData : reflectDatas) {
             generateTargetFileByReflectData(tModel, reflectData);
         }
     }
 
-    private void generateTargetFileByReflectData(XHWTModel tModel, Object reflectData) {
+    private void generateTargetFileByReflectData(XHWTModel tModel, BaseModel reflectData) {
         String dirPath = getString(tModel.getFileDir(), reflectData);
         String fileName = getString(tModel.getFileName(), reflectData);
 
@@ -70,7 +71,7 @@ public class XHWTFileCreater {
         });
     }
 
-    private String getString(String content, Object reflectModel) {
+    private String getString(String content, BaseModel reflectModel) {
         TextExpressionRecord record = new TextExpressionRecord(content);
         record.parseRecordAndSubRecords();
         return record.getWriteBuffer(reflectModel, null).toString().trim();

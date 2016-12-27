@@ -1,5 +1,6 @@
 package cn.ytxu.http_wrapper.template.expression.list_attach;
 
+import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.template.expression.text.TextExpressionRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
 import cn.ytxu.http_wrapper.template_engine.parser.util.ReflectiveUtil;
@@ -19,9 +20,9 @@ public class ListAttachCreater {
         this.listTextRecord = listTextRecord;
     }
 
-    public String getAttachContent(Object reflectModel, RetainModel retain) {
+    public String getAttachContent(BaseModel reflectModel, RetainModel retain) {
         String attachContent;
-        List subModels = ReflectiveUtil.getList(reflectModel, methodName);
+        List<BaseModel> subModels = ReflectiveUtil.getList(reflectModel, methodName);
         if (subModels == null || subModels.isEmpty()) {
             attachContent = "";
         } else {
@@ -31,10 +32,10 @@ public class ListAttachCreater {
         return attachContent;
     }
 
-    private String parseAndGetListValue(RetainModel retain, List subModels) {
+    private String parseAndGetListValue(RetainModel retain, List<BaseModel> subModels) {
         StringBuffer listTextBuffer = new StringBuffer();
         TextExpressionRecord record = listTextRecord;
-        for (Object subModel : subModels) {
+        for (BaseModel subModel : subModels) {
             listTextBuffer.append(record.getNormalWriteBuffer(subModel, retain));
         }
         return listTextBuffer.toString();

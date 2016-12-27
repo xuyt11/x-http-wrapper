@@ -1,6 +1,7 @@
 package cn.ytxu.http_wrapper.template_engine.creater;
 
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
+import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.model.version.VersionModel;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public enum XHWTFileType {
      */
     HttpApi() {
         @Override
-        public List getReflectiveDatas(List<VersionModel> versions) {
+        public List<? extends BaseModel> getReflectiveDatas(List<VersionModel> versions) {
             return ReflectiveDataConvertor.getHttpApiReflectiveDatas(versions);
         }
     },
@@ -25,7 +26,7 @@ public enum XHWTFileType {
      */
     Request() {
         @Override
-        public List getReflectiveDatas(List<VersionModel> versions) {
+        public List<? extends BaseModel> getReflectiveDatas(List<VersionModel> versions) {
             return ReflectiveDataConvertor.getRequestReflectiveDatas(versions);
         }
     },
@@ -34,7 +35,7 @@ public enum XHWTFileType {
      */
     RequestParam() {
         @Override
-        public List getReflectiveDatas(List<VersionModel> versions) {
+        public List<? extends BaseModel> getReflectiveDatas(List<VersionModel> versions) {
             return ReflectiveDataConvertor.getRequestParamReflectiveDatas(versions);
         }
     },
@@ -43,7 +44,7 @@ public enum XHWTFileType {
      */
     Response() {
         @Override
-        public List getReflectiveDatas(List<VersionModel> versions) {
+        public List<? extends BaseModel> getReflectiveDatas(List<VersionModel> versions) {
             return ReflectiveDataConvertor.getResponseReflectiveDatas(versions);
         }
     },
@@ -54,7 +55,7 @@ public enum XHWTFileType {
      */
     BaseResponse() {
         @Override
-        public List getReflectiveDatas(List<VersionModel> versions) {
+        public List<? extends BaseModel> getReflectiveDatas(List<VersionModel> versions) {
             boolean isPolymerization = ConfigWrapper.getTemplateFileInfo().isPolymerization(this);
             return ReflectiveDataConvertor.getBaseResponseReflectiveDatas(versions, isPolymerization);
         }
@@ -64,13 +65,13 @@ public enum XHWTFileType {
      */
     StatusCode() {
         @Override
-        public List getReflectiveDatas(List<VersionModel> versions) {
+        public List<? extends BaseModel> getReflectiveDatas(List<VersionModel> versions) {
             return ReflectiveDataConvertor.getStatusCodeReflectiveDatas(versions);
         }
     };
 
 
-    public abstract List getReflectiveDatas(List<VersionModel> versions);
+    public abstract List<? extends BaseModel> getReflectiveDatas(List<VersionModel> versions);
 
 
     public static XHWTFileType get(String name) {

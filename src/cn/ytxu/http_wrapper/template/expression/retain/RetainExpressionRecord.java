@@ -1,6 +1,7 @@
 package cn.ytxu.http_wrapper.template.expression.retain;
 
 import cn.ytxu.http_wrapper.common.enums.RetainType;
+import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.template.expression.ExpressionEnum;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
@@ -60,7 +61,7 @@ public class RetainExpressionRecord extends ExpressionRecord {
 
 
     @Override
-    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
+    public StringBuffer getWriteBuffer(BaseModel reflectModel, RetainModel retain) {
         return type.getFormatRetainContent(retain);
     }
 }

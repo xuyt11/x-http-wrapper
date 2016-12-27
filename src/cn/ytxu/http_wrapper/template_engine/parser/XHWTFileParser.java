@@ -75,9 +75,6 @@ public class XHWTFileParser {
     private List<ExpressionRecord> parseStatementRecordsByXHWTModel(XHWTModel model) {
         List<ExpressionRecord> records = new Content2ExpressionRecordConverter.Top(model.getContents()).start();
         ExpressionRecord.parseRecords(records);
-
-//        List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
-//        StatementRecord.parseRecords(records);
         return records;
     }
 

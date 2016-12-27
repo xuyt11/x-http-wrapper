@@ -2,6 +2,7 @@ package cn.ytxu.http_wrapper.template_engine.creater;
 
 import cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output.sub.GetOutputsThatCanGenerateResponseEntityFileUtil;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
+import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.model.request.RequestModel;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 import cn.ytxu.http_wrapper.model.response.ResponseModel;
@@ -14,16 +15,16 @@ import java.util.*;
  */
 public class ReflectiveDataConvertor {
 
-    public static List getHttpApiReflectiveDatas(List<VersionModel> versions) {
+    public static List<? extends BaseModel> getHttpApiReflectiveDatas(List<VersionModel> versions) {
         return VersionModel.getVersions(versions);
     }
 
-    public static List getRequestReflectiveDatas(List<VersionModel> versions) {
+    public static List<? extends BaseModel> getRequestReflectiveDatas(List<VersionModel> versions) {
         return VersionModel.getRequestGroups(versions);
     }
 
-    public static List getRequestParamReflectiveDatas(List<VersionModel> versions) {
-        List reflectiveDatas = new ArrayList();
+    public static List<? extends BaseModel> getRequestParamReflectiveDatas(List<VersionModel> versions) {
+        List<RequestModel> reflectiveDatas = new ArrayList<>();
         for (RequestModel request : VersionModel.getRequests(versions)) {
             if (request.needGenerateOptionalRequestMethod()) {
                 reflectiveDatas.add(request);
@@ -32,7 +33,7 @@ public class ReflectiveDataConvertor {
         return reflectiveDatas;
     }
 
-    public static List getResponseReflectiveDatas(List<VersionModel> versions) {
+    public static List<? extends BaseModel> getResponseReflectiveDatas(List<VersionModel> versions) {
         return getOutputsThatCanGenerateResponseEntityFile(getOKResponses(versions));
     }
 
@@ -56,7 +57,7 @@ public class ReflectiveDataConvertor {
         return outputs;
     }
 
-    public static List getBaseResponseReflectiveDatas(List<VersionModel> versions, boolean isPolymerization) {
+    public static List<? extends BaseModel> getBaseResponseReflectiveDatas(List<VersionModel> versions, boolean isPolymerization) {
         if (!isPolymerization) {
             return versions;
         }
@@ -89,7 +90,7 @@ public class ReflectiveDataConvertor {
         return errorFieldsName;
     }
 
-    public static List getStatusCodeReflectiveDatas(List<VersionModel> versions) {
+    public static List<? extends BaseModel> getStatusCodeReflectiveDatas(List<VersionModel> versions) {
         return ConfigWrapper.getStatusCode().getStatusCodeGroups(versions);
     }
 

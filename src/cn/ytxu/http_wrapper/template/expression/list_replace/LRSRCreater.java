@@ -1,5 +1,6 @@
 package cn.ytxu.http_wrapper.template.expression.list_replace;
 
+import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.text.TextExpressionRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
@@ -25,7 +26,7 @@ public class LRSRCreater {
         this.contents = contents;
     }
 
-    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
+    public StringBuffer getWriteBuffer(BaseModel reflectModel, RetainModel retain) {
         String listValue;
         List subModels = ReflectiveUtil.getList(reflectModel, methodName);
         if (subModels == null || subModels.isEmpty()) {
@@ -41,10 +42,10 @@ public class LRSRCreater {
         return getListReplaceBufferBySubs(reflectModel, retain, subs);
     }
 
-    private String parseAndGetListValue(RetainModel retain, List subModels) {
+    private String parseAndGetListValue(RetainModel retain, List<BaseModel> subModels) {
         StringBuffer listValueBuffer = new StringBuffer();
         TextExpressionRecord record = listValueRecord;
-        for (Object subModel : subModels) {
+        for (BaseModel subModel : subModels) {
             listValueBuffer.append(record.getNormalWriteBuffer(subModel, retain));
         }
         return listValueBuffer.toString();
@@ -74,7 +75,7 @@ public class LRSRCreater {
         return subs;
     }
 
-    private StringBuffer getListReplaceBufferBySubs(Object reflectModel, RetainModel retain, List<ExpressionRecord> subs) {
+    private StringBuffer getListReplaceBufferBySubs(BaseModel reflectModel, RetainModel retain, List<ExpressionRecord> subs) {
         StringBuffer listReplaceBuffer = new StringBuffer();
         for (ExpressionRecord sub : subs) {
             listReplaceBuffer.append(sub.getWriteBuffer(reflectModel, retain));

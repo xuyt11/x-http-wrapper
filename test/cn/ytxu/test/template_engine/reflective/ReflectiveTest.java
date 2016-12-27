@@ -1,5 +1,6 @@
 package cn.ytxu.test.template_engine.reflective;
 
+import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.template_engine.parser.util.ReflectiveUtil;
 
 /**
@@ -13,7 +14,11 @@ public class ReflectiveTest {
         System.out.println(ReflectiveUtil.getString(a, "get "));
     }
 
-    public static class A {
+    public static class A extends BaseModel {
+        public A() {
+            super(null);
+        }
+
         public String get() {
             return "abc get";
         }

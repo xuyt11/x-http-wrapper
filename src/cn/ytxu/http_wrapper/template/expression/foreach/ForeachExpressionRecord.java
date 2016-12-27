@@ -1,5 +1,6 @@
 package cn.ytxu.http_wrapper.template.expression.foreach;
 
+import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.template.expression.ExpressionEnum;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
@@ -57,10 +58,10 @@ public class ForeachExpressionRecord extends ExpressionRecord {
     }
 
     @Override
-    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
-        List subModels = ReflectiveUtil.getList(reflectModel, methodName);
+    public StringBuffer getWriteBuffer(BaseModel reflectModel, RetainModel retain) {
+        List<BaseModel> subModels = ReflectiveUtil.getList(reflectModel, methodName);
         StringBuffer foreachBuffer = new StringBuffer();
-        for (Object subModel : subModels) {
+        for (BaseModel subModel : subModels) {
             for (ExpressionRecord sub : getSubRecords()) {
                 foreachBuffer.append(sub.getWriteBuffer(subModel, retain));
             }

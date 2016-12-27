@@ -1,5 +1,6 @@
 package cn.ytxu.http_wrapper.template.expression.list_attach;
 
+import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.template.expression.ExpressionEnum;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
@@ -45,10 +46,11 @@ public class ListAttachExpressionRecord extends ExpressionRecord {
 
 
     @Override
-    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
+    public StringBuffer getWriteBuffer(BaseModel reflectModel, RetainModel retain) {
         ListAttachCreater creater = new ListAttachCreater(parser.getMethodName(), parser.getListTextRecord());
         String attachContent = creater.getAttachContent(reflectModel, retain);
-        reflectModel.attach(parser.getAttach(), attachContent);
+// TODO
+        //        reflectModel.attach(parser.getAttach(), attachContent);
         return new StringBuffer();
     }
 }

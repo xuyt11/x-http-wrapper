@@ -1,5 +1,6 @@
 package cn.ytxu.http_wrapper.template.expression.if_else;
 
+import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.template.expression.Content2ExpressionRecordConverter;
 import cn.ytxu.http_wrapper.template.expression.ExpressionEnum;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
@@ -111,7 +112,7 @@ public class IfElseExpressionRecord extends ExpressionRecord {
 
 
     @Override
-    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
+    public StringBuffer getWriteBuffer(BaseModel reflectModel, RetainModel retain) {
         for (Relation relation : relations) {
             if (relation.conditionType == ConditionType.ELSE) {
                 return getWriteBuffer(reflectModel, retain, relation.records);
@@ -126,7 +127,7 @@ public class IfElseExpressionRecord extends ExpressionRecord {
         return new StringBuffer();
     }
 
-    private StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain, List<ExpressionRecord> records) {
+    private StringBuffer getWriteBuffer(BaseModel reflectModel, RetainModel retain, List<ExpressionRecord> records) {
         StringBuffer buffer = new StringBuffer();
         for (ExpressionRecord record : records) {
             buffer.append(record.getWriteBuffer(reflectModel, retain));

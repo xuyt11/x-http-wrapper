@@ -1,5 +1,6 @@
 package cn.ytxu.http_wrapper.template.expression;
 
+import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
 
 import java.util.List;
@@ -123,7 +124,7 @@ public abstract class ExpressionRecord {
 
 
     //********************** 获取写入数据**********************
-    public static StringBuffer getWriteBuffer(List<ExpressionRecord> records, Object reflectModel, RetainModel retain) {
+    public static StringBuffer getWriteBuffer(List<ExpressionRecord> records, BaseModel reflectModel, RetainModel retain) {
         StringBuffer writeBuffer = new StringBuffer();
         for (ExpressionRecord record : records) {
             writeBuffer.append(record.getWriteBuffer(reflectModel, retain));
@@ -134,6 +135,6 @@ public abstract class ExpressionRecord {
     /**
      * 获取写入数据
      */
-    public abstract StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain);
+    public abstract StringBuffer getWriteBuffer(BaseModel reflectModel, RetainModel retain);
 
 }
