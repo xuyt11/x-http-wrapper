@@ -67,6 +67,10 @@ public class ReflectiveUtil {
             super();
         }
 
+        public NotCallThisMethodException(Throwable cause) {
+            super(cause);
+        }
+
         public NotCallThisMethodException(String methodName, String reflectObjectSimpleName) {
             super("error : the data tree can not call this (" + methodName + ") method, and the reflectObj is " + reflectObjectSimpleName);
         }
@@ -75,18 +79,18 @@ public class ReflectiveUtil {
 
     //*********************** reflect sub type ***********************
     public static String getString(BaseModel reflectObj, String methodName) {
-        Object data = null;
         try {
-            data = invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
+            Object data = invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
+            if (Objects.isNull(data)) {
+                return "";
+            }
+            return data.toString();
         } catch (NotCallThisMethodException e) {
-
-            e.printStackTrace();
+            if (reflectObj.hasThisAttach(methodName)) {
+                return reflectObj.getAttachContent(methodName);
+            }
+            throw new NotCallThisMethodException(e);
         }
-
-        if (Objects.isNull(data)) {
-            return null;
-        }
-        return data.toString();
     }
 
     public static List<BaseModel> getList(BaseModel reflectObj, String methodName) {

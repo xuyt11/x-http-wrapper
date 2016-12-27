@@ -10,9 +10,12 @@ import java.util.regex.Pattern;
 
 /**
  * Created by ytxu on 2016/12/27.
- * 帖附在对应的反射对象上，让
- * 替换遍历表达式的记录
- * tip: 内部子记录都是text expression record
+ * 反射获取String数据，并帖附在对应的BaseModel上；
+ * 代码：reflectModel.attach(attach, attachContent)
+ * <p>
+ * tip:
+ * 1、在没有找到反射的方法后，查找该BaseModel是否有该attach==methodName的数据，有则返回attachContent
+ * 2、不过现在只针对于反射String
  */
 public class ListAttachExpressionRecord extends ExpressionRecord {
     public static final Pattern[] PATTERNS = {Pattern.compile("(<t:list_attach each=\")\\w+(\" attach=\")\\w+(\" list_text=\")[\\p{Print}\\p{Space}]+(\"/>)")};
@@ -49,8 +52,7 @@ public class ListAttachExpressionRecord extends ExpressionRecord {
     public StringBuffer getWriteBuffer(BaseModel reflectModel, RetainModel retain) {
         ListAttachCreater creater = new ListAttachCreater(parser.getMethodName(), parser.getListTextRecord());
         String attachContent = creater.getAttachContent(reflectModel, retain);
-// TODO
-        //        reflectModel.attach(parser.getAttach(), attachContent);
+        reflectModel.attach(parser.getAttach(), attachContent);
         return new StringBuffer();
     }
 }

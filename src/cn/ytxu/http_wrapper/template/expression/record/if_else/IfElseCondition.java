@@ -23,7 +23,7 @@ public enum IfElseCondition {
         @Override
         public boolean getBoolean(BaseModel reflectModel, String methodName) {
             String text = ReflectiveUtil.getString(reflectModel, methodName);
-            if (Objects.isNull(text) || text.trim().isEmpty()) {
+            if (text.trim().isEmpty()) {
                 return false;
             }
             return true;
