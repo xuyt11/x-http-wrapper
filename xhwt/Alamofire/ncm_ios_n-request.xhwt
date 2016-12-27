@@ -8,7 +8,7 @@
         },
         {
             "osName":"Mac OS X",
-            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.common/src/main/java/com/newchama_ios/api/"
+            "path":"/Users/newchama/Documents/ytxu/ios_workspace/alamofire/alamofire/"
         }
     ]
 }
@@ -21,19 +21,7 @@ import SwiftyJSON
 
 <t:retain type="import"/>
 
-let defaultSuccess: VoidClosure = {
-    HitMessage.dismiss()
-}
-
-let defaultError: ErrorClosure = { (code, msg) in
-    HitMessage.showErrorWithMessage(msg)
-}
-
-let defaultFailure: FailedClosure = { _ in
-    HitMessage.showNetErrorMessage()
-}
-
-class ${request_group_class_name}: NSObject {
+class ${request_group_class_name}: HttpClient {
 
 <t:retain type="field"/>
 
@@ -64,10 +52,10 @@ class ${request_group_class_name}: NSObject {
     </t:list_replace>
         <t:if isTrue="request_url_is_RESTful">
         <t:list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
-		let url = String.init(format: getFullUrl("${request_convert_url}")${restful_name_list})
+		let url = String.init(format: "${request_convert_url}"${restful_name_list})
 		</t:list_replace>
         <t:else>
-        let url = getFullUrl("${request_convert_url}")
+        let url = "${request_convert_url}"
         </t:if_end>
         return HttpClient.request(type: .${request_METHOD}, urlStr: url, params: para, success: success, failed: failure, error: error)
 	}

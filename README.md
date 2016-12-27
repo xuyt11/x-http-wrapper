@@ -1,4 +1,7 @@
 # x-http-wrapper
+
+[中文](README_ch.md) | [English](README.md)
+
 a auto creation tool for http request, request param, response entity and status code of response body
 
 
