@@ -1,7 +1,7 @@
 package cn.ytxu.http_wrapper.template.expression;
 
 import cn.ytxu.http_wrapper.model.BaseModel;
-import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
+import cn.ytxu.http_wrapper.template.expression.record.retain.RetainModel;
 
 import java.util.List;
 import java.util.ListIterator;

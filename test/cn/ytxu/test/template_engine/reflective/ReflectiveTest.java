@@ -1,7 +1,7 @@
 package cn.ytxu.test.template_engine.reflective;
 
 import cn.ytxu.http_wrapper.model.BaseModel;
-import cn.ytxu.http_wrapper.template_engine.parser.util.ReflectiveUtil;
+import cn.ytxu.http_wrapper.template.expression.util.ReflectiveUtil;
 
 /**
  * Created by Administrator on 2016/12/16.
