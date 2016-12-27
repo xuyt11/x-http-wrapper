@@ -2,6 +2,7 @@ package cn.ytxu.http_wrapper.template.expression;
 
 import cn.ytxu.http_wrapper.template.expression.foreach.ForeachExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.if_else.IfElseExpressionRecord;
+import cn.ytxu.http_wrapper.template.expression.list_attach.ListAttachExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.list_replace.ListReplaceExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.list_single_line.ListSingleLineExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.retain.RetainExpressionRecord;
@@ -36,7 +37,6 @@ public enum ExpressionEnum {
         public ExpressionRecord createRecord(String startLineContent) {
             return new RetainExpressionRecord(startLineContent);
         }
-//
     },
     list_single_line("单行循环，防止foreach循环嵌套", ListSingleLineExpressionRecord.PATTERNS) {
         @Override
@@ -54,6 +54,12 @@ public enum ExpressionEnum {
         @Override
         public ExpressionRecord createRecord(String startLineContent) {
             return new ListReplaceExpressionRecord(startLineContent);
+        }
+    },
+    list_attach("将数据添加到Model上，其他的替代符可以使用", ListAttachExpressionRecord.PATTERNS) {
+        @Override
+        public ExpressionRecord createRecord(String startLineContent) {
+            return new ListAttachExpressionRecord(startLineContent);
         }
     };
 

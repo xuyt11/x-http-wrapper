@@ -10,16 +10,16 @@ public class PatternHelper {
     private PatternHelper() {
     }
 
-    public static boolean matchThisPattern(PatternModel model, String startTagContent) {
-        Matcher matcher = model.pattern.matcher(startTagContent);
+    public static boolean matchThisPattern(PatternModel model, String startLineContent) {
+        Matcher matcher = model.pattern.matcher(startLineContent);
         return matcher.find();
     }
 
-    public static String getPatternValue(PatternModel model, String startTagContent) {
-        Matcher matcher = model.pattern.matcher(startTagContent);
+    public static String getPatternValue(PatternModel model, String startLineContent) {
+        Matcher matcher = model.pattern.matcher(startLineContent);
         // be sure to match, but also need call matcher.find()
         if (!matcher.find()) {
-            System.out.println("front : " + model.front + ", start tag content :" + startTagContent);
+            System.out.println("front : " + model.front + ", start line content :" + startLineContent);
         }
         String group = matcher.group();
         int methodNameStart = model.front.length();
