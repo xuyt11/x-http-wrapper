@@ -3,6 +3,9 @@
 version 0.6
 ===========
 * 重构xtemp解析器，foreach标签能够多层嵌套，去除掉list等标签
+* 添加了 api_data.api_data_file_address_type属性(API数据文件的地址类型)
+    * 都定义在ApiDataFileAddressType枚举中，现在有file与url两种；
+    * 默认的文件地址是file类型的；
 
 version 0.5
 ===========
