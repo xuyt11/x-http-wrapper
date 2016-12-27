@@ -50,7 +50,8 @@ public enum ExpressionEnum {
             return new IfElseExpressionRecord(startLineContent);
         }
     },
-    list_replace("替换数组的文本", ListReplaceExpressionRecord.PATTERNS) {
+    @Deprecated
+    list_replace("替换数组的文本，可以使用list_attach进行替换", ListReplaceExpressionRecord.PATTERNS) {
         @Override
         public ExpressionRecord createRecord(String startLineContent) {
             return new ListReplaceExpressionRecord(startLineContent);
