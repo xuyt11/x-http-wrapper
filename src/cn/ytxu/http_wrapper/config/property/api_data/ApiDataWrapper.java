@@ -1,5 +1,6 @@
 package cn.ytxu.http_wrapper.config.property.api_data;
 
+import cn.ytxu.http_wrapper.common.enums.ApiDataFileAddressType;
 import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.common.util.OSPlatform;
 import cn.ytxu.http_wrapper.common.enums.ApiDataSourceType;
@@ -32,6 +33,7 @@ public class ApiDataWrapper {
     private ApiDataWrapper(ApiDataBean apiDataFileBean) {
         this.apiDataBean = apiDataFileBean;
         judgeApiDataSource();
+        judgeApiDataFileAddressType();
         getApiDataFilePath();
     }
 
@@ -43,8 +45,21 @@ public class ApiDataWrapper {
         ApiDataSourceType.get(apiDataSource);
     }
 
+    private void judgeApiDataFileAddressType() {
+        String apiDataFileAddressType = apiDataBean.getApi_data_file_address_type();
+        if (Objects.isNull(apiDataFileAddressType)) {
+            throw new RuntimeException("u don`t setup api_data_file_address_type...");
+        }
+        ApiDataFileAddressType.get(apiDataFileAddressType);
+    }
+
+
     public String getApiDataSource() {
         return apiDataBean.getApiDataSource();
+    }
+
+    public String getApi_data_file_address_type() {
+        return apiDataBean.getApi_data_file_address_type();
     }
 
     public String getApiDataFilePath() {

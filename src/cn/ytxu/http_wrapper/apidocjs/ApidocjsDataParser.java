@@ -4,6 +4,7 @@ import cn.ytxu.http_wrapper.apidocjs.bean.ApidocjsHelper;
 import cn.ytxu.http_wrapper.apidocjs.parser.request.RequestParser;
 import cn.ytxu.http_wrapper.apidocjs.parser.response.ResponseSErrorParser;
 import cn.ytxu.http_wrapper.apidocjs.parser.status_code.StatusCodeParser;
+import cn.ytxu.http_wrapper.common.enums.ApiDataFileAddressType;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.http_wrapper.common.enums.CompileModel;
@@ -17,6 +18,8 @@ import cn.ytxu.http_wrapper.model.response.ResponseModel;
 import cn.ytxu.http_wrapper.model.response.field.ResponseFieldGroupModel;
 import cn.ytxu.http_wrapper.model.status_code.StatusCodeGroupModel;
 import cn.ytxu.http_wrapper.model.version.VersionModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -33,7 +36,12 @@ public class ApidocjsDataParser {
 
     public List<VersionModel> start() throws IOException {
         ApidocjsHelper.reload();
-        List<ApiDataBean> apiDatas = ApidocjsHelper.getApiDatasFromFile();
+
+        String apiDataFileAddressTypeName = ConfigWrapper.getApiDataFile().getApi_data_file_address_type();
+        String apiDataContentText = ApiDataFileAddressType.get(apiDataFileAddressTypeName).getApiDataContentText();
+        List<ApiDataBean> apiDatas = new Gson().fromJson(apiDataContentText, new TypeToken<List<ApiDataBean>>() {
+        }.getType());
+
         versions = createVersionModelsByApiDatas(apiDatas);
 
         parseStatusCode();

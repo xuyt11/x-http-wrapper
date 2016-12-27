@@ -1,6 +1,7 @@
 {
   "api_data": {
     "api_data_source": "apidocjs",
+    "api_data_file_address_type": "file",
     "file_path_infos": [
       {
         "OSName": "Mac OS X",

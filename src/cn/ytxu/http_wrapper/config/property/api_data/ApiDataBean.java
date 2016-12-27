@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class ApiDataBean {
     private String api_data_source;// API数据源的类型
+    private String api_data_file_address_type;// ApiDataFileAddressType的枚举name；API数据文件的地址类型：现在有file与url两种
     private List<ApiDataFilePathInfoBean> file_path_infos = Collections.EMPTY_LIST;// 多操作系统的配置
     private String file_charset = "UTF-8";// API数据文件中内容的字符集；
 
@@ -17,6 +18,14 @@ public class ApiDataBean {
 
     public void setApiDataSource(String api_data_source) {
         this.api_data_source = api_data_source;
+    }
+
+    public String getApi_data_file_address_type() {
+        return api_data_file_address_type;
+    }
+
+    public void setApi_data_file_address_type(String api_data_file_address_type) {
+        this.api_data_file_address_type = api_data_file_address_type;
     }
 
     public List<ApiDataFilePathInfoBean> getFilePathInfos() {
