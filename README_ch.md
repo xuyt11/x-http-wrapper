@@ -13,7 +13,7 @@
 * 开发环境:
     * Java的版本: java8及以上的版本
     * 开发平台: intellij idea
-    * 依赖的jar: gson:2.8.0, fastjson:1.2.17, rxjava:1.2.2, junit:4.12
+    * 依赖的jar: gson:2.8.0, rxjava:1.2.2, junit:4.12
 
 
 # 快速使用入门
