@@ -255,4 +255,18 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
         return inputs;
     }
 
+    public boolean needToken() {
+        List<HeaderModel> headers = headers();
+        if (headers.isEmpty()) {
+            return false;
+        }
+
+        for (HeaderModel header : headers) {
+            if ("Authorization".equals(header.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

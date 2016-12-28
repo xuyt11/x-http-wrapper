@@ -58,7 +58,7 @@ class ${request_group_class_name}: HttpClient {
         <t:else>
         let url = "${request_convert_url}"
         </t:if_end>
-        <t:if isTrue="">
+        <t:if isTrue="needToken">
         let needToken = true
         <t:else>
         let needToken = false
