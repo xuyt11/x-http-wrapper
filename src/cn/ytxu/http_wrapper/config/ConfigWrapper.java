@@ -1,5 +1,6 @@
 package cn.ytxu.http_wrapper.config;
 
+import cn.ytxu.http_wrapper.common.util.FileUtil;
 import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.config.property.api_data.ApiDataWrapper;
 import cn.ytxu.http_wrapper.config.property.base_config.BaseConfigWrapper;
@@ -9,12 +10,9 @@ import cn.ytxu.http_wrapper.config.property.response.ResponseWrapper;
 import cn.ytxu.http_wrapper.config.property.request.RequestWrapper;
 import cn.ytxu.http_wrapper.config.property.status_code.StatusCodeWrapper;
 import cn.ytxu.http_wrapper.config.property.template_file_info.TemplateFileInfoWrapper;
-import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Objects;
+import java.io.*;
 
 /**
  * Created by ytxu on 2016/8/14.
@@ -22,24 +20,20 @@ import java.util.Objects;
 public class ConfigWrapper {
 
     public static void load(final String xhwtConfigPath) {
-        InputStream in = null;
+        BufferedReader reader = null;
         try {
             LogUtil.i(ConfigWrapper.class, "init config file:(" + xhwtConfigPath + ") start...");
-            in = new FileInputStream(xhwtConfigPath);
-            ConfigBean configData = JSON.parseObject(in, ConfigBean.class);
+
+            reader = FileUtil.getReader(xhwtConfigPath, "UTF-8");
+            ConfigBean configData = new Gson().fromJson(reader, ConfigBean.class);
             load(xhwtConfigPath, configData);
+
             LogUtil.i(ConfigWrapper.class, "init config file:(" + xhwtConfigPath + ") success...");
         } catch (IOException e) {
             e.printStackTrace();
             LogUtil.i(ConfigWrapper.class, "init config file:(" + xhwtConfigPath + ") failure...");
         } finally {
-            if (Objects.nonNull(in)) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            FileUtil.closeReader(reader);
         }
     }
 

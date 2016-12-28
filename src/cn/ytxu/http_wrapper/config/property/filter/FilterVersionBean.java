@@ -37,15 +37,4 @@ public class FilterVersionBean {
         return output_request_groups;
     }
 
-    public void setOutput_version_name(String output_version_name) {
-        this.output_version_name = output_version_name;
-    }
-
-    public void setUse_output_request_group(boolean use_output_request_group) {
-        this.use_output_request_group = use_output_request_group;
-    }
-
-    public void setOutput_request_groups(List<String> output_request_groups) {
-        this.output_request_groups = output_request_groups;
-    }
 }

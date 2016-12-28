@@ -56,39 +56,8 @@ public class ConfigBean {
         return status_code;
     }
 
-    public void setApi_data(ApiDataBean api_data) {
-        this.api_data = api_data;
-    }
-
-    public void setTemplateFileInfos(LinkedHashMap<String, TemplateFileInfoBean> template_file_infos) {
-        this.template_file_infos = template_file_infos;
-    }
-
-    public void setBase_config(BaseConfigBean base_config) {
-        this.base_config = base_config;
-    }
-
-    public void setFilter(FilterBean filter) {
-        this.filter = filter;
-    }
-
-    public void setRequest(RequestBean request) {
-        this.request = request;
-    }
-
-    public void setResponse(ResponseBean response) {
-        this.response = response;
-    }
-
-    public void setStatus_code(StatusCodeBean status_code) {
-        this.status_code = status_code;
-    }
-
     public Map<String, ParamTypeBean> getParamTypes() {
         return param_types;
     }
 
-    public void setParamTypes(Map<String, ParamTypeBean> param_types) {
-        this.param_types = param_types;
-    }
 }

@@ -24,23 +24,12 @@ public class TemplateFileInfoBean {
         return need_generate;
     }
 
-    public void setNeedGenerate(boolean need_generate) {
-        this.need_generate = need_generate;
-    }
-
     public String getPath() {
         return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
     }
 
     public boolean isPolymerization() {
         return is_polymerization;
     }
 
-    public void setIsPolymerization(boolean polymerization) {
-        is_polymerization = polymerization;
-    }
 }

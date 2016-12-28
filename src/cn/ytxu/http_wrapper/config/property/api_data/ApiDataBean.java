@@ -18,31 +18,16 @@ public class ApiDataBean {
         return api_data_source;
     }
 
-    public void setApiDataSource(String api_data_source) {
-        this.api_data_source = api_data_source;
-    }
-
     public String getApi_data_file_address_type() {
         return api_data_file_address_type;
-    }
-
-    public void setApi_data_file_address_type(String api_data_file_address_type) {
-        this.api_data_file_address_type = api_data_file_address_type;
     }
 
     public List<ApiDataFilePathInfoBean> getFilePathInfos() {
         return file_path_infos;
     }
 
-    public void setFilePathInfos(List<ApiDataFilePathInfoBean> file_path_infos) {
-        this.file_path_infos = file_path_infos;
-    }
-
     public String getFileCharset() {
         return file_charset;
     }
 
-    public void setFileCharset(String file_charset) {
-        this.file_charset = file_charset;
-    }
 }

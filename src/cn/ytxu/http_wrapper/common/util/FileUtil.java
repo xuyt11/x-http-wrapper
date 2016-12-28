@@ -61,12 +61,16 @@ public class FileUtil {
         //对一串字符进行操作
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), charset));
+            reader = getReader(filePath, charset);
             StringBuffer fileData = getBufferData(reader);
             return fileData.toString();
         } finally {
             closeReader(reader);
         }
+    }
+
+    public static BufferedReader getReader(String filePath, String charset) throws IOException {
+        return  new BufferedReader(new InputStreamReader(new FileInputStream(filePath), charset));
     }
 
     private static StringBuffer getBufferData2(BufferedReader reader) throws IOException {
@@ -89,7 +93,7 @@ public class FileUtil {
         return fileData;
     }
 
-    private static void closeReader(BufferedReader reader) {
+    public static void closeReader(BufferedReader reader) {
         if (null == reader) {
             return;
         }

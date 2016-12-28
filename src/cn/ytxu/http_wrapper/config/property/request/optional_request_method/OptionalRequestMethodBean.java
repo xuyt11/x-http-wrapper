@@ -22,15 +22,8 @@ public class OptionalRequestMethodBean {
         return need_generate;
     }
 
-    public void setNeed_generate(boolean need_generate) {
-        this.need_generate = need_generate;
-    }
-
     public int getMin_number_of_input_params_in_one_input_group() {
         return min_number_of_input_params_in_one_input_group;
     }
 
-    public void setMin_number_of_input_params_in_one_input_group(int min_number_of_input_params_in_one_input_group) {
-        this.min_number_of_input_params_in_one_input_group = min_number_of_input_params_in_one_input_group;
-    }
 }

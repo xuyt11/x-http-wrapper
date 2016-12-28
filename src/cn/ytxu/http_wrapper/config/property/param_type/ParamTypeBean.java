@@ -38,32 +38,16 @@ public class ParamTypeBean {
         return match_type_names;
     }
 
-    public void setMatchTypeNames(List<String> match_type_names) {
-        this.match_type_names = match_type_names;
-    }
-
     public String getRequestParamType() {
         return request_param_type;
-    }
-
-    public void setRequestParamType(String request_param_type) {
-        this.request_param_type = request_param_type;
     }
 
     public String getRequestOptionalParamType() {
         return request_optional_param_type;
     }
 
-    public void setRequestOptionalParamType(String request_optional_param_type) {
-        this.request_optional_param_type = request_optional_param_type;
-    }
-
     public String getResponseParamType(OutputParamModel output) {
        return paramTypeEnum.getResponseParamType(response_param_type, output);
-    }
-
-    public void setResponseParamType(String response_param_type) {
-        this.response_param_type = response_param_type;
     }
 
     public boolean isInvalid() {

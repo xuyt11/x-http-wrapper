@@ -17,32 +17,16 @@ public class ResponseBean {
         return statusCode.getName();
     }
 
-    public void setStatusCode(BaseResponseParamBean statusCode) {
-        this.statusCode = statusCode;
-    }
-
     public String getMessage() {
         return message.getName();
-    }
-
-    public void setMessage(BaseResponseParamBean message) {
-        this.message = message;
     }
 
     public String getError() {
         return error.getName();
     }
 
-    public void setError(BaseResponseParamBean error) {
-        this.error = error;
-    }
-
     public String getData() {
         return data.getName();
-    }
-
-    public void setData(BaseResponseParamBean data) {
-        this.data = data;
     }
 
     public List<BaseResponseParamBean> getAll() {

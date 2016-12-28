@@ -11,15 +11,8 @@ public class DateReplaceBean {
         return date_format;
     }
 
-    public void setDate_format(String date_format) {
-        this.date_format = date_format;
-    }
-
     public String getDate_request_param() {
         return date_request_param;
     }
 
-    public void setDate_request_param(String date_request_param) {
-        this.date_request_param = date_request_param;
-    }
 }

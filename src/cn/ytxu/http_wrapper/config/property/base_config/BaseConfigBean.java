@@ -32,23 +32,12 @@ public class BaseConfigBean {
         return create_file_charset;
     }
 
-    public void setCreateFileCharset(String create_file_charset) {
-        this.create_file_charset = create_file_charset;
-    }
-
     public String getCompileModelName() {
         return compile_model;
-    }
-
-    public void setCompileModel(String compile_model) {
-        this.compile_model = compile_model;
     }
 
     public List<String> getOrderVersions() {
         return order_versions;
     }
 
-    public void setOrderVersions(List<String> order_versions) {
-        this.order_versions = order_versions;
-    }
 }

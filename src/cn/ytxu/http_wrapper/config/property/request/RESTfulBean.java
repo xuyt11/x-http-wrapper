@@ -36,15 +36,4 @@ public class RESTfulBean {
         return date_replace;
     }
 
-    public void setReplaceString(String replaceString) {
-        this.replaceString = replaceString;
-    }
-
-    public void setMulti_replace(List<String> multi_replace) {
-        this.multi_replace = multi_replace;
-    }
-
-    public void setDate_replace(List<DateReplaceBean> date_replace) {
-        this.date_replace = date_replace;
-    }
 }
