@@ -3,12 +3,11 @@ package cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output;
 import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeEnum;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 import cn.ytxu.http_wrapper.model.response.ResponseModel;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -17,11 +16,11 @@ import java.util.List;
 public class OutputParamParser {
 
     private final ResponseModel response;
-    private final JSONObject bodyJObj;
+    private final JsonObject bodyJObj;
 
     public OutputParamParser(ResponseModel response) {
         this.response = response;
-        this.bodyJObj = JSON.parseObject(response.getBody());
+        this.bodyJObj = new JsonParser().parse(response.getBody()).getAsJsonObject();
     }
 
     public void start() {
@@ -33,21 +32,25 @@ public class OutputParamParser {
 
 
     //********************** parse output of response **********************
-    private List<OutputParamModel> getOutputsOfResponse(JSONObject jsonObject) {
+    private List<OutputParamModel> getOutputsOfResponse(JsonObject jsonObject) {
         return getOutputs(jsonObject, null);
     }
 
-    public List<OutputParamModel> getOutputs(JSONObject jsonObject, OutputParamModel parent) {
-        if (jsonObject.isEmpty()) {
+    public List<OutputParamModel> getOutputs(JsonObject jsonObject, OutputParamModel parent) {
+        if (jsonObject.isJsonNull()) {
             return Collections.EMPTY_LIST;
         }
 
         List<OutputParamModel> outputs = new ArrayList<>(jsonObject.size());
-        jsonObject.forEach((fieldName, fieldValue) -> {
+
+        Set<Map.Entry<String, JsonElement>> entrySet =  jsonObject.entrySet();
+        for (Map.Entry<String, JsonElement> entry : entrySet) {
+            String fieldName = entry.getKey();
+            JsonElement fieldValue = entry.getValue();
             ParamTypeEnum type = ParamTypeEnum.get(fieldValue);
             OutputParamModel output = type.createOutput(response, parent, fieldName, fieldValue);
             outputs.add(output);
-        });
+        }
         return outputs;
     }
 

@@ -2,7 +2,7 @@ package cn.ytxu.http_wrapper.template.engine.parser;
 
 import cn.ytxu.http_wrapper.template.file.model.XHWTFileModel;
 import cn.ytxu.http_wrapper.template.file.model.XHWTModel;
-import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 
 import java.util.Iterator;
 import java.util.List;
@@ -24,7 +24,7 @@ public class XHWTContentParser {
         checkFirstLine();
 
         String header = getHeaderAndRemoveItInContent();
-        XHWTFileModel xTempFile = JSON.parseObject(header, XHWTFileModel.class);
+        XHWTFileModel xTempFile = new Gson().fromJson(header, XHWTFileModel.class);
         model.setFile(xTempFile);
 
         model.setContents(contents);

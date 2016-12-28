@@ -3,7 +3,7 @@ package cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output.s
 import cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output.OutputParamParser;
 import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeEnum;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import java.util.List;
 public class SubOutputParser {
     private final OutputParamParser parser;
     private final OutputParamModel output;
-    private final JSONObject valueOfJSONObjectType;
+    private final JsonObject valueOfJSONObjectType;
 
-    public SubOutputParser(OutputParamParser parser, OutputParamModel output, JSONObject valueOfJSONObjectType) {
+    public SubOutputParser(OutputParamParser parser, OutputParamModel output, JsonObject valueOfJSONObjectType) {
         this.parser = parser;
         this.output = output;
         this.valueOfJSONObjectType = valueOfJSONObjectType;

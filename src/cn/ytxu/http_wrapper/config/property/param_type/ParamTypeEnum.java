@@ -6,8 +6,8 @@ import cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output.Ou
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 import cn.ytxu.http_wrapper.model.response.ResponseModel;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 import java.util.Objects;
@@ -32,7 +32,7 @@ public enum ParamTypeEnum {
 
     STRING(String.class),
 
-    OBJECT(JSONObject.class) {
+    OBJECT(JsonObject.class) {
         @Override
         public void parseValueAndValuesIfCan(OutputParamParser parser, OutputParamModel output) {
             new ObjectTypeOutputParser(parser, output).start();
@@ -52,7 +52,7 @@ public enum ParamTypeEnum {
     /**
      * tip: JSONArray中不能包含JSONArray，这种的数据结构，我不解析
      */
-    ARRAY(JSONArray.class) {
+    ARRAY(JsonArray.class) {
         @Override
         public void parseValueAndValuesIfCan(OutputParamParser parser, OutputParamModel output) {
             new ArrayTypeOutputParser(parser, output).start();
@@ -84,7 +84,7 @@ public enum ParamTypeEnum {
         }
     },
 
-    MAP(JSONObject.class) {
+    MAP(JsonObject.class) {
         @Override
         public String getResponseParamType(String response_param_type, OutputParamModel output) {
             String etContent = super.getResponseParamType(response_param_type, output);

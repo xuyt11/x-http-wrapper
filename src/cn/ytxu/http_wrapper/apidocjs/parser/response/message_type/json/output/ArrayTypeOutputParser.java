@@ -3,8 +3,8 @@ package cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output;
 import cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output.sub.SubOutputParser;
 import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeEnum;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -45,14 +45,14 @@ public class ArrayTypeOutputParser {
     }
 
     private boolean setSubTypeByValueIfCan() {
-        JSONArray jArr = (JSONArray) output.getValue();
+        JsonArray jArr = (JsonArray) output.getValue();
         return setSubTypeIfCan(jArr);
     }
 
     private boolean setSubTypeByValuesIfCan() {
         List<Object> values = output.getValues();
         for (Object value : values) {
-            JSONArray jArr = (JSONArray) value;
+            JsonArray jArr = (JsonArray) value;
             if (setSubTypeIfCan(jArr)) {
                 return true;
             }
@@ -63,7 +63,7 @@ public class ArrayTypeOutputParser {
     /**
      * @return has set sub type, and the value is equals can set sub type
      */
-    private boolean setSubTypeIfCan(JSONArray jArr) {
+    private boolean setSubTypeIfCan(JsonArray jArr) {
         boolean canSetSubType = canSetSubType(jArr);
         if (canSetSubType) {
             ParamTypeEnum subType = ParamTypeEnum.get(jArr.get(0));
@@ -72,8 +72,8 @@ public class ArrayTypeOutputParser {
         return canSetSubType;
     }
 
-    private boolean canSetSubType(JSONArray jArr) {
-        return !jArr.isEmpty();
+    private boolean canSetSubType(JsonArray jArr) {
+        return jArr.size() > 0;
     }
 
 
@@ -83,21 +83,21 @@ public class ArrayTypeOutputParser {
     }
 
     private void parseValue() {
-        parseJSONArray((JSONArray) output.getValue());
+        parseJSONArray((JsonArray) output.getValue());
     }
 
     private void parseValues() {
         List<Object> values = output.getValues();
         for (Object value : values) {
-            parseJSONArray((JSONArray) value);
+            parseJSONArray((JsonArray) value);
         }
     }
 
-    private void parseJSONArray(JSONArray value) {
+    private void parseJSONArray(JsonArray value) {
         for (int i = 0, size = value.size(); i < size; i++) {
-            JSONObject subOfValue;
+            JsonObject subOfValue;
             try {
-                subOfValue = value.getJSONObject(i);
+                subOfValue = value.get(i).getAsJsonObject();
             } catch (ClassCastException e) {
                 e.printStackTrace();
                 throw new ClassCastException(e.getMessage() + "\n" + value.toString());

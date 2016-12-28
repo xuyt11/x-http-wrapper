@@ -1,7 +1,8 @@
 package cn.ytxu.test;
 
 import cn.ytxu.http_wrapper.apidocjs.bean.api_data.ApiDataBean;
-import com.alibaba.fastjson.JSONArray;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -15,7 +16,7 @@ public class ApidocDataTest {
 
     public static void main(String... args) throws IOException {
         String jsonArrayText = readerJson("E:\\NewChama\\apidoc_xuyt\\api_data.json");
-        List<ApiDataBean> list = JSONArray.parseArray(jsonArrayText, ApiDataBean.class);
+        List<ApiDataBean> list = new Gson().fromJson(jsonArrayText, new TypeToken<List<ApiDataBean>>(){}.getType());
         System.out.println(list.size());
     }
 

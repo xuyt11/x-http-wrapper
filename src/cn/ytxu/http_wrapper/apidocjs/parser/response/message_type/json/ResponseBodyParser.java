@@ -4,9 +4,9 @@ import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.model.request.RequestModel;
 import cn.ytxu.http_wrapper.model.response.ResponseModel;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONException;
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * Created by Administrator on 2016/10/11.
@@ -34,10 +34,10 @@ public class ResponseBodyParser {
         response.setHeaderAndBody(header, body);
 
         //1 解析出body中json格式数据的所有字段；
-        JSONObject bodyJObj;
+        JsonObject bodyJObj;
         try {
-            bodyJObj = JSON.parseObject(body);
-        } catch (JSONException ignore) {
+            bodyJObj = new JsonParser().parse(body).getAsJsonObject();
+        } catch (JsonSyntaxException ignore) {
             printErrorLog4IsErrorJsonType();
             return true;
         }
@@ -57,10 +57,10 @@ public class ResponseBodyParser {
         return response.getContent().substring(separatorIndex).trim();
     }
 
-    private boolean parseStatusCode(JSONObject bodyJObj) {
+    private boolean parseStatusCode(JsonObject bodyJObj) {
         String statusCodeName = ConfigWrapper.getResponse().getStatusCode();
-        if (bodyJObj.containsKey(statusCodeName)) {
-            response.setStatusCode(String.valueOf(bodyJObj.getInteger(statusCodeName)));
+        if (bodyJObj.has(statusCodeName)) {
+            response.setStatusCode(String.valueOf(bodyJObj.get(statusCodeName).getAsInt()));
             return false;
         } else {
             printErrorLog4NotHaveStatusCode();
