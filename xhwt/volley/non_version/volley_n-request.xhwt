@@ -52,7 +52,7 @@ public class ${request_group_class_name} extends BaseApi {
 	 </t:if_end>
 	 *
 	 <t:foreach each="headers">
-	 * @param ${header_name} ${header_desc}
+	 * @header ${header_name} ${header_desc}
 	 </t:foreach>
 	 <t:foreach each="inputs">
 	 <t:if isTrue="input_isOptional">
