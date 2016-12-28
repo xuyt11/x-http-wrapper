@@ -1,5 +1,6 @@
 package cn.ytxu.http_wrapper.template.engine.parser;
 
+import cn.ytxu.http_wrapper.common.util.FileUtil;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.config.property.template_file_info.TemplateFileInfoWrapper;
 import cn.ytxu.http_wrapper.template.engine.converter.Content2ExpressionRecordConverter;
@@ -7,9 +8,9 @@ import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template.file.type.XHWTFileType;
 import cn.ytxu.http_wrapper.template.file.model.XHWTModel;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
+
 
 /**
  * Created by ytxu on 2016/7/17.
@@ -24,14 +25,14 @@ public class XHWTFileParser {
         this.xhwtFileType = xhwtFileType;
     }
 
-    public XHWTModel start() throws XHWTNonNeedParsedException {
+    public XHWTModel start() throws XHWTNonNeedParsedException, IOException {
         try {
             this.filePath = ConfigWrapper.getTemplateFileInfo().getTemplateFileAbsolutePath(xhwtFileType);
         } catch (TemplateFileInfoWrapper.NonNeedParseTheTemplateFileException e) {
             throw new XHWTNonNeedParsedException(xhwtFileType);
         }
 
-        List<String> contents = getContents();
+        List<String> contents = FileUtil.getLineContents(filePath, "UTF-8");
         XHWTModel model = new XHWTContentParser(contents).start();
         List<ExpressionRecord> records = parseStatementRecordsByXHWTModel(model);
         model.setRecords(records);
@@ -42,34 +43,6 @@ public class XHWTFileParser {
         public XHWTNonNeedParsedException(XHWTFileType xhwtFileType) {
             super("this template type not need parsed, the type is " + xhwtFileType.name());
         }
-    }
-
-    private List<String> getContents() {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(filePath));
-            return getContents(reader);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if (null != reader) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    private List<String> getContents(BufferedReader reader) throws IOException {
-        List<String> contents = new ArrayList<>();
-        String strLine;
-        while (null != (strLine = reader.readLine())) {
-            contents.add(strLine);
-        }
-        return contents;
     }
 
     private List<ExpressionRecord> parseStatementRecordsByXHWTModel(XHWTModel model) {

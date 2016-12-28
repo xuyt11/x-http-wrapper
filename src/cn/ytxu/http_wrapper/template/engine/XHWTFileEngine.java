@@ -47,11 +47,13 @@ public class XHWTFileEngine {
                 LogUtil.i(XHWTFileType.class, "this template type has been successfully parsed, the type is " + xhwtFileType.name());
             } catch (XHWTFileParser.XHWTNonNeedParsedException e) {
                 LogUtil.i(XHWTFileType.class, e.getMessage());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
 
-    private XHWTModel getXHWTModelByParseTemplateFile(XHWTFileType xhwtFileType) throws XHWTFileParser.XHWTNonNeedParsedException {
+    private XHWTModel getXHWTModelByParseTemplateFile(XHWTFileType xhwtFileType) throws XHWTFileParser.XHWTNonNeedParsedException, IOException {
         return new XHWTFileParser(xhwtFileType).start();
     }
 

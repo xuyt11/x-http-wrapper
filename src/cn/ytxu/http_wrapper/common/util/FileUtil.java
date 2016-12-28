@@ -1,6 +1,8 @@
 package cn.ytxu.http_wrapper.common.util;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by newchama on 16/3/29.
@@ -63,13 +65,7 @@ public class FileUtil {
             StringBuffer fileData = getBufferData(reader);
             return fileData.toString();
         } finally {
-            try {
-                if (reader != null) {
-                    reader.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            closeReader(reader);
         }
     }
 
@@ -91,6 +87,33 @@ public class FileUtil {
             fileData.append(strLine).append("\n");
         }
         return fileData;
+    }
+
+    private static void closeReader(BufferedReader reader) {
+        if (null == reader) {
+            return;
+        }
+        try {
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static List<String> getLineContents(String filePath, String charset) throws IOException {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), charset));
+            List<String> contents = new ArrayList<>();
+            String strLine;
+            while (null != (strLine = reader.readLine())) {
+                contents.add(strLine);
+            }
+            return contents;
+        } finally {
+            closeReader(reader);
+        }
     }
 
 }
