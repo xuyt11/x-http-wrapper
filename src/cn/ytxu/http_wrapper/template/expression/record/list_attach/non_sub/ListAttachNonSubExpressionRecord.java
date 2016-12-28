@@ -1,8 +1,9 @@
-package cn.ytxu.http_wrapper.template.expression.record.list_attach;
+package cn.ytxu.http_wrapper.template.expression.record.list_attach.non_sub;
 
 import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.template.expression.ExpressionEnum;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
+import cn.ytxu.http_wrapper.template.expression.record.list_attach.ListAttachCreater;
 import cn.ytxu.http_wrapper.template.expression.record.retain.RetainModel;
 
 import java.util.ListIterator;
@@ -17,13 +18,12 @@ import java.util.regex.Pattern;
  * 1、在没有找到反射的方法后，查找该BaseModel是否有该attach==methodName的数据，有则返回attachContent
  * 2、不过现在只针对于反射String
  */
-public class ListAttachExpressionRecord extends ExpressionRecord {
-    // TODO 添加text_start, text_end attrs and need test pattern
-    public static final Pattern[] PATTERNS = {Pattern.compile("(<t:list_attach each=\")\\w+(\" attach=\")\\w+(\" list_text=\")[\\p{Print}\\p{Space}]+(\"/>)")};
+public class ListAttachNonSubExpressionRecord extends ExpressionRecord {
+    public static final Pattern PATTERN = Pattern.compile("(<t:list_attach each=\")\\w+(\" attach=\")\\w+(\" list_text=\")[\\p{Print}\\p{Space}]+(\"/>)");
 
     private ListAttachParser parser;
 
-    public ListAttachExpressionRecord(String startLineContent) {
+    public ListAttachNonSubExpressionRecord(String startLineContent) {
         super(ExpressionEnum.list_attach, startLineContent, true);
     }
 

@@ -1,4 +1,4 @@
-package cn.ytxu.http_wrapper.template.expression.record.list_attach;
+package cn.ytxu.http_wrapper.template.expression.record.list_attach.non_sub;
 
 import cn.ytxu.http_wrapper.template.expression.record.text.TextExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.util.PatternHelper;
@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class ListAttachParser {
 
     private String startLineContent;
-    private String methodName, attach, textStart, textEnd;
+    private String methodName, attach;
     private TextExpressionRecord textRecord;
 
     private enum Attr {
@@ -21,21 +21,13 @@ public class ListAttachParser {
         attach("需要在contents中替换的字符串",
                 new PatternHelper.PatternModel("attach=\"", "\"",
                         Pattern.compile("(attach=\")\\w+(\")"))),
-        text_start("数据填充后，插入到首位",
-                new PatternHelper.PatternModel("text_start=\"", "\"",
-                        Pattern.compile("(text_start=\")[\\p{Print}\\p{Space}]+(\")"))),
         list_text("遍历的数据模板",
                 new PatternHelper.PatternModel("list_text=\"", "\"",
-                        Pattern.compile("(list_text=\")[\\p{Print}\\p{Space}]+(\")"))),
-        text_end("数据填充后，添加到末尾",
-                new PatternHelper.PatternModel("text_end=\"", "\"",
-                        Pattern.compile("(text_end=\")[\\p{Print}\\p{Space}]+(\")")));
+                        Pattern.compile("(list_text=\")[\\p{Print}\\p{Space}]+(\")")));
 
-        private final String tag;
         private final PatternHelper.PatternModel patternModel;
 
         Attr(String tag, PatternHelper.PatternModel patternModel) {
-            this.tag = tag;
             this.patternModel = patternModel;
         }
     }
@@ -46,21 +38,11 @@ public class ListAttachParser {
 
     public void parse() {
         methodName = PatternHelper.getPatternValue(Attr.each.patternModel, startLineContent);
-        textStart = getText(Attr.text_start.patternModel);
         attach = PatternHelper.getPatternValue(Attr.attach.patternModel, startLineContent);
-        textEnd = getText(Attr.text_end.patternModel);
 
         String listText = PatternHelper.getPatternValue(Attr.list_text.patternModel, startLineContent);
-        textRecord = new TextExpressionRecord(textStart + listText + textEnd);
+        textRecord = new TextExpressionRecord(listText);
         textRecord.parseRecordAndSubRecords();
-    }
-
-    private String getText(PatternHelper.PatternModel model) {
-        boolean isMatch = PatternHelper.matchThisPattern(model, startLineContent);
-        if (isMatch) {
-            return PatternHelper.getPatternValue(model, startLineContent);
-        }
-        return "";
     }
 
     public String getMethodName() {

@@ -2,7 +2,7 @@ package cn.ytxu.http_wrapper.template.expression;
 
 import cn.ytxu.http_wrapper.template.expression.record.foreach.ForeachExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.record.if_else.IfElseExpressionRecord;
-import cn.ytxu.http_wrapper.template.expression.record.list_attach.ListAttachExpressionRecord;
+import cn.ytxu.http_wrapper.template.expression.record.list_attach.non_sub.ListAttachNonSubExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.record.list_replace.ListReplaceExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.record.list_single_line.ListSingleLineExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.record.retain.RetainExpressionRecord;
@@ -57,10 +57,14 @@ public enum ExpressionEnum {
             return new ListReplaceExpressionRecord(startLineContent);
         }
     },
-    list_attach("将数据添加到Model上，其他的替代符可以使用", ListAttachExpressionRecord.PATTERNS) {
+    list_attach("将数据添加到Model上，其他的替代符可以使用", ListAttachNonSubExpressionRecord.PATTERN) {
         @Override
         public ExpressionRecord createRecord(String startLineContent) {
-            return new ListAttachExpressionRecord(startLineContent);
+            if (ListAttachNonSubExpressionRecord.PATTERN.matcher(startLineContent).find()) {
+                return new ListAttachNonSubExpressionRecord(startLineContent);
+            }
+            // TODO has sub expression record
+            return null;
         }
     };
 
