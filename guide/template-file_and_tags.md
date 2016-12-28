@@ -21,6 +21,8 @@ template file and tags
        * 标签内部的匹配都为反射的方法名称；
             * 例如：在foreach标签中，<t:foreach each="request_groups">，
             匹配的request_groups即为反射后去request_groups方法的数据，然后利用该数据去遍历；
+       * 转换符：${RESTful_fields}
+            * RESTful_fields即为反射的方法名称，或是list_attach tag中attach属性的值
 
 # template tags
    1. text: 普通的文本
@@ -63,9 +65,20 @@ template file and tags
        * 标签起始符：<t:list_replace each=\")\\w+(\" replace_key=\")\\w+(\" list_value=\")[\\p{Print}\\p{Space}]+(\">
        * 标签结束符：</t:list_replace>
        * 作用：用each与list_value中的格式，遍历获取到的数据，替换内部${replace_key}字符串;
-
-
-
-
+   7. list_attach: 附着字符串文本，反射获取String数据，并绑定到对应的BaseModel
+       * 用于将转换后的字符串与当前的BaseModel绑定，之后的TextExpression即可使用attach的值作为转换符；
+       * each：是遍历的数据；attach：是之后其他tag进行使用的转换符
+       * tip:
+          * 在没有找到反射的方法后，查找该BaseModel是否有该attach==methodName的数据，有则返回attachContent
+          * 不过现在只针对于反射String类型数据
+          * 必须要有list_temp子表达式，其他两个text_start, text_end表达式不是必须的
+          * 三个表达式都会转换为TextExpressionRecord，所以可以当做是text类型tag
+ ```xhtml
+ <t:list_attach each="RESTful_fields" attach="restful_name_list"/>
+      <t:list_attach text_start="   "/>
+      <t:list_attach list_temp="${RESTful_field_name}: String,"/>
+      <t:list_attach text_end=""/>
+ </t:list_attach>
+ ```
 
 
