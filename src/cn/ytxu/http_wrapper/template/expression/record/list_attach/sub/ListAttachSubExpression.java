@@ -11,19 +11,28 @@ import java.util.regex.Pattern;
  * tip: 必须要有list_temp子表达式
  */
 public enum ListAttachSubExpression {
-    text_start("数据填充后，插入到首位", "<t:list_attach text_start=\"([\\p{Print}\\p{Space}]+)\"/>"),
-    list_temp("遍历的数据模板，必须要有list_temp子表达式", "<t:list_attach list_temp=\"([\\p{Print}\\p{Space}]+)\"/>") {
+    /**
+     * 数据填充后，插入到首位
+     */
+    text_start("<t:list_attach text_start=\"([\\p{Print}\\p{Space}]+)\"/>"),
+    /**
+     * 遍历的数据模板，必须要有list_temp子表达式
+     */
+    list_temp("<t:list_attach list_temp=\"([\\p{Print}\\p{Space}]+)\"/>") {
         @Override
         protected String getContent(List<String> subContents) {
             String listTempContent = findTargetSubContent(subContents);
             return getContent(listTempContent);
         }
     },
-    text_end("数据填充后，添加到末尾", "<t:list_attach text_end=\"([\\p{Print}\\p{Space}]+)\"/>");
+    /**
+     * 数据填充后，添加到末尾
+     */
+    text_end("<t:list_attach text_end=\"([\\p{Print}\\p{Space}]+)\"/>");
 
     private final Pattern pattern;
 
-    ListAttachSubExpression(String tag, String regex) {
+    ListAttachSubExpression(String regex) {
         this.pattern = Pattern.compile(regex);
     }
 
