@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
  * 2、不过现在只针对于反射String
  */
 public class ListAttachExpressionRecord extends ExpressionRecord {
+    // TODO 添加text_start, text_end attrs and need test pattern
     public static final Pattern[] PATTERNS = {Pattern.compile("(<t:list_attach each=\")\\w+(\" attach=\")\\w+(\" list_text=\")[\\p{Print}\\p{Space}]+(\"/>)")};
 
     private ListAttachParser parser;
@@ -50,7 +51,7 @@ public class ListAttachExpressionRecord extends ExpressionRecord {
 
     @Override
     public StringBuffer getWriteBuffer(BaseModel reflectModel, RetainModel retain) {
-        ListAttachCreater creater = new ListAttachCreater(parser.getMethodName(), parser.getListTextRecord());
+        ListAttachCreater creater = new ListAttachCreater(parser.getMethodName(), parser.getTextRecord());
         String attachContent = creater.getAttachContent(reflectModel, retain);
         reflectModel.attach(parser.getAttach(), attachContent);
         return new StringBuffer();

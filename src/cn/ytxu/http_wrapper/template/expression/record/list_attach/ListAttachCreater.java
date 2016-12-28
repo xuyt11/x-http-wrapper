@@ -13,11 +13,11 @@ import java.util.List;
  */
 public class ListAttachCreater {
     private String methodName;
-    private TextExpressionRecord listTextRecord;
+    private TextExpressionRecord textRecord;
 
-    public ListAttachCreater(String methodName, TextExpressionRecord listTextRecord) {
+    public ListAttachCreater(String methodName, TextExpressionRecord textRecord) {
         this.methodName = methodName;
-        this.listTextRecord = listTextRecord;
+        this.textRecord = textRecord;
     }
 
     public String getAttachContent(BaseModel reflectModel, RetainModel retain) {
@@ -33,12 +33,12 @@ public class ListAttachCreater {
     }
 
     private String parseAndGetListValue(RetainModel retain, List<BaseModel> subModels) {
-        StringBuffer listTextBuffer = new StringBuffer();
-        TextExpressionRecord record = listTextRecord;
+        StringBuffer textBuffer = new StringBuffer();
+        TextExpressionRecord record = textRecord;
         for (BaseModel subModel : subModels) {
-            listTextBuffer.append(record.getNormalWriteBuffer(subModel, retain));
+            textBuffer.append(record.getNormalWriteBuffer(subModel, retain));
         }
-        return listTextBuffer.toString();
+        return textBuffer.toString();
     }
 
 
