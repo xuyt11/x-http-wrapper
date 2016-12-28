@@ -92,9 +92,12 @@ public class ${request_group_class_name} extends BaseApi {
 		request.setMethod(Method.${request_METHOD});
 
         <t:if isTrue="request_url_is_RESTful">
-        <t:list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
+            <t:list_attach each="RESTful_fields" attach="restful_name_list">
+                <t:list_attach text_start=""/>
+                <t:list_attach list_temp=", ${RESTful_field_name}"/>
+                <t:list_attach text_end=""/>
+            </t:list_attach>
 		request.setUrl(String.format(getFullUrl("${request_convert_url}")${restful_name_list}));
-		</t:list_replace>
         <t:else>
 		request.setUrl(getFullUrl("${request_normal_url}"));
         </t:if_end>
