@@ -58,7 +58,12 @@ class ${request_group_class_name}: HttpClient {
         <t:else>
         let url = "${request_convert_url}"
         </t:if_end>
-        return HttpClient.request(type: .${request_METHOD}, urlStr: url, params: para, success: success, failed: failure, error: error)
+        <t:if isTrue="">
+        let needToken = true
+        <t:else>
+        let needToken = false
+        </t:if_end>
+        return HttpClient.request(type: .${request_METHOD}, urlStr: url, params: para, needToken: needToken, success: success, failed: failure, error: error)
 	}
 
 </t:foreach>

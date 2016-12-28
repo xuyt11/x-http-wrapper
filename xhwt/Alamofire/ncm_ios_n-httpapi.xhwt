@@ -21,7 +21,7 @@ import Foundation
 class HttpApi: NSObject {
 
 <t:foreach each="request_groups">
-    static var ${request_group_name} : ${request_group_class_name}
+    static var ${request_group_name} : ${request_group_class_name}?
 </t:foreach>
 
 <t:retain type="field"/>
