@@ -1,8 +1,8 @@
 package cn.ytxu.http_wrapper.template.expression.record.list_attach;
 
 import cn.ytxu.http_wrapper.model.BaseModel;
-import cn.ytxu.http_wrapper.template.expression.record.text.TextExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.record.retain.RetainModel;
+import cn.ytxu.http_wrapper.template.expression.record.text.TextExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.util.ReflectiveUtil;
 
 import java.util.List;
@@ -13,33 +13,47 @@ import java.util.List;
  */
 public class ListAttachCreater {
     private String methodName;
-    private TextExpressionRecord textRecord;
+    private TextExpressionRecord textStartRecord, textTempRecord, textEndRecord;
 
-    public ListAttachCreater(String methodName, TextExpressionRecord textRecord) {
+    public ListAttachCreater(String methodName, TextExpressionRecord textStartRecord,
+                             TextExpressionRecord textTempRecord, TextExpressionRecord textEndRecord) {
         this.methodName = methodName;
-        this.textRecord = textRecord;
+        this.textStartRecord = textStartRecord;
+        this.textTempRecord = textTempRecord;
+        this.textEndRecord = textEndRecord;
     }
+
 
     public String getAttachContent(BaseModel reflectModel, RetainModel retain) {
-        String attachContent;
+        StringBuffer attachContentBuffer = new StringBuffer();
+        attachContentBuffer.append(getTextStart(reflectModel, retain));
+        attachContentBuffer.append(getTextTemp(reflectModel, retain));
+        attachContentBuffer.append(getTextEnd(reflectModel, retain));
+        return attachContentBuffer.toString();
+    }
+
+    private StringBuffer getTextStart(BaseModel reflectModel, RetainModel retain) {
+        return textStartRecord.getNormalWriteBuffer(reflectModel, retain);
+    }
+
+    private StringBuffer getTextTemp(BaseModel reflectModel, RetainModel retain) {
         List<BaseModel> subModels = ReflectiveUtil.getList(reflectModel, methodName);
         if (subModels == null || subModels.isEmpty()) {
-            attachContent = "";
-        } else {
-            // 需要在解析完成listText之后，才能生成subs，
-            attachContent = parseAndGetListValue(retain, subModels);
+            return new StringBuffer();
         }
-        return attachContent;
+        return parseAndGetTempContent(retain, subModels);
     }
 
-    private String parseAndGetListValue(RetainModel retain, List<BaseModel> subModels) {
-        StringBuffer textBuffer = new StringBuffer();
-        TextExpressionRecord record = textRecord;
+    private StringBuffer parseAndGetTempContent(RetainModel retain, List<BaseModel> subModels) {
+        StringBuffer tempBuffer = new StringBuffer();
         for (BaseModel subModel : subModels) {
-            textBuffer.append(record.getNormalWriteBuffer(subModel, retain));
+            tempBuffer.append(textTempRecord.getNormalWriteBuffer(subModel, retain));
         }
-        return textBuffer.toString();
+        return tempBuffer;
     }
 
+    private StringBuffer getTextEnd(BaseModel reflectModel, RetainModel retain) {
+        return textEndRecord.getNormalWriteBuffer(reflectModel, retain);
+    }
 
 }

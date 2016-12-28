@@ -1,12 +1,12 @@
-package cn.ytxu.http_wrapper.template.expression.record.list_attach.has_sub;
+package cn.ytxu.http_wrapper.template.expression.record.list_attach;
 
 import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.template.expression.ExpressionEnum;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
-import cn.ytxu.http_wrapper.template.expression.record.list_attach.has_sub.attr.ListAttachAttr;
-import cn.ytxu.http_wrapper.template.expression.record.list_attach.has_sub.attr.ListAttachAttrParser;
-import cn.ytxu.http_wrapper.template.expression.record.list_attach.has_sub.sub.ListAttachSubExpression;
-import cn.ytxu.http_wrapper.template.expression.record.list_attach.has_sub.sub.ListAttachSubParser;
+import cn.ytxu.http_wrapper.template.expression.record.list_attach.attr.ListAttachAttr;
+import cn.ytxu.http_wrapper.template.expression.record.list_attach.attr.ListAttachAttrParser;
+import cn.ytxu.http_wrapper.template.expression.record.list_attach.sub.ListAttachSubExpression;
+import cn.ytxu.http_wrapper.template.expression.record.list_attach.sub.ListAttachSubParser;
 import cn.ytxu.http_wrapper.template.expression.record.retain.RetainModel;
 
 import java.util.ArrayList;

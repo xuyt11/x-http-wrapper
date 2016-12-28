@@ -1,4 +1,4 @@
-package cn.ytxu.http_wrapper.template.expression.record.list_attach.has_sub.sub;
+package cn.ytxu.http_wrapper.template.expression.record.list_attach.sub;
 
 import cn.ytxu.http_wrapper.template.expression.record.text.TextExpressionRecord;
 

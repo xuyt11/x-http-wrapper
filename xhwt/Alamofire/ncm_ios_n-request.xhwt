@@ -47,7 +47,9 @@ class ${request_group_class_name}: HttpClient {
 	 </t:if_end>
 	 </t:foreach>
 	 */
-	 <t:list_attach each="RESTful_fields" attach="restful_name_list" list_text="${RESTful_field_name}: String, "/>
+	 <t:list_attach each="RESTful_fields" attach="restful_name_list">
+         <t:list_attach list_temp="${RESTful_field_name}: String, "/>
+     </t:list_attach>
     static func ${request_name}(${restful_name_list}para: Dic, success: SuccessedClosure, error: ErrorClosure, failure: FailedClosure) -> Request {
         <t:if isTrue="request_url_is_RESTful">
         <t:list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">

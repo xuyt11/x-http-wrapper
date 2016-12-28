@@ -1,4 +1,4 @@
-package cn.ytxu.http_wrapper.template.expression.record.list_attach.has_sub.attr;
+package cn.ytxu.http_wrapper.template.expression.record.list_attach.attr;
 
 import java.util.regex.Matcher;
 

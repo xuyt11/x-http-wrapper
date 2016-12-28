@@ -1,16 +1,12 @@
 package cn.ytxu.test.pattern;
 
 import cn.ytxu.http_wrapper.common.util.LogUtil;
-import cn.ytxu.http_wrapper.template.expression.record.list_attach.has_sub.ListAttachExpressionRecord;
-import cn.ytxu.http_wrapper.template.expression.record.list_attach.has_sub.attr.ListAttachAttrParser;
-import cn.ytxu.http_wrapper.template.expression.record.list_attach.has_sub.sub.ListAttachSubParser;
-import cn.ytxu.http_wrapper.template.expression.record.list_attach.non_sub.ListAttachNonSubExpressionRecord;
+import cn.ytxu.http_wrapper.template.expression.record.list_attach.ListAttachExpressionRecord;
+import cn.ytxu.http_wrapper.template.expression.record.list_attach.attr.ListAttachAttrParser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -64,7 +60,7 @@ public class ListAttachExpressionTest {
     @Test
     public void testListAttachParser4() {
         String line = "            <t:list_attach each=\"RESTful_fields\" attach=\"restful_name_list\">";
-        Pattern[] patterns = {ListAttachNonSubExpressionRecord.PATTERN, ListAttachExpressionRecord.PATTERN};
+        Pattern[] patterns = {ListAttachExpressionRecord.PATTERN};
         for (Pattern pattern : patterns) {
             LogUtil.i("" + pattern.matcher(line).find());
         }
