@@ -269,4 +269,11 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
         return false;
     }
 
+    public String first_url_field_name() {
+        if (restfulUrl.isRESTfulUrl()) {
+            return restfulUrl.getParams().get(0).RESTful_field_name();
+        }
+        return "";
+    }
+
 }
