@@ -1,10 +1,10 @@
-package cn.ytxu.http_wrapper.apidocjs.parser.request.restful_url;
+package cn.ytxu.http_wrapper.apidocjs.parser.request.url;
 
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.config.property.request.DateReplaceBean;
 import cn.ytxu.http_wrapper.model.request.RequestModel;
-import cn.ytxu.http_wrapper.model.request.restful_url.RESTfulParamModel;
-import cn.ytxu.http_wrapper.model.request.restful_url.RESTfulUrlModel;
+import cn.ytxu.http_wrapper.model.request.url.RequestUrlDynamicParamModel;
+import cn.ytxu.http_wrapper.model.request.url.RequestUrlModel;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -13,42 +13,42 @@ import java.util.regex.Pattern;
 /**
  * Created by ytxu on 2016/8/14.
  */
-public class RESTfulUrlParser {
+public class RequestUrlParser {
     private static final Pattern ID_OR_DATE_PATTERN = Pattern.compile("[\\{]{1}.{2,}?[\\}]{1}");
     private static final Pattern MULTI_PATTERN = Pattern.compile("[\\[]{1}.{2,}?[\\]]{1}");
 
-    private RESTfulUrlModel model;
+    private final RequestUrlModel requestUrl;
 
-    public RESTfulUrlParser(RequestModel request) {
-        model = new RESTfulUrlModel(request, request.getUrl());
+    public RequestUrlParser(RequestModel request) {
+        requestUrl = request.getUrl();
     }
 
     public void start() {
-        setIsRESTfulUrl();
+        checkAndSetupHasDynamicParam2RequestUrlModel();
         parseMultiUrl();
         parseIdOrDateParam();
     }
 
-    private void setIsRESTfulUrl() {
-        Matcher m = ID_OR_DATE_PATTERN.matcher(model.getUrl());
-        model.setRESTfulUrl(m.find());
+    private void checkAndSetupHasDynamicParam2RequestUrlModel() {
+        Matcher m = ID_OR_DATE_PATTERN.matcher(requestUrl.getUrl());
+        requestUrl.setHasDynamicParam(m.find());
     }
 
     private void parseMultiUrl() {
-        Matcher m = MULTI_PATTERN.matcher(model.getUrl());
+        Matcher m = MULTI_PATTERN.matcher(requestUrl.getUrl());
         boolean hasMultiParam = m.find();
-        model.setHasMultiParam(hasMultiParam);
+        requestUrl.setHasMultiParam(hasMultiParam);
 
         if (!hasMultiParam) {
             return;
         }
 
-        String multiUrl = model.getUrl();
+        String multiUrl = requestUrl.getUrl();
         do {
             String group = m.group();
             multiUrl = getMultiUrl(multiUrl, group);
         } while (m.find());
-        model.setMultiUrl(multiUrl);
+        requestUrl.setMultiUrl(multiUrl);
     }
 
     private String getMultiUrl(String multiUrl, String group) {
@@ -68,43 +68,43 @@ public class RESTfulUrlParser {
     }
 
     private void parseIdOrDateParam() {
-        if (!model.isRESTfulUrl()) {// no heed parse
+        if (!requestUrl.isHasDynamicParam()) {// no heed parse
             return;
         }
 
-        String url = model.hasMultiParam() ? model.getMultiUrl() : model.getUrl();
+        String url = requestUrl.hasMultiParam() ? requestUrl.getMultiUrl() : requestUrl.getUrl();
         Matcher m = ID_OR_DATE_PATTERN.matcher(url);
         int paramIndex = 0;
         while (m.find()) {
-            getResTfulParamModel(m, paramIndex);
+            getDynamicParamModel(m, paramIndex);
             paramIndex++;
         }
     }
 
-    private RESTfulParamModel getResTfulParamModel(Matcher m, int paramIndex) {
+    private RequestUrlDynamicParamModel getDynamicParamModel(Matcher m, int paramIndex) {
         int start = m.start();
         int end = m.end();
         String group = m.group();
 
-        String restfulParam = getRestfulParam(group);
-        if (restfulParam.contains("-") || restfulParam.contains(":") || restfulParam.contains(" ")) {
-            throw new RuntimeException("the RESTful request url is " + model.getUrl() +
-                    "\n, and the restfulParam is " + restfulParam +
+        String realParam = getRealParam(group);
+        if (realParam.contains("-") || realParam.contains(":") || realParam.contains(" ")) {
+            throw new RuntimeException("the request url is " + requestUrl.getUrl() +
+                    "\n, and the real param is " + realParam +
                     "\n, and ytxu need parse this param, so i throw exception...");
         }
-        return new RESTfulParamModel(model, group, restfulParam, paramIndex, start, end);
+        return new RequestUrlDynamicParamModel(requestUrl, group, realParam, paramIndex, start, end);
     }
 
-    private String getRestfulParam(String group) {
-        String restfulParam = group.substring(1, group.length() - 1);
+    private String getRealParam(String group) {
+        String realParam = group.substring(1, group.length() - 1);
         List<DateReplaceBean> dateReplaces = ConfigWrapper.getRequest().getDateReplaces();
         for (DateReplaceBean dateReplace : dateReplaces) {
-            if (dateReplace.getDate_format().equals(restfulParam)) {
-                restfulParam = dateReplace.getDate_request_param();
+            if (dateReplace.getDate_format().equals(realParam)) {
+                realParam = dateReplace.getDate_request_param();
                 break;
             }
         }
-        return restfulParam;
+        return realParam;
     }
 
 }

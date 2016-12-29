@@ -24,10 +24,10 @@ public class PatternTest {
     private static final Pattern textPattern = Pattern.compile(text);
     private static final String realText =
             "\t <t:list_attach" +
-                    " each=\"RESTful_fields\"" +
-                    " attach=\"restful_name_list\"" +
+                    " each=\"url_dynamic_params\"" +
+                    " attach=\"url_dynamic_param_name_format\"" +
                     " text_start=\"1\"" +
-                    " list_temp=\"${RESTful_field_name}: String, \"" +
+                    " list_temp=\"${url_dynamic_param_field_name}: String, \"" +
                     " text_end=\"2\"" +
                     "/>\n";
 
@@ -37,9 +37,9 @@ public class PatternTest {
 //        ListAttachAttrParser parser = new ListAttachAttrParser(textPattern, realText);
 //        parser.parse();
 //
-//        Assert.assertEquals(parser.getMethodName(), "RESTful_fields");
-//        Assert.assertEquals(parser.getAttach(), "restful_name_list");
-//        Assert.assertEquals(parser.getTextRecord().getStartLineContent(), "${RESTful_field_name}: String, ");
+//        Assert.assertEquals(parser.getMethodName(), "url_dynamic_params");
+//        Assert.assertEquals(parser.getAttach(), "url_dynamic_param_name_format");
+//        Assert.assertEquals(parser.getTextRecord().getStartLineContent(), "${url_dynamic_param_field_name}: String, ");
 
     }
 
@@ -89,7 +89,7 @@ public class PatternTest {
 
         String group = m.group(1);
         String content = group.substring(" each=\"".length(), group.length() - "\"".length());
-        Assert.assertEquals(content, "RESTful_fields");
+        Assert.assertEquals(content, "url_dynamic_params");
     }
 
     @Test
@@ -101,7 +101,7 @@ public class PatternTest {
         Assert.assertEquals(isMatch, true);
 
         String content = PatternHelper.getPatternValue(model, realText);
-        Assert.assertEquals(content, "restful_name_list");
+        Assert.assertEquals(content, "url_dynamic_param_name_format");
     }
 
     @Test
@@ -138,6 +138,6 @@ public class PatternTest {
         Assert.assertEquals(isMatch, true);
 
         String content = PatternHelper.getPatternValue(model, realText);
-        Assert.assertEquals(content, "${RESTful_field_name}: String, ");
+        Assert.assertEquals(content, "${url_dynamic_param_field_name}: String, ");
     }
 }

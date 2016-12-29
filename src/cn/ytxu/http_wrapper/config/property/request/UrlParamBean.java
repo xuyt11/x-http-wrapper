@@ -7,7 +7,7 @@ import java.util.List;
  * Created by ytxu on 2016/9/5.
  * 替换URL上的替代符的配置
  */
-public class RESTfulBean {
+public class UrlParamBean {
     /**
      * 在url上替换的字符串，主要是使用在string replace上
      * 例如：若replaceString="%s"，则URL:api/project_id/{project_id}/, 会替换为api/project_id/%s/

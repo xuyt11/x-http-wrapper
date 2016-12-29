@@ -30,11 +30,11 @@ public class RequestWrapper {
     private RequestWrapper(RequestBean request) {
         this.requestBean = request;
 
-        if (Objects.isNull(request.getRESTful())) {
-            throw new IllegalArgumentException("u must setup RESTful property...");
+        if (Objects.isNull(request.getUrlParam())) {
+            throw new IllegalArgumentException("u must setup url_param property...");
         }
-        if (TextUtil.isBlank(request.getRESTful().getReplaceString())) {
-            throw new IllegalArgumentException("the RESTful-->replaceString property is null, u must setup...");
+        if (TextUtil.isBlank(request.getUrlParam().getReplaceString())) {
+            throw new IllegalArgumentException("the url_param-->replaceString property is null, u must setup...");
         }
 
         if (Objects.isNull(request.getOptional_request_method())) {
@@ -43,15 +43,15 @@ public class RequestWrapper {
     }
 
     public String getReplaceString() {
-        return requestBean.getRESTful().getReplaceString();
+        return requestBean.getUrlParam().getReplaceString();
     }
 
     public List<String> getMultis() {
-        return requestBean.getRESTful().getMultiReplaces();
+        return requestBean.getUrlParam().getMultiReplaces();
     }
 
     public List<DateReplaceBean> getDateReplaces() {
-        return requestBean.getRESTful().getDateReplaces();
+        return requestBean.getUrlParam().getDateReplaces();
     }
 
 

@@ -29,26 +29,25 @@ x-http-wrapper model
        * sub: requests-->该请求组下的所有请求
    * RequestModel: 请求model
        * methodType: 请求方法类型，例如：post,get,delete...
-       * url: 请求的相对路径;
        * title: 该请求的名称，zh;
        * name: 该请求的名称，en;
        * version: 该请求的版本;
        * group: 该请求的请求组的名称;
        * description: 该请求的简介;
        * sub: 
-           * restfulUrl-->url经解析转换后的model；
+           * url-->url字符串经解析转换后的model(RequestUrlModel)；
            * headerGroups-->请求头组；
            * inputGroups-->请求参数组;
            * responseContainer-->请求响应；
 
-   * RESTfulUrlModel: url经解析转换后的model
+   * RequestUrlModel: url经解析转换后的model
        * url: RequestModel中的url; 
-       * isRESTfulUrl: 是否为RESTful的url,  
+       * isHasDynamicParam: 是否为需要动态输入参数的url,  
         简单来说就是，是否有需要动态输入的参数，来拼凑出真正请求的URL；  
        * multiUrl: url经转换变为的多选类型url, 使用了config文件中request.multi_replace功能之后的URL；
        * hasMultiParam: 是否有多选类型的参数，若有的话，则使用url时需要使用multiUrl
-       * params: url或multiUrl中需要替换的参数model；
-   * RESTfulParamModel: url或multiUrl中需要替换的参数model；
+       * dynamicParams: url或multiUrl中需要替换的参数model；
+   * RequestUrlDynamicParamModel: url或multiUrl中需要替换的参数model；
        * param: 在url或multiUrl中的字符串
        * realParam: 在代码中实际的字符串
        * paramIndex: 在url或multiUrl中所有param的index

@@ -47,17 +47,17 @@ class ${request_group_class_name}: NSObject {
 	 </t:if_end>
 	 </t:foreach>
 	 */
-	 <t:list_attach each="RESTful_fields" attach="restful_name_list">
-         <t:list_attach list_temp="${RESTful_field_name}: String, "/>
+	 <t:list_attach each="url_dynamic_params" attach="url_dynamic_param_name_format">
+         <t:list_attach list_temp="${url_dynamic_param_field_name}: String, "/>
      </t:list_attach>
-    <t:if isTrue="request_url_is_RESTful">
-    static func ${request_name}(${first_url_field_name} ${restful_name_list}para: Dic, success: SuccessedClosure, error: ErrorClosure, failure: FailedClosure) -> Request {
+    <t:if isTrue="request_url_has_dynamic_param">
+    static func ${request_name}(${first_url_field_name} ${url_dynamic_param_name_format}para: Dic, success: SuccessedClosure, error: ErrorClosure, failure: FailedClosure) -> Request {
     <t:else>
     static func ${request_name}(para para: Dic, success: SuccessedClosure, error: ErrorClosure, failure: FailedClosure) -> Request {
     </t:if_end>
-        <t:if isTrue="request_url_is_RESTful">
-        <t:list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
-		let url = String.init(format: "${request_convert_url}"${restful_name_list})
+        <t:if isTrue="request_url_has_dynamic_param">
+        <t:list_replace each="url_dynamic_params" replace_key="url_dynamic_param_name_format2" list_value=", ${url_dynamic_param_field_name}">
+		let url = String.init(format: "${request_convert_url}"${url_dynamic_param_name_format2})
 		</t:list_replace>
         <t:else>
         let url = "${request_convert_url}"

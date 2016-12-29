@@ -63,7 +63,7 @@ config structure
         * output_request_groups: 输出的版本下,需要输出的分类名称数组; 
     
 ##request
-   1. RESTful: 替换URL上的替代符的配置
+   1. url_param: 替换URL上的替代符的配置
         * replaceString: 在url上替换的字符串，主要是使用在string replace上；
             * 例如：若replaceString="%s"，则URL:api/project_id/{project_id}/，
             会替换为api/project_id/%s/
@@ -71,7 +71,7 @@ config structure
             * 例如：若multi_replace = android，在URL：api/project/[android|ios|html]/中，
             则会替换为：api/project/android/
             * 若有多个替换规则可以匹配到，只会替换第一个匹配；
-        * date_replace: RESTful风格url中，date参数的格式与在输出文件中在url上请求参数的名称的替换配置
+        * date_replace: 在url中，date参数的格式与在输出文件中在url上请求参数的名称的替换配置
             * date_format: date参数在url上的格式
             * date_request_param: 在输出文件中，在url上请求参数的名称
    2. optional_request_method: 

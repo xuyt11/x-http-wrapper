@@ -63,15 +63,15 @@ public class ${request_group_class_name} extends BaseApi {
 	 </t:foreach>
 	 */
 	public void ${request_name}(Context cxt001,
-	    <t:list each="RESTful_fields" singleLine>
+	    <t:list each="url_dynamic_params" singleLine>
             </t:start value="		"/>
-            </t:eachTemp value="String ${RESTful_field_name}, "/>
+            </t:eachTemp value="String ${url_dynamic_param_field_name}, "/>
             </t:end value=""/>
 	    </t:list>
 		RequestBean requset, HttpResultInterface callBack) {
-        <t:if isTrue="request_url_is_RESTful">
-        <t:list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
-		String realUrl = String.format(getFullUrl("${request_convert_url}")${restful_name_list});
+        <t:if isTrue="request_url_has_dynamic_param">
+        <t:list_replace each="url_dynamic_params" replace_key="url_dynamic_param_name_format" list_value=", ${url_dynamic_param_field_name}">
+		String realUrl = String.format(getFullUrl("${request_convert_url}")${url_dynamic_param_name_format});
 		</t:list_replace>
         <t:else>
 		String realUrl = getFullUrl("${request_normal_url}");

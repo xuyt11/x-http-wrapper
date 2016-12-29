@@ -72,9 +72,9 @@ public class ${request_group_class_name} extends BaseApi {
 	 </t:foreach>
 	 */
 	public RequestHandle ${request_name}(Context cxt001,
-	    <t:list each="RESTful_fields" singleLine>
+	    <t:list each="url_dynamic_params" singleLine>
             </t:start value="		"/>
-            </t:eachTemp value="String ${RESTful_field_name}, "/>
+            </t:eachTemp value="String ${url_dynamic_param_field_name}, "/>
             </t:end value=""/>
 	    </t:list>
 	    <t:list each="filtered_headers" singleLine>
@@ -91,13 +91,13 @@ public class ${request_group_class_name} extends BaseApi {
 		NetRequest request = new NetRequest();
 		request.setMethod(Method.${request_METHOD});
 
-        <t:if isTrue="request_url_is_RESTful">
-            <t:list_attach each="RESTful_fields" attach="restful_name_list">
+        <t:if isTrue="request_url_has_dynamic_param">
+            <t:list_attach each="url_dynamic_params" attach="url_dynamic_param_name_format">
                 <t:list_attach text_start=""/>
-                <t:list_attach list_temp=", ${RESTful_field_name}"/>
+                <t:list_attach list_temp=", ${url_dynamic_param_field_name}"/>
                 <t:list_attach text_end=""/>
             </t:list_attach>
-		request.setUrl(String.format(getFullUrl("${request_convert_url}")${restful_name_list}));
+		request.setUrl(String.format(getFullUrl("${request_convert_url}")${url_dynamic_param_name_format}));
         <t:else>
 		request.setUrl(getFullUrl("${request_normal_url}"));
         </t:if_end>
@@ -122,9 +122,9 @@ public class ${request_group_class_name} extends BaseApi {
 
     <t:if isTrue="needGenerateOptionalRequestMethod">
 	public RequestHandle ${request_name}(Context cxt001,
-        <t:list each="RESTful_fields" singleLine>
+        <t:list each="url_dynamic_params" singleLine>
             </t:start value="		"/>
-            </t:eachTemp value="String ${RESTful_field_name}, "/>
+            </t:eachTemp value="String ${url_dynamic_param_field_name}, "/>
             </t:end value=""/>
         </t:list>
         <t:list each="filtered_headers" singleLine>
@@ -139,9 +139,9 @@ public class ${request_group_class_name} extends BaseApi {
         </t:list>
         ResponseHandlerInterface response) {
         return ${request_name}(cxt001,
-        <t:list each="RESTful_fields" singleLine>
+        <t:list each="url_dynamic_params" singleLine>
             </t:start value="		"/>
-            </t:eachTemp value="${RESTful_field_name}, "/>
+            </t:eachTemp value="${url_dynamic_param_field_name}, "/>
             </t:end value=""/>
         </t:list>
         <t:list each="filtered_headers" singleLine>

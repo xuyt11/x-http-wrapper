@@ -8,8 +8,8 @@ import cn.ytxu.http_wrapper.model.request.header.HeaderGroupModel;
 import cn.ytxu.http_wrapper.model.request.header.HeaderModel;
 import cn.ytxu.http_wrapper.model.request.input.InputGroupModel;
 import cn.ytxu.http_wrapper.model.request.input.InputModel;
-import cn.ytxu.http_wrapper.model.request.restful_url.RESTfulParamModel;
-import cn.ytxu.http_wrapper.model.request.restful_url.RESTfulUrlModel;
+import cn.ytxu.http_wrapper.model.request.url.RequestUrlDynamicParamModel;
+import cn.ytxu.http_wrapper.model.request.url.RequestUrlModel;
 import cn.ytxu.http_wrapper.model.response.ResponseContainerModel;
 
 import java.util.*;
@@ -24,12 +24,6 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
      * format：(post|post patch|...)
      */
     private String methodType;
-    /**
-     * request url:absolute url
-     * 相对路径
-     * format：/api/account/verify/
-     */
-    private String url;
     /**
      * request title
      * 接口名称 zh
@@ -61,7 +55,7 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
      */
     private String description;
 
-    private RESTfulUrlModel restfulUrl;// url
+    private RequestUrlModel url;// url
     private List<HeaderGroupModel> headerGroups = Collections.EMPTY_LIST;
     private List<InputGroupModel> inputGroups = Collections.EMPTY_LIST;
 
@@ -74,16 +68,12 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
 
     public void init(String type, String url, String title, String version, String name, String group, String description) {
         this.methodType = type;
-        this.url = url;
+        this.url = new RequestUrlModel(this, url);
         this.title = title;
         this.version = version;
         this.name = name;
         this.group = group;
         this.description = description;
-    }
-
-    public String getUrl() {
-        return url;
     }
 
     public String getName() {
@@ -110,12 +100,8 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
         this.methodType = methodType;
     }
 
-    public RESTfulUrlModel getRestfulUrl() {
-        return restfulUrl;
-    }
-
-    public void setRestfulUrl(RESTfulUrlModel restfulUrl) {
-        this.restfulUrl = restfulUrl;
+    public RequestUrlModel getUrl() {
+        return url;
     }
 
     public List<HeaderGroupModel> getHeaderGroups() {
@@ -171,7 +157,7 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
     }
 
     public String request_url() {
-        return restfulUrl.getUrl();
+        return url.getUrl();
     }
 
     public String request_METHOD() {
@@ -211,20 +197,21 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
         return inputs;
     }
 
-    public boolean request_url_is_RESTful() {
-        return restfulUrl.isRESTfulUrl();
+    public boolean request_url_has_dynamic_param() {
+        return url.isHasDynamicParam();
     }
 
-    public List<RESTfulParamModel> RESTful_fields() {
-        return restfulUrl.getParams();
+
+    public List<RequestUrlDynamicParamModel> url_dynamic_params() {
+        return url.getDynamicParams();
     }
 
     public String request_normal_url() {
-        return restfulUrl.request_normal_url();
+        return url.request_normal_url();
     }
 
     public String request_convert_url() {
-        return restfulUrl.request_convert_url();
+        return url.request_convert_url();
     }
 
 
@@ -270,8 +257,8 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
     }
 
     public String first_url_field_name() {
-        if (restfulUrl.isRESTfulUrl()) {
-            return restfulUrl.getParams().get(0).RESTful_field_name();
+        if (url.isHasDynamicParam()) {
+            return url.getDynamicParams().get(0).url_dynamic_param_field_name();
         }
         return "";
     }

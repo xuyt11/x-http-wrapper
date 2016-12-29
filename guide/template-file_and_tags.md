@@ -21,8 +21,8 @@ template file and tags
        * 标签内部的匹配都为反射的方法名称；
             * 例如：在foreach标签中，<t:foreach each="request_groups">，
             匹配的request_groups即为反射后去request_groups方法的数据，然后利用该数据去遍历；
-       * 转换符：${RESTful_fields}
-            * RESTful_fields即为反射的方法名称，或是list_attach tag中attach属性的值
+       * 转换符：${url_dynamic_params}
+            * url_dynamic_params即为反射的方法名称，或是list_attach tag中attach属性的值
 
 # template tags
    1. text: 普通的文本
@@ -74,9 +74,9 @@ template file and tags
           * 必须要有list_temp子表达式，其他两个text_start, text_end表达式不是必须的
           * 三个表达式都会转换为TextExpressionRecord，所以可以当做是text类型tag
  ```xhtml
- <t:list_attach each="RESTful_fields" attach="restful_name_list"/>
+ <t:list_attach each="url_dynamic_params" attach="url_dynamic_param_name_format"/>
       <t:list_attach text_start="   "/>
-      <t:list_attach list_temp="${RESTful_field_name}: String,"/>
+      <t:list_attach list_temp="${url_dynamic_param_field_name}: String,"/>
       <t:list_attach text_end=""/>
  </t:list_attach>
  ```

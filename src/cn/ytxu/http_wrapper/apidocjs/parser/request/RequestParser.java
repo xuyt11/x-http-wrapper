@@ -2,7 +2,7 @@ package cn.ytxu.http_wrapper.apidocjs.parser.request;
 
 import cn.ytxu.http_wrapper.apidocjs.parser.request.header.RequestHeaderGroupParser;
 import cn.ytxu.http_wrapper.apidocjs.parser.request.input.RequestInputGroupParser;
-import cn.ytxu.http_wrapper.apidocjs.parser.request.restful_url.RESTfulUrlParser;
+import cn.ytxu.http_wrapper.apidocjs.parser.request.url.RequestUrlParser;
 import cn.ytxu.http_wrapper.apidocjs.parser.response.ResponseContainerParser;
 import cn.ytxu.http_wrapper.model.request.RequestGroupModel;
 
@@ -20,7 +20,7 @@ public class RequestParser {
 
     public void start() {
         requestGroups.forEach(requestGroup -> requestGroup.getRequests().forEach(request -> {
-            new RESTfulUrlParser(request).start();
+            new RequestUrlParser(request).start();
             new RequestHeaderGroupParser(request).start();
             new RequestInputGroupParser(request).start();
             new ResponseContainerParser(request).start();

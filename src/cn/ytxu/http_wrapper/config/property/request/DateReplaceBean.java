@@ -1,7 +1,7 @@
 package cn.ytxu.http_wrapper.config.property.request;
 
 /**
- * RESTful风格url中，date参数的格式与在输出文件中在url上请求参数的名称
+ * url中，date参数的格式与在输出文件中在url上请求参数的名称
  */
 public class DateReplaceBean {
     private String date_format;// date参数在url上的格式

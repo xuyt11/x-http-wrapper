@@ -68,7 +68,7 @@
     ]
   },
   "request": {
-    "RESTful": {
+    "url_param": {
       "replaceString": "%@",
       "multi_replace": [
         "ios"
@@ -76,7 +76,7 @@
       "date_replace": [
         {
           "date_format": "YYYY-MM-DD",
-          "date_request_param": "restful_date_param"
+          "date_request_param": "date_dynamic_param"
         }
       ]
     },
