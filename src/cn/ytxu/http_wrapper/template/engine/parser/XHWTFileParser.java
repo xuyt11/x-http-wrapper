@@ -33,7 +33,7 @@ public class XHWTFileParser {
         }
 
         List<String> contents = FileUtil.getLineContents(filePath, "UTF-8");
-        XHWTModel model = new XHWTContentParser(contents).start();
+        XHWTModel model = new XHWTFileContentParser(contents).start();
         List<ExpressionRecord> records = parseStatementRecordsByXHWTModel(model);
         model.setRecords(records);
         return model;

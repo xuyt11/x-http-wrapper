@@ -11,12 +11,12 @@ import java.util.List;
  * Created by Administrator on 2016/8/28.
  * contents 进入之后,会抽离其中的header部分,剩下temp文件的内容，最后返回XTempModel
  */
-public class XHWTContentParser {
+public class XHWTFileContentParser {
 
     private final List<String> contents;
     private final XHWTModel model = new XHWTModel();
 
-    public XHWTContentParser(List<String> contents) {
+    public XHWTFileContentParser(List<String> contents) {
         this.contents = contents;
     }
 

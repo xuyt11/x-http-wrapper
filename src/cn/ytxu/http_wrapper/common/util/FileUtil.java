@@ -3,6 +3,7 @@ package cn.ytxu.http_wrapper.common.util;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by newchama on 16/3/29.
@@ -69,10 +70,6 @@ public class FileUtil {
         }
     }
 
-    public static BufferedReader getReader(String filePath, String charset) throws IOException {
-        return  new BufferedReader(new InputStreamReader(new FileInputStream(filePath), charset));
-    }
-
     private static StringBuffer getBufferData2(BufferedReader reader) throws IOException {
         StringBuffer fileData = new StringBuffer();
         char[] buf = new char[1024];
@@ -93,8 +90,30 @@ public class FileUtil {
         return fileData;
     }
 
+
+    public static List<String> getLineContents(String filePath, String charset) throws IOException {
+        BufferedReader reader = null;
+        try {
+            reader = getReader(filePath, charset);
+            List<String> contents = new ArrayList<>(100);
+            String strLine;
+            while (null != (strLine = reader.readLine())) {
+                contents.add(strLine);
+            }
+            return contents;
+        } finally {
+            closeReader(reader);
+        }
+    }
+
+
+    //******************* buffer reader *******************
+    public static BufferedReader getReader(String filePath, String charset) throws IOException {
+        return new BufferedReader(new InputStreamReader(new FileInputStream(filePath), charset));
+    }
+
     public static void closeReader(BufferedReader reader) {
-        if (null == reader) {
+        if (Objects.isNull(reader)) {
             return;
         }
         try {
@@ -104,19 +123,14 @@ public class FileUtil {
         }
     }
 
-
-    public static List<String> getLineContents(String filePath, String charset) throws IOException {
-        BufferedReader reader = null;
+    public static void closeWriter(Writer writer) {
+        if (Objects.isNull(writer)) {
+            return;
+        }
         try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), charset));
-            List<String> contents = new ArrayList<>();
-            String strLine;
-            while (null != (strLine = reader.readLine())) {
-                contents.add(strLine);
-            }
-            return contents;
-        } finally {
-            closeReader(reader);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
