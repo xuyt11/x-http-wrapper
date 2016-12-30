@@ -1,9 +1,9 @@
-package cn.ytxu.http_wrapper.template.engine.parser;
+package cn.ytxu.http_wrapper.template.file.parser;
 
 import cn.ytxu.http_wrapper.common.util.FileUtil;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.config.property.template_file_info.TemplateFileInfoWrapper;
-import cn.ytxu.http_wrapper.template.engine.converter.Content2ExpressionRecordConverter;
+import cn.ytxu.http_wrapper.template.file.converter.Content2ExpressionRecordConverter;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template.file.type.XHWTFileType;
 import cn.ytxu.http_wrapper.template.file.model.XHWTModel;

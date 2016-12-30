@@ -3,7 +3,7 @@ package cn.ytxu.http_wrapper;
 import cn.ytxu.http_wrapper.common.enums.ApiDataSourceType;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.model.version.VersionModel;
-import cn.ytxu.http_wrapper.template.engine.XHWTFileEngine;
+import cn.ytxu.http_wrapper.template.XHWTemplateEngine;
 import cn.ytxu.http_wrapper.common.util.LogUtil;
 
 import java.io.File;
@@ -58,6 +58,6 @@ public class XHttpWrapperEngine {
         String apiDataSource = ConfigWrapper.getApiDataFile().getApiDataSource();
         List<VersionModel> versions = ApiDataSourceType.get(apiDataSource).createXHWTModelByParseApiData();
 
-        new XHWTFileEngine(versions).start();
+        new XHWTemplateEngine(versions).start();
     }
 }

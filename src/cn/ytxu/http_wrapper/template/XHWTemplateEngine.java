@@ -1,4 +1,4 @@
-package cn.ytxu.http_wrapper.template.engine;
+package cn.ytxu.http_wrapper.template;
 
 import cn.ytxu.http_wrapper.common.util.FileUtil;
 import cn.ytxu.http_wrapper.common.util.LogUtil;
@@ -9,7 +9,7 @@ import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.record.text.TextExpressionRecord;
 import cn.ytxu.http_wrapper.template.file.type.XHWTFileType;
 import cn.ytxu.http_wrapper.template.file.model.XHWTModel;
-import cn.ytxu.http_wrapper.template.engine.parser.XHWTFileParser;
+import cn.ytxu.http_wrapper.template.file.parser.XHWTFileParser;
 import cn.ytxu.http_wrapper.template.expression.record.retain.RetainModel;
 import cn.ytxu.http_wrapper.template.expression.record.retain.RetainParser;
 
@@ -20,11 +20,11 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/7.
  */
-public class XHWTFileEngine {
+public class XHWTemplateEngine {
 
     private final List<VersionModel> versions;
 
-    public XHWTFileEngine(List<VersionModel> versions) {
+    public XHWTemplateEngine(List<VersionModel> versions) {
         this.versions = versions;
     }
 
