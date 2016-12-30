@@ -1,5 +1,7 @@
 package cn.ytxu.http_wrapper.config.property.status_code;
 
+import cn.ytxu.http_wrapper.common.enums.StatusCodeParseModel;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class StatusCodeBean {
     /**
      * 解析状态码field所使用的解析模式的名称；例如：x_custom_model与default_value_model
      */
-    private String parse_model;
+    private String parse_model = StatusCodeParseModel.default_value_model.name();
     private boolean use_version_filter = false;// 是否使用版本过滤
     private List<String> filted_versions = Collections.EMPTY_LIST;// 过滤之后的版本号
     /**

@@ -3,6 +3,7 @@ package cn.ytxu.http_wrapper.config.property.response;
 import cn.ytxu.http_wrapper.common.util.LogUtil;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 基础response必须的字段的字段名称
@@ -25,6 +26,19 @@ public class ResponseWrapper {
 
     private ResponseWrapper(ResponseBean response) {
         this.response = response;
+
+        if (Objects.isNull(response.getStatusCode())) {
+            throw new IllegalArgumentException("u must setup response statusCode property...");
+        }
+        if (Objects.isNull(response.getMessage())) {
+            throw new IllegalArgumentException("u must setup response message property...");
+        }
+        if (Objects.isNull(response.getError())) {
+            throw new IllegalArgumentException("u must setup response error property...");
+        }
+        if (Objects.isNull(response.getData())) {
+            throw new IllegalArgumentException("u must setup response data property...");
+        }
     }
 
     public String getStatusCode() {

@@ -49,8 +49,7 @@ public class ListReplaceExpressionRecord extends ExpressionRecord {
     //********************** loop parse record **********************
     @Override
     public void parseRecordAndSubRecords() {
-        parser = new ListReplaceParser(startLineContent);
-        parser.parse();
+        parser = new ListReplaceParser(startLineContent).parse();
     }
 
 

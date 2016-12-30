@@ -38,13 +38,15 @@ public class ListReplaceParser {
         this.startTagContent = startTagContent;
     }
 
-    public void parse() {
+    public ListReplaceParser parse() {
         methodName = PatternHelper.getPatternValue(Attr.each.patternModel, startTagContent);
         replaceKey = PatternHelper.getPatternValue(Attr.replace_key.patternModel, startTagContent);
 
         String listValue = PatternHelper.getPatternValue(Attr.list_value.patternModel, startTagContent);
         listValueRecord = new TextExpressionRecord(listValue);
         listValueRecord.parseRecordAndSubRecords();
+
+        return this;
     }
 
     public String getMethodName() {

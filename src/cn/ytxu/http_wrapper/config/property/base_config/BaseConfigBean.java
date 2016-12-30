@@ -1,5 +1,8 @@
 package cn.ytxu.http_wrapper.config.property.base_config;
 
+import cn.ytxu.http_wrapper.common.enums.CompileModel;
+
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,7 +20,7 @@ public class BaseConfigBean {
      * 编译模式:
      * enum:multi_version,non_version;
      */
-    private String compile_model;
+    private String compile_model = CompileModel.non_version.name();
 
     /**
      * 目标版本的顺序枚举:顺序为升序
@@ -25,7 +28,7 @@ public class BaseConfigBean {
      * 若没有出现在其中，就会过自动过滤掉，不会出现在生成文件中；
      * 若一个目标request需要生成，则至少需要支持该request的最高版本；
      */
-    private List<String> order_versions;
+    private List<String> order_versions = Collections.EMPTY_LIST;
 
 
     public String getCreateFileCharset() {
