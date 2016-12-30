@@ -74,7 +74,7 @@ public class XCustomModelStatusCodeParser {
 
     private boolean isIntegerStr(String content) {
         try {
-            Long.parseLong(content);
+            Integer.parseInt(content);
             return true;
         } catch (NumberFormatException ignore) {// 不能转换成数字,有问题
             return false;

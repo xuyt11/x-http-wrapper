@@ -44,7 +44,7 @@ public enum ExpressionEnum {
             return new ListSingleLineExpressionRecord(startLineContent);
         }
     },
-    if_else("if else 条件判断", IfElseCondition.PATTERNS) {
+    if_else("if else 条件判断", IfElseCondition.getPatterns()) {
         @Override
         public ExpressionRecord createRecord(String startLineContent) {
             return new IfElseExpressionRecord(startLineContent);

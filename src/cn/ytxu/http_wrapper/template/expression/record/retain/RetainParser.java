@@ -32,7 +32,7 @@ public class RetainParser {
      */
     public RetainModel start() {
         if (!targetFile.exists()) {
-            return RetainModel.EmptyRetain;
+            return RetainModel.getEmpty();
         }
 
         try {
@@ -40,7 +40,7 @@ public class RetainParser {
             return parserAndGetRetain(contents);
         } catch (IOException e) {
             e.printStackTrace();
-            return RetainModel.EmptyRetain;
+            return RetainModel.getEmpty();
         }
     }
 

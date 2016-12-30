@@ -49,12 +49,17 @@ public class FileUtil {
 
     public static Writer getWriter(String dirPath, String fileName, String charsetName) throws UnsupportedEncodingException, FileNotFoundException {
         File dir = new File(dirPath);
-        if (!dir.exists()) {
-            dir.mkdirs();
+        if (!dir.exists() && !dir.mkdirs()) {
+            throw new MakeDirsFailuredException(dirPath);
         }
 
-        Writer writer = new OutputStreamWriter(new FileOutputStream(new File(dir, fileName)), charsetName);
-        return writer;
+        return new OutputStreamWriter(new FileOutputStream(new File(dir, fileName)), charsetName);
+    }
+
+    public static final class MakeDirsFailuredException extends RuntimeException {
+        public MakeDirsFailuredException(String dirPath) {
+            super("dirPath is " + dirPath);
+        }
     }
 
     //将file转化成string

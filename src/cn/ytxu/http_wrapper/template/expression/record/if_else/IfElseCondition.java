@@ -11,15 +11,19 @@ import java.util.regex.Pattern;
  * if else 表达式的判断类型枚举
  */
 public enum IfElseCondition {
-    // boolean
-    Boolean("布尔类型判断", "isTrue=\"", "\"", Pattern.compile("(isTrue=\")\\w+(\")")) {
+    /**
+     * boolean类型判断
+     */
+    Boolean("isTrue=\"", "\"", Pattern.compile("(isTrue=\")\\w+(\")")) {
         @Override
         public boolean getBoolean(BaseModel reflectModel, String methodName) {
             return ReflectiveUtil.getBoolean(reflectModel, methodName);
         }
     },
-    // String
-    NotEmpty("String类型判断", "isNotEmpty=\"", "\"", Pattern.compile("(isNotEmpty=\")\\w+(\")")) {
+    /**
+     * String类型判断
+     */
+    NotEmpty("isNotEmpty=\"", "\"", Pattern.compile("(isNotEmpty=\")\\w+(\")")) {
         @Override
         public boolean getBoolean(BaseModel reflectModel, String methodName) {
             String text = ReflectiveUtil.getString(reflectModel, methodName);
@@ -31,31 +35,20 @@ public enum IfElseCondition {
     };
 //        String("字符串类型判断");
 
-    /**
-     * if else condition all pattern
-     */
-    public static final Pattern[] PATTERNS;
 
-    static {
-        IfElseCondition[] conditions = IfElseCondition.values();
-        PATTERNS = new Pattern[conditions.length];
-        for (int i = 0; i < conditions.length; i++) {
-            PATTERNS[i] = conditions[i].pattern;
-        }
-    }
-
-    private final String tag;
     private final String pattern_front;
     private final String pattern_end;
     private final Pattern pattern;
 
-    IfElseCondition(String tag, String pattern_front, String pattern_end, Pattern pattern) {
-        this.tag = tag;
+    IfElseCondition(String pattern_front, String pattern_end, Pattern pattern) {
         this.pattern_front = pattern_front;
         this.pattern_end = pattern_end;
         this.pattern = pattern;
     }
 
+    public Pattern getPattern() {
+        return pattern;
+    }
 
     public String getMethodName(String startTagContent) {
         Matcher matcher = pattern.matcher(startTagContent);
@@ -86,5 +79,25 @@ public enum IfElseCondition {
     }
 
     public abstract boolean getBoolean(BaseModel reflectModel, String methodName);
+
+    public static Pattern[] getPatterns() {
+        return Store.PATTERNS;
+    }
+
+}
+
+class Store {
+    /**
+     * if else condition all pattern
+     */
+    static final Pattern[] PATTERNS;
+
+    static {
+        IfElseCondition[] conditions = IfElseCondition.values();
+        PATTERNS = new Pattern[conditions.length];
+        for (int i = 0; i < conditions.length; i++) {
+            PATTERNS[i] = conditions[i].getPattern();
+        }
+    }
 
 }

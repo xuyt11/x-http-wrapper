@@ -4,9 +4,7 @@ import cn.ytxu.http_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -16,7 +14,8 @@ public class ApidocDataTest {
 
     public static void main(String... args) throws IOException {
         String jsonArrayText = readerJson("E:\\NewChama\\apidoc_xuyt\\api_data.json");
-        List<ApiDataBean> list = new Gson().fromJson(jsonArrayText, new TypeToken<List<ApiDataBean>>(){}.getType());
+        List<ApiDataBean> list = new Gson().fromJson(jsonArrayText, new TypeToken<List<ApiDataBean>>() {
+        }.getType());
         System.out.println(list.size());
     }
 
@@ -24,7 +23,7 @@ public class ApidocDataTest {
     private static String readerJson(String filePath) throws IOException {
         //对一串字符进行操作
         StringBuffer fileData = new StringBuffer();
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
         char[] buf = new char[1024];
         int numRead = 0;
         while ((numRead = reader.read(buf)) != -1) {

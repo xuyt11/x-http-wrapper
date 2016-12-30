@@ -17,12 +17,16 @@ public class RetainModel {
     //** ytxu.retain-start *//** ytxu.other */
     //** ytxu.retain-end */
 
+    private static final RetainModel EMPTY_RETAIN = new RetainModel();
+
+    public static RetainModel getEmpty() {
+        return EMPTY_RETAIN;
+    }
+
     private StringBuffer importRetainContent = new StringBuffer();// 需要保留的import语句
     private StringBuffer fieldRetainContent = new StringBuffer();// 需要保留的所有字段
     private StringBuffer methodRetainContent = new StringBuffer();// 需要保留的所有方法
     private StringBuffer otherRetainContent = new StringBuffer();// 需要保留的其他东东
-
-    public static RetainModel EmptyRetain = new RetainModel();
 
     RetainModel() {
         super();

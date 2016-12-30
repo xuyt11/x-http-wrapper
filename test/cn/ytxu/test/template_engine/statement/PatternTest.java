@@ -1,5 +1,6 @@
 package cn.ytxu.test.template_engine.statement;
 
+import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.template.expression.util.PatternHelper;
 
 import java.util.regex.Pattern;
@@ -27,14 +28,18 @@ public class PatternTest {
         String methodName = PatternHelper.getPatternValue(EACH_MODEL, startTagContent);
         String value = PatternHelper.getPatternValue(VALUE_MODEL, startTagContent);
 
+        LogUtil.i("methodName:" + methodName + ", value:" + value);
+
         boolean hasStart = PatternHelper.matchThisPattern(START_MODEL, startTagContent);
         if (hasStart) {
             String start = PatternHelper.getPatternValue(START_MODEL, startTagContent);
+            LogUtil.i("start:" + start);
         }
 
         boolean hasEnd = PatternHelper.matchThisPattern(END_MODEL, startTagContent);
         if (hasEnd) {
             String end = PatternHelper.getPatternValue(END_MODEL, startTagContent);
+            LogUtil.i("end:" + end);
         }
 
     }

@@ -32,6 +32,8 @@ public class GetOutputsOfObjectAndArrayTypeUtil {
                 case MAP:// TODO need check map
                     oaOutputs.add(output);
                     break;
+                default:
+                    break;
             }
         }
         return oaOutputs;

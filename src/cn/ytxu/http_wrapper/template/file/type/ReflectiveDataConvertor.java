@@ -68,26 +68,12 @@ public class ReflectiveDataConvertor {
             subsOfErrors.addAll(version.getSubsOfErrors());
         }
 
-        String errorFieldsName = getErrorFieldsName(subsOfErrors);
         subsOfErrors = new ArrayList<>(new HashSet(subsOfErrors));// deduplicated
-        String errorFieldsName4Deduplicated = getErrorFieldsName(subsOfErrors);
         Collections.sort(subsOfErrors);
-        String errorFieldsName4Sorted = getErrorFieldsName(subsOfErrors);
 
         VersionModel subsOfErrorsSVersion = new VersionModel("subs of errors`s version");
         subsOfErrorsSVersion.setSubsOfErrors(subsOfErrors);
         return Arrays.asList(subsOfErrorsSVersion);
-    }
-
-    /**
-     * for debug
-     */
-    private static String getErrorFieldsName(List<OutputParamModel> subsOfErrors) {
-        String errorFieldsName = "";
-        for (OutputParamModel subsOfError : subsOfErrors) {
-            errorFieldsName += subsOfError.getName() + ", ";
-        }
-        return errorFieldsName;
     }
 
     public static List<? extends BaseModel> getStatusCodeReflectiveDatas(List<VersionModel> versions) {

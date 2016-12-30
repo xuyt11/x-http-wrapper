@@ -20,7 +20,7 @@ public class DefaultValueModelStatusCodeParser {
     public StatusCodeModel start() {
         String statusCodeGroupName = field.getGroup();
         String statusCodeName = field.getField();
-        int statusCodeNumber = Integer.valueOf(field.getDefaultValue());
+        int statusCodeNumber = Integer.valueOf(field.getDefaultValue().trim());
         String statusCodeDesc = field.getDescription();
 
         return ApidocjsHelper.getField().createStatusCode(statusCodeGroup, statusCodeGroupName, statusCodeName, statusCodeNumber, statusCodeDesc);

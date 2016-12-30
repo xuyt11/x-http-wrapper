@@ -26,11 +26,13 @@ public enum ListAttachAttr {
 
 
     public static String getAttachPatternText() {
-        String attachPatternText = TEXT_START;
+        StringBuffer attachPatternTextBuffer = new StringBuffer();
+        attachPatternTextBuffer.append(TEXT_START);
         for (ListAttachAttr attr : ListAttachAttr.values()) {
-            attachPatternText += attr.regex;
+            attachPatternTextBuffer.append(attr.regex);
         }
-        return attachPatternText + TEXT_END;
+        attachPatternTextBuffer.append(TEXT_END);
+        return attachPatternTextBuffer.toString();
     }
 
 

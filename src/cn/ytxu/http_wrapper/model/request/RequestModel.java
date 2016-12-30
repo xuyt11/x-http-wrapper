@@ -133,6 +133,11 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
         return this.name.compareToIgnoreCase(o.name);
     }
 
+    @Override
+    public String toString() {
+        return "RequestModel{" + "methodType='" + methodType + '\'' + ", title='" + title + '\'' + ", version='" + version +
+                '\'' + ", name='" + name + '\'' + ", group='" + group + '\'' + ", url=" + url.getUrl() + '}';
+    }
 
     //*************** reflect method area ***************
     public String request_desc() {
@@ -256,11 +261,11 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
         return false;
     }
 
-    public String first_url_field_name() {
+    public String first_url_field_name() throws IllegalAccessException {
         if (url.isHasDynamicParam()) {
             return url.getDynamicParams().get(0).url_dynamic_param_field_name();
         }
-        return "";
+        throw new IllegalAccessException("the requst has not dynamic param! " + toString());
     }
 
 }

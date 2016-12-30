@@ -26,9 +26,10 @@ public class CharsetTest {
     public static String getCharset(File file) {
         String charset = "GBK";
         byte[] first3Bytes = new byte[3];
+        BufferedInputStream bis = null;
         try {
             boolean checked = false;
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+            bis = new BufferedInputStream(new FileInputStream(file));
             bis.mark(0);
             int read = bis.read(first3Bytes, 0, 3);
             if (read == -1)
@@ -76,9 +77,15 @@ public class CharsetTest {
                 }
                 System.out.println(loc + " " + Integer.toHexString(read));
             }
-            bis.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (bis != null)
+                    bis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return charset;
     }

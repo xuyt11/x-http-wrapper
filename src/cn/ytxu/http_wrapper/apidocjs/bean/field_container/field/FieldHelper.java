@@ -11,8 +11,8 @@ public class FieldHelper {
     private static FieldHelper instance;
 
     public static void reload() {
-        if (instance != null) {
-        }
+//        if (instance != null) {
+//        }
         instance = new FieldHelper();
     }
 
