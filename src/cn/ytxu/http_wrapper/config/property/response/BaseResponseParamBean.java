@@ -1,10 +1,15 @@
 package cn.ytxu.http_wrapper.config.property.response;
 
 import cn.ytxu.http_wrapper.common.util.FileUtil;
+import cn.ytxu.http_wrapper.model.BaseModel;
 
-public class BaseResponseParamBean {
+public class BaseResponseParamBean extends BaseModel{
     private String name;
     private String type;
+
+    public BaseResponseParamBean() {
+        super(null);
+    }
 
     public String getName() {
         return name;
