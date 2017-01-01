@@ -2,6 +2,7 @@ package cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output;
 
 import cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output.sub.SubOutputParser;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -26,13 +27,13 @@ public class ObjectTypeOutputParser {
     }
 
     private void parseValue() {
-        parseJSONObject((JsonObject) output.getValue());
+        parseJSONObject(output.getValue().getAsJsonObject());
     }
 
     private void parseValues() {
-        List<Object> values = output.getValues();
-        for (Object value : values) {
-            parseJSONObject((JsonObject) value);
+        List<JsonElement> values = output.getValues();
+        for (JsonElement value : values) {
+            parseJSONObject(value.getAsJsonObject());
         }
     }
 

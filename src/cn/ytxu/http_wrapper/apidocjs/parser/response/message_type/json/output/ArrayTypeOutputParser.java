@@ -51,8 +51,8 @@ public class ArrayTypeOutputParser {
     }
 
     private boolean setSubTypeByValuesIfCan() {
-        List<Object> values = output.getValues();
-        for (Object value : values) {
+        List<JsonElement> values = output.getValues();
+        for (JsonElement value : values) {
             JsonArray jArr = (JsonArray) value;
             if (setSubTypeIfCan(jArr)) {
                 return true;
@@ -84,13 +84,13 @@ public class ArrayTypeOutputParser {
     }
 
     private void parseValue() {
-        parseJSONArray((JsonArray) output.getValue());
+        parseJSONArray(output.getValue().getAsJsonArray());
     }
 
     private void parseValues() {
-        List<Object> values = output.getValues();
-        for (Object value : values) {
-            parseJSONArray((JsonArray) value);
+        List<JsonElement> values = output.getValues();
+        for (JsonElement value : values) {
+            parseJSONArray(value.getAsJsonArray());
         }
     }
 

@@ -7,7 +7,9 @@ import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 import cn.ytxu.http_wrapper.model.response.ResponseModel;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import java.util.List;
 import java.util.Objects;
@@ -119,11 +121,6 @@ public enum ParamTypeEnum {
     },
     UNKNOWN(null) {
         @Override
-        boolean isThisType(Object obj) {
-            return true;
-        }
-
-        @Override
         public void replaceOutputIfIsNULLOrAddModelSValue2TargetSValuesIfIsObjectOrArrayOtherwiseDoNothing
                 (List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {
             int index = outputs.indexOf(target);
@@ -139,26 +136,58 @@ public enum ParamTypeEnum {
     }
 
 
-    public static ParamTypeEnum get(Object obj) {
-        if (Objects.isNull(obj)) {
+    public static ParamTypeEnum get(JsonElement fieldValue) {
+        if (Objects.isNull(fieldValue) || fieldValue.isJsonNull()) {
             return UNKNOWN;
         }
-
-        for (ParamTypeEnum type : ParamTypeEnum.values()) {
-            if (type.isThisType(obj)) {
-                return type;
+        if (fieldValue.isJsonArray()) {
+            return ARRAY;
+        }
+        if (fieldValue.isJsonObject()) {
+            return OBJECT;
+        }
+        if (fieldValue.isJsonPrimitive()) {
+            JsonPrimitive value = (JsonPrimitive) fieldValue;
+            if (value.isBoolean()) {
+                return BOOLEAN;
+            }
+            if (value.isString()) {
+                return STRING;
+            }
+            if (value.isNumber()) {
+                return getNumberType(value);
             }
         }
 
         return UNKNOWN;
     }
 
-    boolean isThisType(Object obj) {
-        Class objType = obj.getClass();
-        return objType == clazz;
+    private static ParamTypeEnum getNumberType(JsonPrimitive value) {
+        String valueText = value.getAsString();
+        try {
+            Integer.parseInt(valueText);
+            return INTEGER;
+        } catch (NumberFormatException ignore) {
+        }
+        try {
+            Long.parseLong(valueText);
+            return LONG;
+        } catch (NumberFormatException ignore) {
+        }
+        try {
+            Float.parseFloat(valueText);
+            return FLOAT;
+        } catch (NumberFormatException ignore) {
+        }
+        try {
+            Double.parseDouble(valueText);
+            return DOUBLE;
+        } catch (NumberFormatException ignore) {
+        }
+        return NUMBER;
     }
 
-    public OutputParamModel createOutput(ResponseModel response, OutputParamModel parent, String fieldName, Object fieldValue) {
+    public OutputParamModel createOutput(ResponseModel response, OutputParamModel parent, String fieldName, JsonElement fieldValue) {
         return new OutputParamModel(response, parent, this, fieldName, fieldValue);
     }
 
@@ -179,7 +208,7 @@ public enum ParamTypeEnum {
     }
 
     protected void addValueIfNeed(OutputParamModel target, OutputParamModel model) {
-        Object value = model.getValue();
+        JsonElement value = model.getValue();
         ParamTypeEnum type = ParamTypeEnum.get(value);
         if (type == UNKNOWN) {// model`s type is NULL, so do nothing...
             return;

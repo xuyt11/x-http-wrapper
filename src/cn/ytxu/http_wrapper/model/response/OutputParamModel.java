@@ -5,6 +5,7 @@ import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeEnum;
 import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.model.response.field.ResponseFieldModel;
+import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,8 +21,8 @@ public class OutputParamModel extends BaseModel<ResponseModel> implements Compar
     private final ParamTypeEnum type;
     private final String fieldName;
 
-    private final Object fieldValue;
-    private List<Object> values = Collections.EMPTY_LIST;// 只有object与array，才会有的
+    private final JsonElement fieldValue;
+    private List<JsonElement> values = Collections.EMPTY_LIST;// 只有object与array，才会有的
 
     private ParamTypeEnum subType;// 只有array才有，如：List<Integer>,List<Long>,List<String>...
     private List<OutputParamModel> subs = Collections.EMPTY_LIST;// 只有object与array，才会有的
@@ -30,7 +31,7 @@ public class OutputParamModel extends BaseModel<ResponseModel> implements Compar
     private boolean nonGenerationResponseEntityFileTag = false;// 是否需要生成响应实体文件的标记，默认为需要
 
     public OutputParamModel(ResponseModel higherLevel, OutputParamModel parent, ParamTypeEnum type,
-                            String fieldName, Object fieldValue) {
+                            String fieldName, JsonElement fieldValue) {
         super(higherLevel);
         this.parent = parent;
         this.type = type;
@@ -62,15 +63,15 @@ public class OutputParamModel extends BaseModel<ResponseModel> implements Compar
         return fieldName;
     }
 
-    public Object getValue() {
+    public JsonElement getValue() {
         return fieldValue;
     }
 
-    public List<Object> getValues() {
+    public List<JsonElement> getValues() {
         return values;
     }
 
-    public void addValue(Object value) {
+    public void addValue(JsonElement value) {
         if (values == Collections.EMPTY_LIST) {
             values = new ArrayList<>();
         }
