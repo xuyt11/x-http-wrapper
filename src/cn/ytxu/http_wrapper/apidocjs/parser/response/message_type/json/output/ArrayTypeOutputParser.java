@@ -4,6 +4,7 @@ import cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output.su
 import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeEnum;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -97,7 +98,11 @@ public class ArrayTypeOutputParser {
         for (int i = 0, size = value.size(); i < size; i++) {
             JsonObject subOfValue;
             try {
-                subOfValue = value.get(i).getAsJsonObject();
+                JsonElement ele = value.get(i);
+                if (ele.isJsonNull()) {// error json text, such as [{},{},]
+                    continue;
+                }
+                subOfValue = ele.getAsJsonObject();
             } catch (ClassCastException e) {
                 e.printStackTrace();
                 throw new ClassCastException(e.getMessage() + "\n" + value.toString());
