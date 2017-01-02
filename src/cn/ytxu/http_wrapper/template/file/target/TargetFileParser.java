@@ -43,7 +43,7 @@ public class TargetFileParser {
             return this;
         }
 
-        retain = new RetainParser(targetFileContents).start();
+        retain = new TargetFileRetainParser(targetFileContents).start();
         parseTargetFileMD5(targetFileContents);
         return this;
     }

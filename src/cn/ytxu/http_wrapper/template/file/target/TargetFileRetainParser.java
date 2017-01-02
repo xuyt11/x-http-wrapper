@@ -12,11 +12,11 @@ import java.util.List;
  * 2016-04-18<br>
  * version v6
  */
-public class RetainParser {
+public class TargetFileRetainParser {
 
     private final List<String> targetFileContents;
 
-    public RetainParser(List<String> targetFileContents) {
+    public TargetFileRetainParser(List<String> targetFileContents) {
         this.targetFileContents = targetFileContents;
     }
 
