@@ -28,7 +28,7 @@ public class RetainModel {
     private StringBuffer methodRetainContent = new StringBuffer();// 需要保留的所有方法
     private StringBuffer otherRetainContent = new StringBuffer();// 需要保留的其他东东
 
-    RetainModel() {
+    public RetainModel() {
         super();
     }
 

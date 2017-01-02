@@ -7,11 +7,10 @@ import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.model.version.VersionModel;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.record.text.TextExpressionRecord;
+import cn.ytxu.http_wrapper.template.file.target.TargetFileParser;
 import cn.ytxu.http_wrapper.template.file.type.XHWTFileType;
 import cn.ytxu.http_wrapper.template.file.model.XHWTModel;
 import cn.ytxu.http_wrapper.template.file.parser.XHWTFileParser;
-import cn.ytxu.http_wrapper.template.expression.record.retain.RetainModel;
-import cn.ytxu.http_wrapper.template.expression.record.retain.RetainParser;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -57,21 +56,15 @@ public class XHWTemplateEngine {
     }
 
     private void generateTargetFile(XHWTModel tModel, BaseModel reflectData) {
-        String dirPath = getString(tModel.getFileDir(), reflectData);
-        String fileName = getString(tModel.getFileName(), reflectData);
+        final String dirPath = getString(tModel.getFileDir(), reflectData);
+        final String fileName = getString(tModel.getFileName(), reflectData);
+        final String fileCharset = ConfigWrapper.getBaseConfig().getCreateFileCharset();
 
-        String fileCharset = ConfigWrapper.getBaseConfig().getCreateFileCharset();
-        RetainModel retain = new RetainParser(dirPath, fileName, fileCharset).start();
+        TargetFileParser parser = new TargetFileParser(dirPath, fileName, fileCharset).start();
+        final String newContent = ExpressionRecord.getWriteBuffer(tModel.getRecords(), reflectData, parser.getRetain()).toString();
 
-        Writer writer = null;
-        try {
-            writer = FileUtil.getWriter(dirPath, fileName, fileCharset);
-            StringBuffer contentBuffer = ExpressionRecord.getWriteBuffer(tModel.getRecords(), reflectData, retain);
-            writer.write(contentBuffer.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            FileUtil.closeWriter(writer);
+        if (parser.needWriteNewContent(newContent)) {
+            writeNewContent2TargetFile(dirPath, fileName, fileCharset, newContent);
         }
     }
 
@@ -79,6 +72,18 @@ public class XHWTemplateEngine {
         TextExpressionRecord record = new TextExpressionRecord(content);
         record.parseRecordAndSubRecords();
         return record.getWriteBuffer(reflectModel, null).toString().trim();
+    }
+
+    private void writeNewContent2TargetFile(String dirPath, String fileName, String fileCharset, String newContent) {
+        Writer writer = null;
+        try {
+            writer = FileUtil.getWriter(dirPath, fileName, fileCharset);
+            writer.write(newContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            FileUtil.closeWriter(writer);
+        }
     }
 
 }

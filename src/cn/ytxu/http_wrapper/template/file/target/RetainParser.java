@@ -1,10 +1,8 @@
-package cn.ytxu.http_wrapper.template.expression.record.retain;
+package cn.ytxu.http_wrapper.template.file.target;
 
-import cn.ytxu.http_wrapper.common.util.FileUtil;
 import cn.ytxu.http_wrapper.common.enums.RetainType;
+import cn.ytxu.http_wrapper.template.expression.record.retain.RetainModel;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,12 +14,10 @@ import java.util.List;
  */
 public class RetainParser {
 
-    private final File targetFile;
-    private final String fileCharset;
+    private final List<String> targetFileContents;
 
-    public RetainParser(String dirPath, String fileName, String fileCharset) {
-        this.targetFile = new File(dirPath, fileName);
-        this.fileCharset = fileCharset;
+    public RetainParser(List<String> targetFileContents) {
+        this.targetFileContents = targetFileContents;
     }
 
     /**
@@ -31,22 +27,8 @@ public class RetainParser {
      * 4、在解析文档对象，并输出文件数据时，将几个分类的数据，插入其中；
      */
     public RetainModel start() {
-        if (!targetFile.exists()) {
-            return RetainModel.getEmpty();
-        }
-
-        try {
-            List<String> contents = FileUtil.getLineContents(targetFile.getAbsolutePath(), fileCharset);
-            return parserAndGetRetain(contents);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return RetainModel.getEmpty();
-        }
-    }
-
-    private static RetainModel parserAndGetRetain(List<String> contents) throws IOException {
         RetainModel retain = new RetainModel();
-        Iterator<String> contentIter = contents.iterator();
+        Iterator<String> contentIter = targetFileContents.iterator();
 
         while (contentIter.hasNext()) {
             String strLine = contentIter.next();
@@ -62,7 +44,7 @@ public class RetainParser {
         return retain;
     }
 
-    private static StringBuffer getretainContent(Iterator<String> contentIter) {
+    private StringBuffer getretainContent(Iterator<String> contentIter) {
         StringBuffer retainDataBuffer = new StringBuffer();
         while (contentIter.hasNext()) {
             String retainData = contentIter.next();

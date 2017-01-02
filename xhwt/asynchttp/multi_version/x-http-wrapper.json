@@ -15,7 +15,7 @@
   },
   "template_file_infos": {
     "HttpApi": {
-      "need_generate": false,
+      "need_generate": true,
       "path": "ncm_a_m-httpapi.xhwt"
     },
     "Request": {
