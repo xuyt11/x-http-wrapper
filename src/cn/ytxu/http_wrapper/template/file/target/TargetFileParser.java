@@ -78,7 +78,7 @@ public class TargetFileParser {
 
     private void log(String newMD5, boolean needWriteNewContent) {
         LogUtil.i(TargetFileParser.class, "{isExists=" + isExists +
-                "\t needWriteNewContent=" + needWriteNewContent + "\t targetFile=" + targetFile.getName() +
-                "\t targetFileMD5=" + targetFileMD5 + "\t newMD5=" + newMD5 + "}");
+                "\tneedWriteNewContent=" + needWriteNewContent + "\ttargetFile=" + targetFile.getName() +
+                "\ttargetFileMD5=" + targetFileMD5 + "\tnewMD5=" + newMD5 + "}");
     }
 }
