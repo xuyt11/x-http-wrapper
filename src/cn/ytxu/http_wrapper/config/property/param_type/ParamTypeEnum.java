@@ -80,7 +80,7 @@ public enum ParamTypeEnum {
             if (subElementType == OBJECT) {
                 subElementTypeStr = OBJECT.getResponseParamType(response_param_type, output);
             } else {
-                subElementTypeStr = ConfigWrapper.getParamType().getParamTypeBean(subElementType).getRequestParamType();
+                subElementTypeStr = ConfigWrapper.getParamType().getParamTypeBean(subElementType).getRequestOptionalParamType();
             }
             return subElementTypeStr;
         }
@@ -101,7 +101,7 @@ public enum ParamTypeEnum {
             if (subElementType == OBJECT) {
                 subElementTypeStr = OBJECT.getResponseParamType(response_param_type, output);
             } else {
-                subElementTypeStr = ConfigWrapper.getParamType().getParamTypeBean(subElementType).getRequestParamType();
+                subElementTypeStr = ConfigWrapper.getParamType().getParamTypeBean(subElementType).getRequestOptionalParamType();
             }
             return subElementTypeStr;
         }

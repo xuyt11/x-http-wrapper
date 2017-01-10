@@ -1,10 +1,12 @@
 {
   "api_data": {
     "api_data_source": "apidocjs",
+    "api_data_file_address_type": "network",
     "file_path_infos": [
       {
         "OSName": "Mac OS X",
-        "address": "/Users/newchama/Desktop/api_data.json"
+        "address": "http://172.16.2.81:8080/api_data.json"
+        //        "address": "/Users/newchama/Desktop/api_data.json"
       },
       {
         "OSName": "Windows",
@@ -27,7 +29,7 @@
       "path": "ncm_a_n-requestparam.xhwt"
     },
     "Response": {
-      "need_generate": false,
+      "need_generate": true,
       "path": "ncm_a_n-response.xhwt"
     },
     "StatusCode": {
