@@ -34,7 +34,7 @@ public class ApiDataWrapper {
         this.apiDataBean = apiDataFileBean;
         judgeApiDataSource();
         judgeApiDataFileAddressType();
-        getApiDataFilePath();
+        judgeApiDataFilePath();
     }
 
     private void judgeApiDataSource() {
@@ -53,29 +53,62 @@ public class ApiDataWrapper {
         ApiDataFileAddressType.get(apiDataFileAddressType);
     }
 
+    private void judgeApiDataFilePath() {
+        List<ApiDataFilePathInfoBean> pathInfos = apiDataBean.getFilePathInfos();
+        if (Objects.isNull(pathInfos) || pathInfos.isEmpty()) {
+            throw new RuntimeException("u don`t setup file_path_infos");
+        }
+
+        final String osName = OSPlatform.getCurrentOSPlatform().getOsName();
+        boolean notFindFileInfoInCurrentOS = true;
+        for (ApiDataFilePathInfoBean pathInfo : pathInfos) {
+            if (osName.equalsIgnoreCase(pathInfo.getOSName())) {
+                judgeOwnerFileAddressType(pathInfo);
+                notFindFileInfoInCurrentOS = false;
+                break;
+            }
+        }
+        if (notFindFileInfoInCurrentOS) {
+            throw new IllegalArgumentException("not found the match file_path_info, and the current os name is "
+                    + osName);
+        }
+    }
+
+    private void judgeOwnerFileAddressType(ApiDataFilePathInfoBean pathInfo) {
+        boolean hasOwnerFileAddressType = pathInfo.hasOwnerFileAddressType();
+        if (hasOwnerFileAddressType) {
+            ApiDataFileAddressType.get(pathInfo.getFileAddressType());
+        }
+    }
+
 
     public String getApiDataSource() {
         return apiDataBean.getSource();
     }
 
     public String getApi_data_file_address_type() {
+        ApiDataFilePathInfoBean filePathInfo = getFilePathInfoInCurrOS();
+        boolean hasOwnerFileAddressType = filePathInfo.hasOwnerFileAddressType();
+        if (hasOwnerFileAddressType) {
+            return filePathInfo.getFileAddressType();
+        }
         return apiDataBean.getFileAddressType();
     }
 
     public String getApiDataFilePath() {
-        List<ApiDataFilePathInfoBean> pathInfos = apiDataBean.getFilePathInfos();
-        if (pathInfos.isEmpty()) {
-            throw new RuntimeException("u don`t setup file_path_infos");
-        }
+        return getFilePathInfoInCurrOS().getAddress();
+    }
 
+    private ApiDataFilePathInfoBean getFilePathInfoInCurrOS() {
+        List<ApiDataFilePathInfoBean> pathInfos = apiDataBean.getFilePathInfos();
         final String osName = OSPlatform.getCurrentOSPlatform().getOsName();
         for (ApiDataFilePathInfoBean pathInfo : pathInfos) {
             if (osName.equalsIgnoreCase(pathInfo.getOSName())) {
-                return pathInfo.getAddress();
+                return pathInfo;
             }
         }
-        throw new IllegalArgumentException("not found the match file_path_info," +
-                " and the current os name is " + osName);
+        throw new IllegalArgumentException("not found the match file_path_info, and the current os name is "
+                + osName);
     }
 
     public String getFileCharset() {

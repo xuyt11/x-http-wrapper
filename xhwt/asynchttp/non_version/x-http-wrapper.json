@@ -5,12 +5,14 @@
     "file_path_infos": [
       {
         "OSName": "Mac OS X",
-        "address": "http://172.16.2.81:8080/api_data.json"
+        "address": "http://172.16.2.81:8080/api_data.json",
         //        "address": "/Users/newchama/Desktop/api_data.json"
+        "file_address_type": "network"
       },
       {
         "OSName": "Windows",
-        "address": "E:/NewChama/apidoc/api_data.json"
+        "address": "E:/NewChama/apidoc/api_data.json",
+        "file_address_type": "file"
       }
     ],
     "file_charset": "UTF-8"
