@@ -38,7 +38,7 @@ public class ApiDataWrapper {
     }
 
     private void judgeApiDataSource() {
-        String apiDataSource = apiDataBean.getApiDataSource();
+        String apiDataSource = apiDataBean.getSource();
         if (Objects.isNull(apiDataSource)) {
             throw new RuntimeException("u don`t setup api_data_source...");
         }
@@ -46,7 +46,7 @@ public class ApiDataWrapper {
     }
 
     private void judgeApiDataFileAddressType() {
-        String apiDataFileAddressType = apiDataBean.getApi_data_file_address_type();
+        String apiDataFileAddressType = apiDataBean.getFileAddressType();
         if (Objects.isNull(apiDataFileAddressType)) {
             throw new RuntimeException("u don`t setup api_data_file_address_type...");
         }
@@ -55,11 +55,11 @@ public class ApiDataWrapper {
 
 
     public String getApiDataSource() {
-        return apiDataBean.getApiDataSource();
+        return apiDataBean.getSource();
     }
 
     public String getApi_data_file_address_type() {
-        return apiDataBean.getApi_data_file_address_type();
+        return apiDataBean.getFileAddressType();
     }
 
     public String getApiDataFilePath() {

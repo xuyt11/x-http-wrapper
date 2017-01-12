@@ -24,8 +24,8 @@
 3. 修改target dir下配置文件(**x-http-wrapper.json**)中api_data.file_path_infos的配置信息，将api_data.json的绝对路径添加上去；
     ```json
       "api_data": {
-        "api_data_source": "apidocjs",
-        "api_data_file_address_type": "file",
+        "source": "apidocjs",
+        "file_address_type": "file",
         "file_path_infos": [
           {
             "OSName": "Mac OS X",
