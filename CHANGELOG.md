@@ -3,8 +3,8 @@
 version 0.6
 ===========
 * 重构xtemp解析器，foreach标签能够多层嵌套，去除掉list等标签
-* 添加了 api_data.api_data_file_address_type属性(API数据文件的地址类型)
-    * 都定义在ApiDataFileAddressType枚举中，现在有file与url两种；
+* 添加了 api_data.file_path_type属性(API数据文件的地址类型)
+    * 都定义在ApiDataFilePathType枚举中，现在有file与url两种；
     * 默认的文件地址是file类型的；
 * 添加了list_attach标签：用于将转换后的字符串与当前的BaseModel绑定，之后的TextExpression即可使用attach的值作为转换符；
 * 减少了目标文件内容与新生成内容一致时仍然输出数据，减少了系统卡顿（比较目标文件与新生成内容的MD5）；

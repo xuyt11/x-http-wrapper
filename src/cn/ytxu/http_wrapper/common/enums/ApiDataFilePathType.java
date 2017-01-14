@@ -11,7 +11,7 @@ import java.io.IOException;
  * Created by ytxu on 2016/12/27.
  * API数据源的文件地址类型
  */
-public enum ApiDataFileAddressType {
+public enum ApiDataFilePathType {
     network {
         @Override
         public String getApiDataContentText() throws IOException {
@@ -40,12 +40,12 @@ public enum ApiDataFileAddressType {
 
     public abstract String getApiDataContentText() throws IOException;
 
-    public static ApiDataFileAddressType get(String name) {
-        for (ApiDataFileAddressType apiDataFileAddressType : ApiDataFileAddressType.values()) {
-            if (apiDataFileAddressType.name().equals(name)) {
-                return apiDataFileAddressType;
+    public static ApiDataFilePathType get(String name) {
+        for (ApiDataFilePathType apiDataFilePathType : ApiDataFilePathType.values()) {
+            if (apiDataFilePathType.name().equals(name)) {
+                return apiDataFilePathType;
             }
         }
-        throw new IllegalArgumentException("don`t found this api data file address type:" + name);
+        throw new IllegalArgumentException("don`t found this api data file path type:" + name);
     }
 }

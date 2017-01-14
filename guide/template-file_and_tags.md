@@ -12,8 +12,8 @@ template file and tags
             * start tag: \<t:header>
             * end tag: \</t:header>
        * header内部的数据为json格式：
-            * fileName: 生成的文件名称；
-            * fileDirs: 生成的文件路径，且可以配置多操作系统；
+            * file_name: 生成的文件名称；
+            * file_dirs: 生成的文件路径，且可以配置多操作系统；
    3. template content:模板的内容，生成文件内容的数据，
        * 生成的文件内容由该文件类型获取到的API数据与标签两者来驱动
    4. 现阶段只有6个标签类型

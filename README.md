@@ -66,8 +66,8 @@ java -jar x-http-wrapper.jar x-http-wrapper.json
 # [wrapper模板标签](guide/template-file_and_tags.md)
 1. 生成的文件内容由该文件类型获取到的API数据与标签两者来驱动
 2. 头部标签<t:header>： 用于标示该模板文件，生成的目标文件路径和名称；
-    * fileDirs:目标文件路径
-    * headerfileName:目标文件名称
+    * file_dirs:目标文件路径
+    * file_name:目标文件名称
 3. 现阶段只有6个标签类型：使用反射来进行数据的加工
     * text, foreach, retain, list_single_line, if_else, list_replace
     * 标签内部的匹配都为反射的方法名称；

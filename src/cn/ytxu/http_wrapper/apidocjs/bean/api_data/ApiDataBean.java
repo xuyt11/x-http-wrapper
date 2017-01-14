@@ -187,7 +187,7 @@ public class ApiDataBean {
         this.description = description;
     }
 
-    public String getFilename() {
+    public String getFileName() {
         return filename;
     }
 

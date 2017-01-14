@@ -4,22 +4,14 @@ package cn.ytxu.http_wrapper.template.file.model;
  * 2016-12-11
  */
 public class XHWTFileDirModel {
-    private String osName;// 对应系统的名称,必须要与OSPlatform中的一致
+    private String os_name;// 对应系统的名称,必须要与OSPlatform中的一致
     private String path;// 文件夹的路径字符串
 
     public String getOsName() {
-        return osName;
-    }
-
-    public void setOsName(String osName) {
-        this.osName = osName;
+        return os_name;
     }
 
     public String getPath() {
         return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
     }
 }

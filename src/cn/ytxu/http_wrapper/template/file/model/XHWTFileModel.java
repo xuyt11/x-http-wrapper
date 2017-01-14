@@ -7,22 +7,14 @@ import java.util.List;
  * 2016-12-11
  */
 public class XHWTFileModel {
-    private String fileName;// 文件的名称
-    private List<XHWTFileDirModel> fileDirs;
+    private String file_name;// 文件的名称
+    private List<XHWTFileDirModel> file_dirs;
 
     public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+        return file_name;
     }
 
     public List<XHWTFileDirModel> getFileDirs() {
-        return fileDirs;
-    }
-
-    public void setFileDirs(List<XHWTFileDirModel> fileDirs) {
-        this.fileDirs = fileDirs;
+        return file_dirs;
     }
 }

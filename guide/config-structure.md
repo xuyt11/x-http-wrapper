@@ -14,8 +14,8 @@ config structure
         且需要添加该分类的数据解析器，将其解析转换为x-http-wrapper内部model结构。
    2. file_path_infos：数据源文件地址的多操作系统配置
         * 可以根据不同的系统，有不同的路径。
-        * OSName：系统名称；
-        * address：api数据源的绝对路径；
+        * os_name：系统名称；
+        * path：api数据源的绝对路径；
    3. file_charset:数据源文件内部的字符编码集，现在还没有用到
 
 ##template_file_infos：模板文件列表：根据模板文件，生成目标文件

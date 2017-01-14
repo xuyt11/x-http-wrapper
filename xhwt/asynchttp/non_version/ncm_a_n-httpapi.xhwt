@@ -1,13 +1,13 @@
 <t:header>
 {
-    "fileName":"HttpApi.java",
-    "fileDirs":[
+    "file_name":"HttpApi.java",
+    "file_dirs":[
         {
-            "osName":"Windows",
+            "os_name":"Windows",
             "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/"
         },
         {
-            "osName":"Mac OS X",
+            "os_name":"Mac OS X",
             "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.common/src/main/java/com/newchama/api/"
         }
     ]

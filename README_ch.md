@@ -25,15 +25,15 @@
     ```json
       "api_data": {
         "source": "apidocjs",
-        "file_address_type": "file",
+        "file_path_type": "file",
         "file_path_infos": [
           {
-            "OSName": "Mac OS X",
-            "address": "api_data.json的绝对路径"
+            "os_name": "Mac OS X",
+            "path": "api_data.json的绝对路径"
           },
           {
-            "OSName": "Windows",
-            "address": "api_data.json的绝对路径"
+            "os_name": "Windows",
+            "path": "api_data.json的绝对路径"
           }
         ],
         "file_charset": "UTF-8"
@@ -45,14 +45,14 @@
         * 例如：
         ```json
         {
-            "fileName":"HttpApi.swift",
-            "fileDirs":[
+            "file_name":"HttpApi.swift",
+            "file_dirs":[
                 {
-                    "osName":"Windows",
+                    "os_name":"Windows",
                     "path":"生成文件的目标路径(绝对路径)"
                 },
                 {
-                    "osName":"Mac OS X",
+                    "os_name":"Mac OS X",
                     "path":"生成文件的目标路径(绝对路径)"
                 }
             ]
@@ -124,8 +124,8 @@ java -jar x-http-wrapper.jar xxx/x-http-wrapper.json
 # [wrapper模板标签](guide/template-file_and_tags.md)
 1. 生成的文件内容由该文件类型获取到的API数据与标签两者来驱动
 2. 头部标签\<t:header\>\</t:header\>： 用于标示该模板文件，生成的目标文件路径和名称；
-    * fileDirs:目标文件路径
-    * headerfileName:目标文件名称
+    * file_dirs:目标文件路径
+    * file_name:目标文件名称
 3. 现阶段只有7个标签类型：使用反射来进行数据的加工
     * text, foreach, retain, list_single_line, if_else, list_replace, list_attach
     * 标签内部的匹配都为反射的方法名称；

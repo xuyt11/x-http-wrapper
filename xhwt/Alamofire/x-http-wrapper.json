@@ -1,15 +1,15 @@
 {
   "api_data": {
     "source": "apidocjs",
-    "file_address_type": "file",
+    "file_path_type": "file",
     "file_path_infos": [
       {
-        "OSName": "Mac OS X",
-        "address": "/Users/newchama/Desktop/api_data.json"
+        "os_name": "Mac OS X",
+        "path": "/Users/newchama/Desktop/api_data.json"
       },
       {
-        "OSName": "Windows",
-        "address": "E:/NewChama/apidoc/api_data.json"
+        "os_name": "Windows",
+        "path": "E:/NewChama/apidoc/api_data.json"
       }
     ],
     "file_charset": "UTF-8"

@@ -1,6 +1,6 @@
 package cn.ytxu.http_wrapper.config.property.api_data;
 
-import cn.ytxu.http_wrapper.common.enums.ApiDataFileAddressType;
+import cn.ytxu.http_wrapper.common.enums.ApiDataFilePathType;
 import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.common.util.OSPlatform;
 import cn.ytxu.http_wrapper.common.enums.ApiDataSourceType;
@@ -33,24 +33,24 @@ public class ApiDataWrapper {
     private ApiDataWrapper(ApiDataBean apiDataFileBean) {
         this.apiDataBean = apiDataFileBean;
         judgeApiDataSource();
-        judgeApiDataFileAddressType();
+        judgeApiDataFilePathType();
         judgeApiDataFilePath();
     }
 
     private void judgeApiDataSource() {
         String apiDataSource = apiDataBean.getSource();
         if (Objects.isNull(apiDataSource)) {
-            throw new RuntimeException("u don`t setup api_data_source...");
+            throw new RuntimeException("u don`t setup source...");
         }
         ApiDataSourceType.get(apiDataSource);
     }
 
-    private void judgeApiDataFileAddressType() {
-        String apiDataFileAddressType = apiDataBean.getFileAddressType();
-        if (Objects.isNull(apiDataFileAddressType)) {
-            throw new RuntimeException("u don`t setup api_data_file_address_type...");
+    private void judgeApiDataFilePathType() {
+        String apiDataFilePathType = apiDataBean.getFilePathType();
+        if (Objects.isNull(apiDataFilePathType)) {
+            throw new RuntimeException("u don`t setup file_path_type...");
         }
-        ApiDataFileAddressType.get(apiDataFileAddressType);
+        ApiDataFilePathType.get(apiDataFilePathType);
     }
 
     private void judgeApiDataFilePath() {
@@ -63,7 +63,7 @@ public class ApiDataWrapper {
         boolean notFindFileInfoInCurrentOS = true;
         for (ApiDataFilePathInfoBean pathInfo : pathInfos) {
             if (osName.equalsIgnoreCase(pathInfo.getOSName())) {
-                judgeOwnerFileAddressType(pathInfo);
+                judgePrivateFilePathType(pathInfo);
                 notFindFileInfoInCurrentOS = false;
                 break;
             }
@@ -74,10 +74,10 @@ public class ApiDataWrapper {
         }
     }
 
-    private void judgeOwnerFileAddressType(ApiDataFilePathInfoBean pathInfo) {
-        boolean hasOwnerFileAddressType = pathInfo.hasOwnerFileAddressType();
-        if (hasOwnerFileAddressType) {
-            ApiDataFileAddressType.get(pathInfo.getFileAddressType());
+    private void judgePrivateFilePathType(ApiDataFilePathInfoBean pathInfo) {
+        boolean hasPrivatePathType = pathInfo.hasPrivatePathType();
+        if (hasPrivatePathType) {
+            ApiDataFilePathType.get(pathInfo.getPathType());
         }
     }
 
@@ -86,17 +86,17 @@ public class ApiDataWrapper {
         return apiDataBean.getSource();
     }
 
-    public String getApi_data_file_address_type() {
+    public String getApiDataFilePathType() {
         ApiDataFilePathInfoBean filePathInfo = getFilePathInfoInCurrOS();
-        boolean hasOwnerFileAddressType = filePathInfo.hasOwnerFileAddressType();
-        if (hasOwnerFileAddressType) {
-            return filePathInfo.getFileAddressType();
+        boolean hasPrivatePathType = filePathInfo.hasPrivatePathType();
+        if (hasPrivatePathType) {
+            return filePathInfo.getPathType();
         }
-        return apiDataBean.getFileAddressType();
+        return apiDataBean.getFilePathType();
     }
 
     public String getApiDataFilePath() {
-        return getFilePathInfoInCurrOS().getAddress();
+        return getFilePathInfoInCurrOS().getPath();
     }
 
     private ApiDataFilePathInfoBean getFilePathInfoInCurrOS() {

@@ -1,18 +1,18 @@
 {
   "api_data": {
     "source": "apidocjs",
-    "file_address_type": "network",
+    "file_path_type": "network",
     "file_path_infos": [
       {
-        "OSName": "Mac OS X",
-        "address": "http://172.16.2.81:8080/api_data.json",
-        //        "address": "/Users/newchama/Desktop/api_data.json"
-        "file_address_type": "network"
+        "os_name": "Mac OS X",
+        "path": "http://172.16.2.81:8080/api_data.json",
+        //        "path": "/Users/newchama/Desktop/api_data.json"
+        "path_type": "network"
       },
       {
-        "OSName": "Windows",
-        "address": "E:/NewChama/apidoc/api_data.json",
-        "file_address_type": "file"
+        "os_name": "Windows",
+        "path": "E:/NewChama/apidoc/api_data.json",
+        "path_type": "file"
       }
     ],
     "file_charset": "UTF-8"

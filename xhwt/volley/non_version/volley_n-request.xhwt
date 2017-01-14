@@ -1,13 +1,13 @@
 <t:header>
 {
-    "fileName":"${request_group_class_name}.java",
-    "fileDirs":[
+    "file_name":"${request_group_class_name}.java",
+    "file_dirs":[
         {
-            "osName":"Windows",
+            "os_name":"Windows",
             "path":"u should setup by self"
         },
         {
-            "osName":"Mac OS X",
+            "os_name":"Mac OS X",
             "path":"/Users/newchama/Documents/ytxu/VolleyWrapper/app/src/main/java/ytxu/cn/volley/api/api"
         }
     ]

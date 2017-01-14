@@ -6,23 +6,23 @@ import java.util.Objects;
  * api_data数据文件的多操作系统配置
  */
 public class ApiDataFilePathInfoBean {
-    private String OSName;
-    private String address;
-    private String file_address_type;// API数据文件的地址类型(ApiDataFileAddressType)：现在有file与url两种
+    private String os_name;
+    private String path;
+    private String path_type;// private path type, API数据文件的地址类型(ApiDataFilePathType)：现在有file与url两种
 
     public String getOSName() {
-        return OSName;
+        return os_name;
     }
 
-    public String getAddress() {
-        return address;
+    public String getPath() {
+        return path;
     }
 
-    public String getFileAddressType() {
-        return file_address_type;
+    public String getPathType() {
+        return path_type;
     }
 
-    public boolean hasOwnerFileAddressType() {
-        return Objects.nonNull(file_address_type);
+    public boolean hasPrivatePathType() {
+        return Objects.nonNull(path_type);
     }
 }
