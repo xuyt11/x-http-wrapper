@@ -5,7 +5,7 @@
 1. 这是一个http相关代码的创建工具。
 2. 现在能创建的http相关的文件类型有：http请求分类，http请求，请求方法参数，响应实体，响应实体中状态码列表和基础响应实体类。
 3. http的数据来源，现阶段只有apidocjs这一个
-    * 若有其他数据来源，可以配置api_data.api_data_source属性，然后添加对应的解析器，解析为xhw的model。
+    * 若有其他数据来源，可以配置api_data.source属性，然后添加对应的解析器，解析为xhw的model。
 
 
 # 工具环境与依赖
@@ -59,7 +59,7 @@
         }
         ```
 5. 修改target dir下配置文件(**x-http-wrapper.json**)中template_file_infos中的need_generate属性，用于开启、关闭生成文件的功能；
-    * 例如：若你想生成ttpApi类型的文件，就需要将template_file_infos.HttpApi.need_generate设置为true，并要修改了xxx-httpapi.xhwt文件中header标签内的地址；
+    * 例如：若你想生成HttpApi类型的文件，就需要将template_file_infos.HttpApi.need_generate设置为true，并要修改了xxx-httpapi.xhwt文件中header标签内的地址；
     ```json
       "template_file_infos": {
         "HttpApi": {

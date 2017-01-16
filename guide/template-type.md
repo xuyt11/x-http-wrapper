@@ -5,13 +5,12 @@ template file type
 
 # HttpApi
 ## 所有API请求的统一调用入口，统合所有的请求类别的接口，防止API接口分散。
-   
+   ```java
     public class HttpApi {
    
        private static Account account;
        private static Data data;
        private static Message message;
-       private static Version version;
    
        public static Account account() {
            if (null == account) {
@@ -33,19 +32,12 @@ template file type
            }
            return message;
        }
-   
-       public static Version version() {
-           if (null == version) {
-               version = Version.getInstance();
-           }
-           return version;
-       }
-   
     }
-   
+   ```
+
 # Request: 单个请求分组中，所有的请求方法。
 > 若需要的话，可以添加对应的简化参数个数的方法(缩略请求方法)。
-   
+   ```java
     public class Account extends BaseApi {
     
         public static Account getInstance() {
@@ -98,84 +90,87 @@ template file type
         }
     
     }
-   
+   ```
+
 # Requestparam: 请求参数分组归类，对应单个请求
    1. 在request-->optional_request_method中，
 有参数need_generate与min_number_of_input_params_in_one_input_group；
    2. need_generate：是否需要在XHWTFileType的Request文件中生成可选的请求方法(或叫缩略请求方法)；
    3. min_number_of_input_params_in_one_input_group: 请求组中参数的个数，默认若少于3个则不需要生成;
    4. 每一个请求，若生成了缩略请求方法，都会有一个对应的请求参数类；
-   
-    /**
-     * 缩略请求方法
-     */
-    public RequestHandle qrcodeConfirm(Context cxt001,
-        QrcodeConfirmRP.Parameter parameter, 
-        ResponseHandlerInterface response) {
-        return qrcodeConfirm(cxt001,
-        parameter.context, parameter.project_id, parameter.scene, parameter.uuid_rand, 
-        response);
-    }
-   
-    /**
-     * 请求参数
-     */
-    public class QrcodeConfirmRP implements Serializable {
-   
-       public static final class Parameter implements Serializable {
-           /**
-            * type: String<br>
-            * isOptional : false<br>
-            * desc: <p>扫码场景，枚举值</p>
-            */
-           public String context;
-           /**
-            * type: Integer<br>
-            * isOptional : true<br>
-            * desc: <p>业务参数: 根据 context 的不同而不同</p>
-            */
-           public Integer project_id;
-           /**
-            * type: String<br>
-            * isOptional : true<br>
-            * desc: <p>身份信息: 服务端会优先使用客户端传入的身份信息，当为”投资人“的时候必传</p>
-            */
-           public String scene;
-           /**
-            * type: String<br>
-            * isOptional : false<br>
-            * desc: <p>从二维码扫描得到的唯一码</p>
-            */
-           public String uuid_rand;
-       }
-    
-    }
-   
-# Response: 请求的相应数据model
+        ```java
+        /**
+         * 缩略请求方法
+         */
+        public RequestHandle qrcodeConfirm(Context cxt001,
+            QrcodeConfirmRP.Parameter parameter, 
+            ResponseHandlerInterface response) {
+            return qrcodeConfirm(cxt001,
+            parameter.context, parameter.project_id, parameter.scene, parameter.uuid_rand, 
+            response);
+        }
+  
+        /**
+         * 请求参数
+         */
+        public class QrcodeConfirmRP implements Serializable {
+       
+           public static final class Parameter implements Serializable {
+               /**
+                * type: String<br>
+                * isOptional : false<br>
+                * desc: <p>扫码场景，枚举值</p>
+                */
+               public String context;
+               /**
+                * type: Integer<br>
+                * isOptional : true<br>
+                * desc: <p>业务参数: 根据 context 的不同而不同</p>
+                */
+               public Integer project_id;
+               /**
+                * type: String<br>
+                * isOptional : true<br>
+                * desc: <p>身份信息: 服务端会优先使用客户端传入的身份信息，当为”投资人“的时候必传</p>
+                */
+               public String scene;
+               /**
+                * type: String<br>
+                * isOptional : false<br>
+                * desc: <p>从二维码扫描得到的唯一码</p>
+                */
+               public String uuid_rand;
+           }
+        
+        }
+        ```
 
+# Response: 请求的相应数据model
+    ```java
     public class Init {
     
-    	private long member_id;
-    	private long member_role;
-    	private long member_status;
-    	private String ry_token;
-    	private long step;
+        private long member_id;
+        private long member_role;
+        private long member_status;
+        private String ry_token;
+        private long step;
     
-    	public long getMemberId() {return member_id;}
-    	public long getMemberRole() {return member_role;}
-    	public long getMemberStatus() {return member_status;}
-    	public String getRyToken() {return ry_token;}
-    	public long getStep() {return step;}
-    	public void setMemberId(long member_id) {this.member_id = member_id;}
-    	public void setMemberRole(long member_role) {this.member_role = member_role;}
-    	public void setMemberStatus(long member_status) {this.member_status = member_status;}
-    	public void setRyToken(String ry_token) {this.ry_token = ry_token;}
-    	public void setStep(long step) {this.step = step;}
+        public long getMemberId() {return member_id;}
+        public long getMemberRole() {return member_role;}
+        public long getMemberStatus() {return member_status;}
+        public String getRyToken() {return ry_token;}
+        public long getStep() {return step;}
+        public void setMemberId(long member_id) {this.member_id = member_id;}
+        public void setMemberRole(long member_role) {this.member_role = member_role;}
+        public void setMemberStatus(long member_status) {this.member_status = member_status;}
+        public void setRyToken(String ry_token) {this.ry_token = ry_token;}
+        public void setStep(long step) {this.step = step;}
     
     }
-   
+    ```
+
 # StatusCode: 响应中所有状态码的枚举类
-    
+    ```java
     public class StatusCode {
     
         /** '') */
@@ -209,41 +204,42 @@ template file type
         public static final int LOGIN_FAIL_PASSWORD_ERROR = 334;
     
     }
-   
+    ```
+
 # BaseResponse: 基础的响应实体类
 > 所有的请求响应的数据，都是在该类的基础上的；且在其中还包含了错误异常提示的model
+```java
+public class ResponseEntity<T> {
 
-    public class ResponseEntity<T> {
-    
-        private int status_code;
-        private String message;
-        private Error error;
-        private T data;
-    
-        public int getStatusCode() {return status_code;}
-        public void setStatusCode(int status_code) {this.status_code = status_code;}
-        public String getMessage() {return message;}
-        public void setMessage(String message) {this.message = message;}
-        public Error getError() {return error;}
-        public void setError(Error error) {this.error = error;}
-        public T getData() {return data;}
-        public void setData(T data) {this.data = data;}
-    
-        public static class Error {
-            private String detail;
-            private List<String> device_token;
-            private List<String> content;
-            private List<String> followed_id;
-    
-            public String getDetail() {return detail;}
-            public void setDetail(String detail) {this.detail = detail;}
-            public List<String> getDeviceToken() {return device_token;}
-            public void setDeviceToken(List<String> device_token) {this.device_token = device_token;}
-            public List<String> getContent() {return content;}
-            public void setContent(List<String> content) {this.content = content;}
-            public List<String> getFollowedId() {return followed_id;}
-            public void setFollowedId(List<String> followed_id) {this.followed_id = followed_id;}
-        }
-    
+    private int status_code;
+    private String message;
+    private Error error;
+    private T data;
+
+    public int getStatusCode() {return status_code;}
+    public void setStatusCode(int status_code) {this.status_code = status_code;}
+    public String getMessage() {return message;}
+    public void setMessage(String message) {this.message = message;}
+    public Error getError() {return error;}
+    public void setError(Error error) {this.error = error;}
+    public T getData() {return data;}
+    public void setData(T data) {this.data = data;}
+
+    public static class Error {
+        private String detail;
+        private List<String> device_token;
+        private List<String> content;
+        private List<String> followed_id;
+
+        public String getDetail() {return detail;}
+        public void setDetail(String detail) {this.detail = detail;}
+        public List<String> getDeviceToken() {return device_token;}
+        public void setDeviceToken(List<String> device_token) {this.device_token = device_token;}
+        public List<String> getContent() {return content;}
+        public void setContent(List<String> content) {this.content = content;}
+        public List<String> getFollowedId() {return followed_id;}
+        public void setFollowedId(List<String> followed_id) {this.followed_id = followed_id;}
     }
-   
+
+}
+```
