@@ -36,7 +36,7 @@ template file type
    ```
 
 # Request: 单个请求分组中，所有的请求方法。
-> 若需要的话，可以添加对应的简化参数个数的方法(缩略请求方法)。
+* 若需要的话，可以添加对应的简化参数个数的方法(缩略请求方法)。
    ```java
     public class Account extends BaseApi {
     
@@ -207,7 +207,7 @@ template file type
     ```
 
 # BaseResponse: 基础的响应实体类
-> 所有的请求响应的数据，都是在该类的基础上的；且在其中还包含了错误异常提示的model
+* 所有的请求响应的数据，都是在该类的基础上的；且在其中还包含了错误异常提示的model
 ```java
 public class ResponseEntity<T> {
 
