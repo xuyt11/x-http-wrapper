@@ -66,14 +66,14 @@ public interface ${request_group_class_name} {
             <t:list_attach text_end=""/>
         </t:list_attach>
     </t:if_end>
-    <t:list_attach each="url_dynamic_path" attach="url_paths">
-        <t:list_attach text_start=""/>
-        <t:list_attach list_temp="@Path("${url_path}") String ${url_path_dynamic_param}, "/>
-        <t:list_attach text_end=""/>
-    </t:list_attach>
     <t:list_attach each="filtered_headers" attach="attach_headers">
         <t:list_attach text_start=""/>
         <t:list_attach list_temp="@Header("${header_name}") String ${header_name}, "/>
+        <t:list_attach text_end=""/>
+    </t:list_attach>
+    <t:list_attach each="url_dynamic_path" attach="url_paths">
+        <t:list_attach text_start=""/>
+        <t:list_attach list_temp="@Path("${url_path}") String ${url_path_dynamic_param}, "/>
         <t:list_attach text_end=""/>
     </t:list_attach>
 	Observable<HttpEntity<${request_class_name}>> ${request_name}(${url_paths}${attach_headers}${attach_inputs});

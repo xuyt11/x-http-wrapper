@@ -62,9 +62,9 @@ public class ${request_group_class_name}Wrapper extends BaseApi implements ${req
 	 </t:if_end>
 	 </t:foreach>
 	 */
-    <t:list_attach each="url_dynamic_path" attach="url_paths">
+    <t:list_attach each="inputs" attach="attach_inputs">
         <t:list_attach text_start=""/>
-        <t:list_attach list_temp="String ${url_path_dynamic_param}, "/>
+        <t:list_attach list_temp="${input_request_param_type} ${input_name}, "/>
         <t:list_attach text_end=""/>
     </t:list_attach>
     <t:list_attach each="filtered_headers" attach="attach_headers">
@@ -72,19 +72,28 @@ public class ${request_group_class_name}Wrapper extends BaseApi implements ${req
         <t:list_attach list_temp="String ${header_name}, "/>
         <t:list_attach text_end=""/>
     </t:list_attach>
-	public Observable<HttpEntity<${request_class_name}>> ${request_name}(${url_paths}${attach_headers}
-
-		RequestBean requset, HttpResultInterface callBack) {
-        <t:if isTrue="request_url_has_dynamic_path">
-        <t:list_replace each="url_dynamic_path" replace_key="url_dynamic_param_name_format" list_value=", ${url_path_dynamic_param}">
-		String realUrl = String.format(getFullUrl("${request_convert_url}")${url_dynamic_param_name_format});
-		</t:list_replace>
-        <t:else>
-		String realUrl = getFullUrl("${request_normal_url}");
-        </t:if_end>
-        HttpProxy.getInstance(cxt001).on${requestMethodByCapitalizeCamelCase}Request(realUrl, requset, callBack);
-
-        return inner.executePost(url, maps)
+    <t:list_attach each="url_dynamic_path" attach="url_paths">
+        <t:list_attach text_start=""/>
+        <t:list_attach list_temp="String ${url_path_dynamic_param}, "/>
+        <t:list_attach text_end=""/>
+    </t:list_attach>
+	public Observable<HttpEntity<${request_class_name}>> ${request_name}(${url_paths}${attach_headers}${attach_inputs}) {
+        <t:list_attach each="inputs" attach="attach_inputs">
+            <t:list_attach text_start=""/>
+            <t:list_attach list_temp="${input_name}, "/>
+            <t:list_attach text_end=""/>
+        </t:list_attach>
+        <t:list_attach each="filtered_headers" attach="attach_headers">
+            <t:list_attach text_start=""/>
+            <t:list_attach list_temp="${header_name}, "/>
+            <t:list_attach text_end=""/>
+        </t:list_attach>
+        <t:list_attach each="url_dynamic_path" attach="url_paths">
+            <t:list_attach text_start=""/>
+            <t:list_attach list_temp="${url_path_dynamic_param}, "/>
+            <t:list_attach text_end=""/>
+        </t:list_attach>
+        return inner.${request_name}(${url_paths}${attach_headers}${attach_inputs})
                 .subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
 	}
 
