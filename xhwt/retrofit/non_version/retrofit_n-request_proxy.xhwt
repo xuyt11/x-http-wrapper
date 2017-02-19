@@ -16,18 +16,13 @@
 package cn.ytxu.http.api;
 
 import java.io.File;
-import java.util.Map;
 
 import cn.ytxu.http.BaseApi;
-import cn.ytxu.http.HttpApi;
 import cn.ytxu.http.api.retrofit.*;
 import cn.ytxu.http.config.RetrofitConfig;
 import cn.ytxu.http.entity.HttpEntity;
 import cn.ytxu.http.entity.${request_group_newchama}.*;
 import cn.ytxu.http.request_param.${request_group_newchama}.*;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.http.*;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -36,7 +31,7 @@ import rx.schedulers.Schedulers;
 
 <t:retain type="import"/>
 
-public class ${request_group_class_name}Wrapper extends BaseApi implements ${request_group_class_name} {
+public class ${request_group_class_name}Wrapper extends BaseApi {
 
     private final ${request_group_class_name} inner = RetrofitConfig.instance().createService(${request_group_class_name}.class);
 
@@ -45,6 +40,7 @@ public class ${request_group_class_name}Wrapper extends BaseApi implements ${req
 <t:foreach each="requests">
     /**
 	 * @version ${request_version}
+	 * @method ${request_METHOD}
 	 * @requestUrl ${request_url}
 	 <t:if isNotEmpty="request_title">
 	 * @title ${request_title}
