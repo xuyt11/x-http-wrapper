@@ -22,10 +22,10 @@ public class RequestUrlModel extends BaseModel<RequestModel> {
      * 是否有需要动态输入的参数，来拼凑出真正请求的URL
      * 动态参数在URL上的格式：{id}, {recommend_id}, {YYYY-MM-DD}...
      */
-    private boolean hasDynamicParam = false;
-    private boolean hasMultiParam;// 是否有多选类型的参数，若有的话，则使用url时需要使用multiUrl
+    private boolean hasDynamicPath = false;
+    private boolean hasMultiPath;// 是否有多选类型的参数，若有的话，则使用url时需要使用multiUrl
     private String multiUrl;// url经转换变为的多选类型url, 使用了config文件中request.multi_replace功能之后的URL
-    private List<RequestUrlDynamicParamModel> dynamicParams = Collections.EMPTY_LIST;
+    private List<DynamicPathModel> dynamicPaths = Collections.EMPTY_LIST;
 
     public RequestUrlModel(RequestModel higherLevel, String url) {
         super(higherLevel);
@@ -36,20 +36,20 @@ public class RequestUrlModel extends BaseModel<RequestModel> {
         return url;
     }
 
-    public boolean isHasDynamicParam() {
-        return hasDynamicParam;
+    public boolean isHasDynamicPath() {
+        return hasDynamicPath;
     }
 
-    public void setHasDynamicParam(boolean hasDynamicParam) {
-        this.hasDynamicParam = hasDynamicParam;
+    public void setHasDynamicPath(boolean hasDynamicPath) {
+        this.hasDynamicPath = hasDynamicPath;
     }
 
-    public boolean hasMultiParam() {
-        return hasMultiParam;
+    public boolean hasMultiPath() {
+        return hasMultiPath;
     }
 
-    public void setHasMultiParam(boolean hasMultiParam) {
-        this.hasMultiParam = hasMultiParam;
+    public void setHasMultiPath(boolean hasMultiPath) {
+        this.hasMultiPath = hasMultiPath;
     }
 
     public String getMultiUrl() {
@@ -60,15 +60,15 @@ public class RequestUrlModel extends BaseModel<RequestModel> {
         this.multiUrl = multiUrl;
     }
 
-    public void addDynamicParam(RequestUrlDynamicParamModel dynamicParam) {
-        if (dynamicParams == Collections.EMPTY_LIST) {
-            this.dynamicParams = new ArrayList<>();
+    public void addDynamicPath(DynamicPathModel dynamicPath) {
+        if (dynamicPaths == Collections.EMPTY_LIST) {
+            this.dynamicPaths = new ArrayList<>();
         }
-        this.dynamicParams.add(dynamicParam);
+        this.dynamicPaths.add(dynamicPath);
     }
 
-    public List<RequestUrlDynamicParamModel> getDynamicParams() {
-        return dynamicParams;
+    public List<DynamicPathModel> getDynamicPaths() {
+        return dynamicPaths;
     }
 
     /**
@@ -76,7 +76,7 @@ public class RequestUrlModel extends BaseModel<RequestModel> {
      * 若有多选择参数，则需要转换，才能使用
      */
     public String request_normal_url() {
-        if (hasMultiParam()) {
+        if (hasMultiPath()) {
             return getMultiUrl();
         }
         return getUrl();
@@ -88,21 +88,21 @@ public class RequestUrlModel extends BaseModel<RequestModel> {
      * 2、否则，获取到所有参数的位置，进行替换；
      */
     public String request_convert_url() {
-        if (hasNotIdOrDateTypeParam()) {
+        if (hasNotIdOrDateTypePath()) {
             return request_normal_url();
         }
         return createConvertUrl();
     }
 
-    private boolean hasNotIdOrDateTypeParam() {
-        return dynamicParams.size() == 0;
+    private boolean hasNotIdOrDateTypePath() {
+        return dynamicPaths.isEmpty();
     }
 
     private String createConvertUrl() {
         String url = request_normal_url();
         String replaceStr = ConfigWrapper.getRequest().getReplaceString();
-        for (RequestUrlDynamicParamModel param : dynamicParams) {
-            String replace = param.getParam();
+        for (DynamicPathModel path : dynamicPaths) {
+            String replace = path.getParam();
             url = url.replace(replace, replaceStr);
         }
         return url;

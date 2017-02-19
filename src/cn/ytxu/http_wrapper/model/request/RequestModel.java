@@ -8,7 +8,7 @@ import cn.ytxu.http_wrapper.model.request.header.HeaderGroupModel;
 import cn.ytxu.http_wrapper.model.request.header.HeaderModel;
 import cn.ytxu.http_wrapper.model.request.input.InputGroupModel;
 import cn.ytxu.http_wrapper.model.request.input.InputModel;
-import cn.ytxu.http_wrapper.model.request.url.RequestUrlDynamicParamModel;
+import cn.ytxu.http_wrapper.model.request.url.DynamicPathModel;
 import cn.ytxu.http_wrapper.model.request.url.RequestUrlModel;
 import cn.ytxu.http_wrapper.model.response.ResponseContainerModel;
 
@@ -203,12 +203,12 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
     }
 
     public boolean request_url_has_dynamic_param() {
-        return url.isHasDynamicParam();
+        return url.isHasDynamicPath();
     }
 
 
-    public List<RequestUrlDynamicParamModel> url_dynamic_params() {
-        return url.getDynamicParams();
+    public List<DynamicPathModel> url_dynamic_params() {
+        return url.getDynamicPaths();
     }
 
     public String request_normal_url() {
@@ -262,8 +262,8 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
     }
 
     public String first_url_field_name() throws IllegalAccessException {
-        if (url.isHasDynamicParam()) {
-            return url.getDynamicParams().get(0).url_path_dynamic_param();
+        if (url.isHasDynamicPath()) {
+            return url.getDynamicPaths().get(0).url_path_dynamic_param();
         }
         throw new IllegalAccessException("the requst has not dynamic param! " + toString());
     }

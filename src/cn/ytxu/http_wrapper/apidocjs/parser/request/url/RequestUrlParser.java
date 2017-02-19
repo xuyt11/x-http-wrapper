@@ -3,7 +3,7 @@ package cn.ytxu.http_wrapper.apidocjs.parser.request.url;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.config.property.request.DateReplaceBean;
 import cn.ytxu.http_wrapper.model.request.RequestModel;
-import cn.ytxu.http_wrapper.model.request.url.RequestUrlDynamicParamModel;
+import cn.ytxu.http_wrapper.model.request.url.DynamicPathModel;
 import cn.ytxu.http_wrapper.model.request.url.RequestUrlModel;
 
 import java.util.List;
@@ -31,13 +31,13 @@ public class RequestUrlParser {
 
     private void checkAndSetupHasDynamicParam2RequestUrlModel() {
         Matcher m = ID_OR_DATE_PATTERN.matcher(requestUrl.getUrl());
-        requestUrl.setHasDynamicParam(m.find());
+        requestUrl.setHasDynamicPath(m.find());
     }
 
     private void parseMultiUrl() {
         Matcher m = MULTI_PATTERN.matcher(requestUrl.getUrl());
         boolean hasMultiParam = m.find();
-        requestUrl.setHasMultiParam(hasMultiParam);
+        requestUrl.setHasMultiPath(hasMultiParam);
 
         if (!hasMultiParam) {
             return;
@@ -68,11 +68,11 @@ public class RequestUrlParser {
     }
 
     private void parseIdOrDateParam() {
-        if (!requestUrl.isHasDynamicParam()) {// no heed parse
+        if (!requestUrl.isHasDynamicPath()) {// no heed parse
             return;
         }
 
-        String url = requestUrl.hasMultiParam() ? requestUrl.getMultiUrl() : requestUrl.getUrl();
+        String url = requestUrl.hasMultiPath() ? requestUrl.getMultiUrl() : requestUrl.getUrl();
         Matcher m = ID_OR_DATE_PATTERN.matcher(url);
         int paramIndex = 0;
         while (m.find()) {
@@ -81,7 +81,7 @@ public class RequestUrlParser {
         }
     }
 
-    private RequestUrlDynamicParamModel getDynamicParamModel(Matcher m, int paramIndex) {
+    private DynamicPathModel getDynamicParamModel(Matcher m, int paramIndex) {
         int start = m.start();
         int end = m.end();
         String group = m.group();
@@ -92,7 +92,7 @@ public class RequestUrlParser {
                     "\n, and the real param is " + realParam +
                     "\n, and ytxu need parse this param, so i throw exception...");
         }
-        return new RequestUrlDynamicParamModel(requestUrl, group, realParam, paramIndex, start, end);
+        return new DynamicPathModel(requestUrl, group, realParam, paramIndex, start, end);
     }
 
     private String getRealParam(String group) {
