@@ -62,7 +62,7 @@ public class ${request_group_class_name}Wrapper extends BaseApi implements ${req
 	 </t:if_end>
 	 </t:foreach>
 	 */
-    <t:list_attach each="url_dynamic_params" attach="url_paths">
+    <t:list_attach each="url_dynamic_path" attach="url_paths">
         <t:list_attach text_start=""/>
         <t:list_attach list_temp="String ${url_path_dynamic_param}, "/>
         <t:list_attach text_end=""/>
@@ -70,8 +70,8 @@ public class ${request_group_class_name}Wrapper extends BaseApi implements ${req
 	public Observable<HttpEntity<${request_class_name}>> ${request_name}(${url_paths}
 
 		RequestBean requset, HttpResultInterface callBack) {
-        <t:if isTrue="request_url_has_dynamic_param">
-        <t:list_replace each="url_dynamic_params" replace_key="url_dynamic_param_name_format" list_value=", ${url_path_dynamic_param}">
+        <t:if isTrue="request_url_has_dynamic_path">
+        <t:list_replace each="url_dynamic_path" replace_key="url_dynamic_param_name_format" list_value=", ${url_path_dynamic_param}">
 		String realUrl = String.format(getFullUrl("${request_convert_url}")${url_dynamic_param_name_format});
 		</t:list_replace>
         <t:else>

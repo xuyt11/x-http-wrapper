@@ -21,7 +21,7 @@ public class PatternTest {
     private static final PatternHelper.PatternModel END_MODEL
             = new PatternHelper.PatternModel("end=\"", "\"", Pattern.compile("(end=\")\\w+(\")"));
 
-    private static final String startTagContent = "\t    <t:list each=\"url_dynamic_params\" singleLine start=\"   \t    \" value=\"String ${url_dynamic_param_field_name}, \" end=\"\"/>";
+    private static final String startTagContent = "\t    <t:list each=\"url_dynamic_path\" singleLine start=\"   \t    \" value=\"String ${url_dynamic_param_field_name}, \" end=\"\"/>";
 
 
     public static void main(String... args) {

@@ -72,7 +72,7 @@ public class ${request_group_class_name} extends BaseApi {
 	 </t:foreach>
 	 */
 	public RequestHandle ${request_name}(Context cxt001,
-	    <t:list each="url_dynamic_params" singleLine>
+	    <t:list each="url_dynamic_path" singleLine>
             </t:start value="		"/>
             </t:eachTemp value="String ${url_dynamic_param_field_name}, "/>
             </t:end value=""/>
@@ -91,8 +91,8 @@ public class ${request_group_class_name} extends BaseApi {
 		NetRequest request = new NetRequest();
 		request.setMethod(Method.${request_METHOD});
 
-        <t:if isTrue="request_url_has_dynamic_param">
-            <t:list_attach each="url_dynamic_params" attach="url_dynamic_param_name_format">
+        <t:if isTrue="request_url_has_dynamic_path">
+            <t:list_attach each="url_dynamic_path" attach="url_dynamic_param_name_format">
                 <t:list_attach text_start=""/>
                 <t:list_attach list_temp=", ${url_dynamic_param_field_name}"/>
                 <t:list_attach text_end=""/>
@@ -122,7 +122,7 @@ public class ${request_group_class_name} extends BaseApi {
 
     <t:if isTrue="needGenerateOptionalRequestMethod">
 	public RequestHandle ${request_name}(Context cxt001,
-        <t:list each="url_dynamic_params" singleLine>
+        <t:list each="url_dynamic_path" singleLine>
             </t:start value="		"/>
             </t:eachTemp value="String ${url_dynamic_param_field_name}, "/>
             </t:end value=""/>
@@ -139,7 +139,7 @@ public class ${request_group_class_name} extends BaseApi {
         </t:list>
         ResponseHandlerInterface response) {
         return ${request_name}(cxt001,
-        <t:list each="url_dynamic_params" singleLine>
+        <t:list each="url_dynamic_path" singleLine>
             </t:start value="		"/>
             </t:eachTemp value="${url_dynamic_param_field_name}, "/>
             </t:end value=""/>

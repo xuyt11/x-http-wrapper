@@ -47,16 +47,16 @@ class ${request_group_class_name}: NSObject {
 	 </t:if_end>
 	 </t:foreach>
 	 */
-	 <t:list_attach each="url_dynamic_params" attach="url_dynamic_param_name_format">
+	 <t:list_attach each="url_dynamic_path" attach="url_dynamic_param_name_format">
          <t:list_attach list_temp="${url_dynamic_param_field_name}: String, "/>
      </t:list_attach>
-    <t:if isTrue="request_url_has_dynamic_param">
+    <t:if isTrue="request_url_has_dynamic_path">
     static func ${request_name}(${first_url_field_name} ${url_dynamic_param_name_format}para: Dic, success: SuccessedClosure, error: ErrorClosure, failure: FailedClosure) -> Request {
     <t:else>
     static func ${request_name}(para para: Dic, success: SuccessedClosure, error: ErrorClosure, failure: FailedClosure) -> Request {
     </t:if_end>
-        <t:if isTrue="request_url_has_dynamic_param">
-        <t:list_replace each="url_dynamic_params" replace_key="url_dynamic_param_name_format2" list_value=", ${url_dynamic_param_field_name}">
+        <t:if isTrue="request_url_has_dynamic_path">
+        <t:list_replace each="url_dynamic_path" replace_key="url_dynamic_param_name_format2" list_value=", ${url_dynamic_param_field_name}">
 		let url = String.init(format: "${request_convert_url}"${url_dynamic_param_name_format2})
 		</t:list_replace>
         <t:else>

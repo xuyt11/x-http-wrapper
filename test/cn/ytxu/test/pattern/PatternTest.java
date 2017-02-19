@@ -24,7 +24,7 @@ public class PatternTest {
     private static final Pattern textPattern = Pattern.compile(text);
     private static final String realText =
             "\t <t:list_attach" +
-                    " each=\"url_dynamic_params\"" +
+                    " each=\"url_dynamic_path\"" +
                     " attach=\"url_dynamic_param_name_format\"" +
                     " text_start=\"1\"" +
                     " list_temp=\"${url_dynamic_param_field_name}: String, \"" +
@@ -37,7 +37,7 @@ public class PatternTest {
 //        ListAttachAttrParser parser = new ListAttachAttrParser(textPattern, realText);
 //        parser.parse();
 //
-//        Assert.assertEquals(parser.getMethodName(), "url_dynamic_params");
+//        Assert.assertEquals(parser.getMethodName(), "url_dynamic_path");
 //        Assert.assertEquals(parser.getAttach(), "url_dynamic_param_name_format");
 //        Assert.assertEquals(parser.getTextRecord().getStartLineContent(), "${url_dynamic_param_field_name}: String, ");
 
@@ -89,7 +89,7 @@ public class PatternTest {
 
         String group = m.group(1);
         String content = group.substring(" each=\"".length(), group.length() - "\"".length());
-        Assert.assertEquals(content, "url_dynamic_params");
+        Assert.assertEquals(content, "url_dynamic_path");
     }
 
     @Test

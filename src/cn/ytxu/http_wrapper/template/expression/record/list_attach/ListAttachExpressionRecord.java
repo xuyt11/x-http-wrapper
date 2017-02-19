@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
  * 3、必须要有list_temp子表达式
  * <p>
  * template:
- * <t:list_attach each="url_dynamic_params" attach="url_dynamic_param_name_format"/>
+ * <t:list_attach each="url_dynamic_path" attach="url_dynamic_param_name_format"/>
  * <t:list_attach text_start="   "/>
  * <t:list_attach list_temp="${url_dynamic_param_field_name}: String,"/>
  * <t:list_attach text_end=""/>

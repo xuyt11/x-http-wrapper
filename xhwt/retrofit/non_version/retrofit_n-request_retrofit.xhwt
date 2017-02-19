@@ -53,7 +53,7 @@ public interface ${request_group_class_name} {
 	 </t:foreach>
 	 */
     @GET("${request_normal_url}")
-    <t:list_attach each="url_dynamic_params" attach="url_paths">
+    <t:list_attach each="url_dynamic_path" attach="url_paths">
         <t:list_attach text_start=""/>
         <t:list_attach list_temp="@Path("${url_path}") String ${url_path_dynamic_param}, "/>
         <t:list_attach text_end=""/>

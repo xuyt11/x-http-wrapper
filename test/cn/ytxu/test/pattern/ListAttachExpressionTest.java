@@ -20,7 +20,7 @@ public class ListAttachExpressionTest {
 
     @Before
     public void init() {
-        startLineContent = "<t:list_attach each=\"url_dynamic_params\" attach=\"url_dynamic_param_name_format\"/>";
+        startLineContent = "<t:list_attach each=\"url_dynamic_path\" attach=\"url_dynamic_param_name_format\"/>";
         subContents = new String[]{"<t:list_attach list_temp=\"${url_dynamic_param_field_name}: String, \"/>"};
 
         subContents2 = new String[]{"<t:list_attach text_start=\"   \"/>",
@@ -34,7 +34,7 @@ public class ListAttachExpressionTest {
     @Test
     public void testListAttachAttrParser() {
         ListAttachAttrParser attrParser = new ListAttachAttrParser(ListAttachExpressionRecord.PATTERN, startLineContent).parse();
-        Assert.assertEquals(attrParser.getMethodName(), "url_dynamic_params");
+        Assert.assertEquals(attrParser.getMethodName(), "url_dynamic_path");
         Assert.assertEquals(attrParser.getAttach(), "url_dynamic_param_name_format");
     }
 
@@ -59,7 +59,7 @@ public class ListAttachExpressionTest {
 
     @Test
     public void testListAttachParser4() {
-        String line = "            <t:list_attach each=\"url_dynamic_params\" attach=\"url_dynamic_param_name_format\">";
+        String line = "            <t:list_attach each=\"url_dynamic_path\" attach=\"url_dynamic_param_name_format\">";
         Pattern[] patterns = {ListAttachExpressionRecord.PATTERN};
         for (Pattern pattern : patterns) {
             LogUtil.i("" + pattern.matcher(line).find());

@@ -63,14 +63,14 @@ public class ${request_group_class_name} extends BaseApi {
 	 </t:foreach>
 	 */
 	public void ${request_name}(Context cxt001,
-	    <t:list each="url_dynamic_params" singleLine>
+	    <t:list each="url_dynamic_path" singleLine>
             </t:start value="		"/>
             </t:eachTemp value="String ${url_dynamic_param_field_name}, "/>
             </t:end value=""/>
 	    </t:list>
 		RequestBean requset, HttpResultInterface callBack) {
-        <t:if isTrue="request_url_has_dynamic_param">
-        <t:list_replace each="url_dynamic_params" replace_key="url_dynamic_param_name_format" list_value=", ${url_dynamic_param_field_name}">
+        <t:if isTrue="request_url_has_dynamic_path">
+        <t:list_replace each="url_dynamic_path" replace_key="url_dynamic_param_name_format" list_value=", ${url_dynamic_param_field_name}">
 		String realUrl = String.format(getFullUrl("${request_convert_url}")${url_dynamic_param_name_format});
 		</t:list_replace>
         <t:else>

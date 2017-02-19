@@ -202,12 +202,12 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
         return inputs;
     }
 
-    public boolean request_url_has_dynamic_param() {
+    public boolean request_url_has_dynamic_path() {
         return url.isHasDynamicPath();
     }
 
 
-    public List<DynamicPathModel> url_dynamic_params() {
+    public List<DynamicPathModel> url_dynamic_path() {
         return url.getDynamicPaths();
     }
 
