@@ -5,7 +5,9 @@ import cn.ytxu.http_wrapper.common.util.TextUtil;
 import cn.ytxu.http_wrapper.template.file.type.XHWTFileType;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -58,8 +60,24 @@ public class TemplateFileInfoWrapper {
         if (Objects.isNull(templateFileInfo) || !templateFileInfo.isNeedGenerate()) {
             return false;
         }
+        return hasValidFiles(templateFileInfo);
+    }
 
-        String path = templateFileInfo.getPath();
+    private boolean hasValidFiles(TemplateFileInfoBean templateFileInfo) {
+        List<String> paths = templateFileInfo.getPaths();
+        if (Objects.isNull(paths) || paths.isEmpty()) {
+            return false;
+        }
+
+        for (String path : paths) {
+            if (isValidFile(path)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isValidFile(String path) {
         if (TextUtil.isBlank(path)) {
             return false;
         }
@@ -86,20 +104,30 @@ public class TemplateFileInfoWrapper {
     /**
      * @throws NonNeedParseTheTemplateFileException
      */
-    public String getTemplateFileAbsolutePath(XHWTFileType tFileType) throws NonNeedParseTheTemplateFileException {
+    public List<String> getTemplateFileAbsolutePaths(XHWTFileType tFileType) throws NonNeedParseTheTemplateFileException {
         if (!needParseTheTemplateFile(tFileType)) {
             throw new NonNeedParseTheTemplateFileException();
         }
 
         TemplateFileInfoBean tFileInfo = getTemplateFileInfoBean(tFileType);
+        List<String> paths = tFileInfo.getPaths();
+        List<String> targetPaths = new ArrayList<>(paths.size());
+        for (String path : paths) {
+            if (isValidFile(path)) {
+                targetPaths.add(getTemplateFileAbsolutePath(path));
+            }
+        }
+        return targetPaths;
+    }
 
-        File templateFile = new File(tFileInfo.getPath());
+    private String getTemplateFileAbsolutePath(String path) {
+        File templateFile = new File(path);
         if (templateFile.isAbsolute()) {
             return templateFile.getAbsolutePath();
         }
 
         File dir = new File(xhwtConfigPath).getParentFile();
-        templateFile = new File(dir, tFileInfo.getPath());
+        templateFile = new File(dir, path);
         return templateFile.getAbsolutePath();
     }
 

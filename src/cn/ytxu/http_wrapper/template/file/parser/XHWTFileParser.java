@@ -9,6 +9,7 @@ import cn.ytxu.http_wrapper.template.file.type.XHWTFileType;
 import cn.ytxu.http_wrapper.template.file.model.XHWTModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,19 +20,27 @@ import java.util.List;
 public class XHWTFileParser {
 
     private final XHWTFileType xhwtFileType;
-    private String filePath;// 模板文件的路径
+    private List<String> filePaths;// 模板文件的路径
 
     public XHWTFileParser(XHWTFileType xhwtFileType) {
         this.xhwtFileType = xhwtFileType;
     }
 
-    public XHWTModel start() throws XHWTNonNeedParsedException, IOException {
+    public List<XHWTModel> start() throws XHWTNonNeedParsedException, IOException {
         try {
-            this.filePath = ConfigWrapper.getTemplateFileInfo().getTemplateFileAbsolutePath(xhwtFileType);
+            this.filePaths = ConfigWrapper.getTemplateFileInfo().getTemplateFileAbsolutePaths(xhwtFileType);
         } catch (TemplateFileInfoWrapper.NonNeedParseTheTemplateFileException e) {
             throw new XHWTNonNeedParsedException(xhwtFileType);
         }
 
+        List<XHWTModel> xhwtModels = new ArrayList<>(filePaths.size());
+        for (String filePath : filePaths) {
+            xhwtModels.add(getXhwtModel(filePath));
+        }
+        return xhwtModels;
+    }
+
+    private XHWTModel getXhwtModel(String filePath) throws IOException {
         List<String> contents = FileUtil.getLineContents(filePath, "UTF-8");
         XHWTModel model = new XHWTFileContentParser(contents).start();
         List<ExpressionRecord> records = parseStatementRecordsByXHWTModel(model);

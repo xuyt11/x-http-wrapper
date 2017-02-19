@@ -35,12 +35,14 @@ public class XHWTemplateEngine {
 
     private void createTargetFile(XHWTFileType xhwtFileType) {
         try {
-            XHWTModel tModel = getXHWTModelByParseTemplateFile(xhwtFileType);
+            List<XHWTModel> xhwtModels = getXHWTModelsByParseTemplateFiles(xhwtFileType);
 
             List<? extends BaseModel> reflectDatas = xhwtFileType.getReflectiveDatas(versions);
 
-            for (BaseModel reflectData : reflectDatas) {
-                generateTargetFile(tModel, reflectData);
+            for (XHWTModel xhwtModel : xhwtModels) {
+                for (BaseModel reflectData : reflectDatas) {
+                    generateTargetFile(xhwtModel, reflectData);
+                }
             }
 
             LogUtil.i(XHWTFileType.class, "this template type has been successfully parsed, the type is " + xhwtFileType.name());
@@ -51,7 +53,7 @@ public class XHWTemplateEngine {
         }
     }
 
-    private XHWTModel getXHWTModelByParseTemplateFile(XHWTFileType xhwtFileType) throws XHWTFileParser.XHWTNonNeedParsedException, IOException {
+    private List<XHWTModel> getXHWTModelsByParseTemplateFiles(XHWTFileType xhwtFileType) throws XHWTFileParser.XHWTNonNeedParsedException, IOException {
         return new XHWTFileParser(xhwtFileType).start();
     }
 
