@@ -16,8 +16,6 @@
 package cn.ytxu.http;
 
 import cn.ytxu.http.api.*;
-import cn.ytxu.http.api.retrofit.*;
-import cn.ytxu.http.config.RetrofitConfig;
 
 <t:retain type="import"/>
 
@@ -27,45 +25,30 @@ public class HttpApi {
 
     //**************** base common ****************
     private static final class CommonApiWrapperHelper {
-        private static final CommonApi instance = RetrofitConfig.instance().createService(CommonApi.class);
-        private static final CommonApiWrapper winstance = new CommonApiWrapper();
+        private static final CommonApiWrapper instance = new CommonApiWrapper();
     }
 
-    static CommonApi commonApi() {
+    public static CommonApiWrapper commonApi() {
         return CommonApiWrapperHelper.instance;
     }
 
-    public static CommonApiWrapper commonApiWrapper() {
-        return CommonApiWrapperHelper.winstance;
-    }
-
     private static final class RetrofitSampleHelper {
-        private static final RetrofitSample instance = RetrofitConfig.instance().createService(RetrofitSample.class);
-        private static final RetrofitSampleWrapper winstance = new RetrofitSampleWrapper();
+        private static final RetrofitSampleWrapper instance = new RetrofitSampleWrapper();
     }
 
-    public static RetrofitSample retrofitSample() {
+    public static RetrofitSampleWrapper retrofitSample() {
         return RetrofitSampleHelper.instance;
-    }
-
-    public static RetrofitSampleWrapper retrofitSampleWrapper() {
-        return RetrofitSampleHelper.winstance;
     }
 
 
     //**************** foreach request group ****************
 <t:foreach each="request_groups">
     private static final class ${request_group_class_name}Helper {
-        private static final ${request_group_class_name} instance = RetrofitConfig.instance().createService(${request_group_class_name}.class);
-        private static final ${request_group_class_name}Wrapper winstance = new ${request_group_class_name}Wrapper();
+        private static final ${request_group_class_name}Wrapper instance = new ${request_group_class_name}Wrapper();
     }
 
-    public static ${request_group_class_name} ${request_group_name}() {
+    public static ${request_group_class_name}Wrapper ${request_group_name}() {
         return ${request_group_class_name}Helper.instance;
-    }
-
-    public static ${request_group_class_name}Wrapper ${request_group_name}Wrapper() {
-        return ${request_group_class_name}Helper.winstance;
     }
 
 </t:foreach>
