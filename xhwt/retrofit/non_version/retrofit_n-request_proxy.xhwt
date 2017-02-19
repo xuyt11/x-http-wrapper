@@ -67,7 +67,12 @@ public class ${request_group_class_name}Wrapper extends BaseApi implements ${req
         <t:list_attach list_temp="String ${url_path_dynamic_param}, "/>
         <t:list_attach text_end=""/>
     </t:list_attach>
-	public Observable<HttpEntity<${request_class_name}>> ${request_name}(${url_paths}
+    <t:list_attach each="filtered_headers" attach="attach_headers">
+        <t:list_attach text_start=""/>
+        <t:list_attach list_temp="String ${header_name}, "/>
+        <t:list_attach text_end=""/>
+    </t:list_attach>
+	public Observable<HttpEntity<${request_class_name}>> ${request_name}(${url_paths}${attach_headers}
 
 		RequestBean requset, HttpResultInterface callBack) {
         <t:if isTrue="request_url_has_dynamic_path">
