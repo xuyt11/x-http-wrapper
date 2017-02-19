@@ -1,0 +1,48 @@
+<t:header>
+{
+    "file_name":"${entity_class_name}.java",
+    "file_dirs":[
+        {
+            "os_name":"Windows",
+            "path":"I:/ytxuEIM/EIM4Android/app/src/main/java/cn/ytxu/http/entity/${request_group_newchama}/"
+        },
+        {
+            "os_name":"Mac OS X",
+            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.model/src/main/java/com/newchama/api/entity/${request_group_newchama}/"
+        }
+    ]
+}
+</t:header>
+package cn.ytxu.http.entity.${request_group_newchama};
+
+import java.io.Serializable;
+import java.util.List;
+
+<t:retain type="import"/>
+
+<t:if isTrue="isResponseRootEntity">
+/**
+ * @title ${request_title}
+ * @version ${request_version}
+ * @requestUrl ${request_url}
+ */
+</t:if_end>
+public class ${entity_class_name} implements Serializable {
+
+    <t:foreach each="outputs">
+	private ${output_type} ${output_name};// ${output_original_type}
+	</t:foreach>
+
+<t:retain type="field"/>
+
+    <t:foreach each="outputs">
+    public ${output_type} ${output_getter}() {return ${output_name};}
+    public void ${output_setter}(${output_type} ${output_name}) {this.${output_name} = ${output_name};}
+	</t:foreach>
+
+<t:retain type="method"/>
+
+<t:retain type="other"/>
+
+}
+

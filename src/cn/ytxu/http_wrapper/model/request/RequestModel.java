@@ -263,7 +263,7 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
 
     public String first_url_field_name() throws IllegalAccessException {
         if (url.isHasDynamicParam()) {
-            return url.getDynamicParams().get(0).url_dynamic_param_field_name();
+            return url.getDynamicParams().get(0).url_path_dynamic_param();
         }
         throw new IllegalAccessException("the requst has not dynamic param! " + toString());
     }

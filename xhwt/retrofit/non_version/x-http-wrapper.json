@@ -34,7 +34,7 @@
       ]
     },
     "Response": {
-      "need_generate": false,
+      "need_generate": true,
       "paths": [
         "retrofit_n-response.xhwt"
       ]

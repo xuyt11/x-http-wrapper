@@ -45,10 +45,14 @@ public class RequestUrlDynamicParamModel extends BaseModel<RequestUrlModel> {
 
 
     //*************** reflect method area ***************
-    public String url_dynamic_param_field_name() {
+    public String url_path() {
+        return realParam;
+    }
+
+    public String url_path_dynamic_param() {
         int indexOfParams = paramIndex;// getHigherLevel().getDynamicParams().indexOf(this);
         String formatIndex = new DecimalFormat("00").format(indexOfParams);
-        return realParam + formatIndex;
+        return url_path() + formatIndex;
     }
 
 }

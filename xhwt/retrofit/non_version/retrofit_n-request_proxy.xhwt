@@ -22,6 +22,7 @@ import cn.ytxu.http.HttpApi;
 import cn.ytxu.http.api.retrofit.*;
 import cn.ytxu.http.config.RetrofitConfig;
 import cn.ytxu.http.entity.HttpEntity;
+import cn.ytxu.http.entity.${request_group_newchama}.*;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.*;
@@ -61,15 +62,16 @@ public class ${request_group_class_name}Wrapper extends BaseApi implements ${req
 	 </t:if_end>
 	 </t:foreach>
 	 */
-	public Observable<HttpEntity<${request_class_name}>> ${request_name}(Context cxt001,
-	    <t:list each="url_dynamic_params" singleLine>
-            </t:start value="		"/>
-            </t:eachTemp value="String ${url_dynamic_param_field_name}, "/>
-            </t:end value=""/>
-	    </t:list>
+    <t:list_attach each="url_dynamic_params" attach="url_paths">
+        <t:list_attach text_start=""/>
+        <t:list_attach list_temp="String ${url_path_dynamic_param}, "/>
+        <t:list_attach text_end=""/>
+    </t:list_attach>
+	public Observable<HttpEntity<${request_class_name}>> ${request_name}(${url_paths}
+
 		RequestBean requset, HttpResultInterface callBack) {
         <t:if isTrue="request_url_has_dynamic_param">
-        <t:list_replace each="url_dynamic_params" replace_key="url_dynamic_param_name_format" list_value=", ${url_dynamic_param_field_name}">
+        <t:list_replace each="url_dynamic_params" replace_key="url_dynamic_param_name_format" list_value=", ${url_path_dynamic_param}">
 		String realUrl = String.format(getFullUrl("${request_convert_url}")${url_dynamic_param_name_format});
 		</t:list_replace>
         <t:else>
