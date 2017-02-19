@@ -1,0 +1,90 @@
+<t:header>
+{
+    "file_name":"${request_group_class_name}Wrapper.java",
+    "file_dirs":[
+        {
+            "os_name":"Windows",
+            "path":"I:/ytxuEIM/EIM4Android/app/src/main/java/cn/ytxu/http/api/"
+        },
+        {
+            "os_name":"Mac OS X",
+            "path":"/Users/newchama/Documents/ytxu/VolleyWrapper/app/src/main/java/ytxu/cn/volley/api/api"
+        }
+    ]
+}
+</t:header>
+package cn.ytxu.http.api;
+
+import java.util.Map;
+
+import cn.ytxu.http.BaseApi;
+import cn.ytxu.http.HttpApi;
+import cn.ytxu.http.api.retrofit.*;
+import cn.ytxu.http.config.RetrofitConfig;
+import cn.ytxu.http.entity.HttpEntity;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.http.*;
+import rx.Observable;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
+<t:retain type="import"/>
+
+public class ${request_group_class_name}Wrapper extends BaseApi implements ${request_group_class_name} {
+
+    private final ${request_group_class_name} inner = RetrofitConfig.instance().createService(${request_group_class_name}.class);
+
+<t:retain type="field"/>
+
+<t:foreach each="requests">
+    /**
+	 * @version ${request_version}
+	 * @requestUrl ${request_url}
+	 <t:if isNotEmpty="request_title">
+	 * @title ${request_title}
+	 </t:if_end>
+	 <t:if isNotEmpty="request_desc">
+	 * @desc ${request_desc}
+	 </t:if_end>
+	 *
+	 <t:foreach each="headers">
+	 * @header ${header_name} ${header_desc}
+	 </t:foreach>
+	 <t:foreach each="inputs">
+	 <t:if isTrue="input_isOptional">
+	 * @param ${input_name} isOptional ${field_read_type} ${input_desc}
+	 <t:else>
+	 * @param ${input_name} ${field_read_type} ${input_desc}
+	 </t:if_end>
+	 </t:foreach>
+	 */
+	public Observable<HttpEntity<${request_class_name}>> ${request_name}(Context cxt001,
+	    <t:list each="url_dynamic_params" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="String ${url_dynamic_param_field_name}, "/>
+            </t:end value=""/>
+	    </t:list>
+		RequestBean requset, HttpResultInterface callBack) {
+        <t:if isTrue="request_url_has_dynamic_param">
+        <t:list_replace each="url_dynamic_params" replace_key="url_dynamic_param_name_format" list_value=", ${url_dynamic_param_field_name}">
+		String realUrl = String.format(getFullUrl("${request_convert_url}")${url_dynamic_param_name_format});
+		</t:list_replace>
+        <t:else>
+		String realUrl = getFullUrl("${request_normal_url}");
+        </t:if_end>
+        HttpProxy.getInstance(cxt001).on${requestMethodByCapitalizeCamelCase}Request(realUrl, requset, callBack);
+
+        return inner.executePost(url, maps)
+                .subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+	}
+
+</t:foreach>
+
+<t:retain type="method"/>
+
+<t:retain type="other"/>
+
+}

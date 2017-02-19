@@ -21,7 +21,7 @@
       ]
     },
     "Request": {
-      "need_generate": false,
+      "need_generate": true,
       "paths": [
         "retrofit_n-request_retrofit.xhwt",
         "retrofit_n-request_proxy.xhwt"
