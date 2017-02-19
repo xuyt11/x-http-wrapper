@@ -97,6 +97,42 @@ public class ${request_group_class_name}Wrapper extends BaseApi implements ${req
                 .subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
 	}
 
+    <t:if isTrue="needGenerateOptionalRequestMethod">
+        <t:list_attach each="input_groups" attach="attach_input_groups">
+            <t:list_attach text_start=""/>
+            <t:list_attach list_temp="${request_param_class_name}.${input_group_class_name} ${input_group_name}, "/>
+            <t:list_attach text_end=""/>
+        </t:list_attach>
+        <t:list_attach each="filtered_headers" attach="attach_headers">
+            <t:list_attach text_start=""/>
+            <t:list_attach list_temp="String ${header_name}, "/>
+            <t:list_attach text_end=""/>
+        </t:list_attach>
+        <t:list_attach each="url_dynamic_path" attach="url_paths">
+            <t:list_attach text_start=""/>
+            <t:list_attach list_temp="String ${url_path_dynamic_param}, "/>
+            <t:list_attach text_end=""/>
+        </t:list_attach>
+	public Observable<HttpEntity<${request_class_name}>> ${request_name}(${url_paths}${attach_headers}${attach_input_groups}) {
+        <t:list_attach each="input_groups_fileds" attach="attach_input_group_fields">
+            <t:list_attach text_start=""/>
+            <t:list_attach list_temp="${input_group_name}.${input_name}, "/>
+            <t:list_attach text_end=""/>
+        </t:list_attach>
+        <t:list_attach each="filtered_headers" attach="attach_headers">
+            <t:list_attach text_start=""/>
+            <t:list_attach list_temp="${header_name}, "/>
+            <t:list_attach text_end=""/>
+        </t:list_attach>
+        <t:list_attach each="url_dynamic_path" attach="url_paths">
+            <t:list_attach text_start=""/>
+            <t:list_attach list_temp="${url_path_dynamic_param}, "/>
+            <t:list_attach text_end=""/>
+        </t:list_attach>
+        return ${request_name}(${url_paths}${attach_headers}${attach_input_group_fields});
+    }
+
+    </t:if_end>
 </t:foreach>
 
 <t:retain type="method"/>
