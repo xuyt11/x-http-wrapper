@@ -32,6 +32,24 @@ public enum IfElseCondition {
             }
             return true;
         }
+    },
+    /**
+     * String类型判断：字符串是否一样
+     */
+    Equals("Equals=\"", "\"", Pattern.compile("(Equals=\")\\w+(,)\\w+(\")")) {
+        @Override
+        public boolean getBoolean(BaseModel reflectModel, String methodName) {
+            return false;
+        }
+    },
+    /**
+     * String类型判断：字符串是否一样，不需要大小写判断
+     */
+    EqualsIgnoreCase("EqualsIgnoreCase=\"", "\"", Pattern.compile("(EqualsIgnoreCase=\")\\w+(,)\\w+(\")")) {
+        @Override
+        public boolean getBoolean(BaseModel reflectModel, String methodName) {
+            return false;
+        }
     };
 //        String("字符串类型判断");
 
