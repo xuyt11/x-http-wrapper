@@ -52,7 +52,20 @@ public interface ${request_group_class_name} {
 	 </t:if_end>
 	 </t:foreach>
 	 */
-    @GET("${request_normal_url}")
+    @${request_METHOD}("${request_normal_url}")
+    <t:if EqualsIgnoreCase="request_METHOD,GET">
+        <t:list_attach each="inputs" attach="attach_inputs">
+            <t:list_attach text_start=""/>
+            <t:list_attach list_temp="@Query("${input_name}") ${input_request_param_type} ${input_name}, "/>
+            <t:list_attach text_end=""/>
+        </t:list_attach>
+    <t:else>
+        <t:list_attach each="inputs" attach="attach_inputs">
+            <t:list_attach text_start=""/>
+            <t:list_attach list_temp="@Field("${input_name}") ${input_request_param_type} ${input_name}, "/>
+            <t:list_attach text_end=""/>
+        </t:list_attach>
+    </t:if_end>
     <t:list_attach each="url_dynamic_path" attach="url_paths">
         <t:list_attach text_start=""/>
         <t:list_attach list_temp="@Path("${url_path}") String ${url_path_dynamic_param}, "/>
@@ -63,7 +76,7 @@ public interface ${request_group_class_name} {
         <t:list_attach list_temp="@Header("${header_name}") String ${header_name}, "/>
         <t:list_attach text_end=""/>
     </t:list_attach>
-	Observable<HttpEntity<${request_class_name}>> ${request_name}(${url_paths}${attach_headers});
+	Observable<HttpEntity<${request_class_name}>> ${request_name}(${url_paths}${attach_headers}${attach_inputs});
 
 </t:foreach>
 

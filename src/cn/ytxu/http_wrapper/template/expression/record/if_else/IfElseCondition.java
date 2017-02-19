@@ -39,7 +39,11 @@ public enum IfElseCondition {
     Equals("Equals=\"", "\"", Pattern.compile("(Equals=\")\\w+(,)\\w+(\")")) {
         @Override
         public boolean getBoolean(BaseModel reflectModel, String methodName) {
-            return false;
+            String[] datas = methodName.split(",");
+            String realMethodName = datas[0];
+            String value = datas[1];
+            String text = ReflectiveUtil.getString(reflectModel, realMethodName);
+            return text.equals(value);
         }
     },
     /**
@@ -48,7 +52,11 @@ public enum IfElseCondition {
     EqualsIgnoreCase("EqualsIgnoreCase=\"", "\"", Pattern.compile("(EqualsIgnoreCase=\")\\w+(,)\\w+(\")")) {
         @Override
         public boolean getBoolean(BaseModel reflectModel, String methodName) {
-            return false;
+            String[] datas = methodName.split(",");
+            String realMethodName = datas[0];
+            String value = datas[1];
+            String text = ReflectiveUtil.getString(reflectModel, realMethodName);
+            return text.equalsIgnoreCase(value);
         }
     };
 //        String("字符串类型判断");
