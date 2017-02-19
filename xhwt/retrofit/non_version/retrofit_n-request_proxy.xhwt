@@ -23,6 +23,7 @@ import cn.ytxu.http.api.retrofit.*;
 import cn.ytxu.http.config.RetrofitConfig;
 import cn.ytxu.http.entity.HttpEntity;
 import cn.ytxu.http.entity.${request_group_newchama}.*;
+import cn.ytxu.http.request_param.${request_group_newchama}.*;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.*;

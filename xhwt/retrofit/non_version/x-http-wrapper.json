@@ -28,7 +28,7 @@
       ]
     },
     "RequestParam": {
-      "need_generate": false,
+      "need_generate": true,
       "paths": [
         "retrofit_n-requestparam.xhwt"
       ]
