@@ -14,7 +14,31 @@ public enum ListAttachSubExpression {
     /**
      * 数据填充后，插入到首位
      */
-    text_start("<t:list_attach text_start=\"([\\p{Print}\\p{Space}]+)\"/>"),
+    text_start("<t:list_attach text_start=\"([\\p{Print}\\p{Space}]+)\"/>") {
+        @Override
+        public void setThisExpressionRecord(ListAttachSubRecordEntity subRecord, TextExpressionRecord teRecord) {
+            subRecord.setTextStartRecord(teRecord);
+        }
+
+        @Override
+        public TextExpressionRecord getThisExpressionRecord(ListAttachSubRecordEntity subRecord) {
+            return subRecord.getTextStartRecord();
+        }
+    },
+    /**
+     * index=0, item的数据模板
+     */
+    list_temp_start("<t:list_attach list_temp_start=\"([\\p{Print}\\p{Space}]+)\"/>") {
+        @Override
+        public void setThisExpressionRecord(ListAttachSubRecordEntity subRecord, TextExpressionRecord teRecord) {
+            subRecord.setListTempStartRecord(teRecord);
+        }
+
+        @Override
+        public TextExpressionRecord getThisExpressionRecord(ListAttachSubRecordEntity subRecord) {
+            return subRecord.getListTempStartRecord();
+        }
+    },
     /**
      * 遍历的数据模板，必须要有list_temp子表达式
      */
@@ -24,11 +48,45 @@ public enum ListAttachSubExpression {
             String listTempContent = findTargetSubContent(subContents);
             return getContent(listTempContent);
         }
+
+        @Override
+        public void setThisExpressionRecord(ListAttachSubRecordEntity subRecord, TextExpressionRecord teRecord) {
+            subRecord.setListTempRecord(teRecord);
+        }
+
+        @Override
+        public TextExpressionRecord getThisExpressionRecord(ListAttachSubRecordEntity subRecord) {
+            return subRecord.getListTempRecord();
+        }
     },
     /**
-     * 数据填充后，添加到末尾
+     * 数据填充后，插入到首位
      */
-    text_end("<t:list_attach text_end=\"([\\p{Print}\\p{Space}]+)\"/>");
+    list_temp_end("<t:list_attach list_temp_end=\"([\\p{Print}\\p{Space}]+)\"/>") {
+        @Override
+        public void setThisExpressionRecord(ListAttachSubRecordEntity subRecord, TextExpressionRecord teRecord) {
+            subRecord.setListTempEndRecord(teRecord);
+        }
+
+        @Override
+        public TextExpressionRecord getThisExpressionRecord(ListAttachSubRecordEntity subRecord) {
+            return subRecord.getListTempEndRecord();
+        }
+    },
+    /**
+     * 末尾item的数据模板
+     */
+    text_end("<t:list_attach text_end=\"([\\p{Print}\\p{Space}]+)\"/>") {
+        @Override
+        public void setThisExpressionRecord(ListAttachSubRecordEntity subRecord, TextExpressionRecord teRecord) {
+            subRecord.setTextEndRecord(teRecord);
+        }
+
+        @Override
+        public TextExpressionRecord getThisExpressionRecord(ListAttachSubRecordEntity subRecord) {
+            return subRecord.getTextEndRecord();
+        }
+    };
 
     private final Pattern pattern;
 
@@ -72,5 +130,13 @@ public enum ListAttachSubExpression {
 
     private static final class NotFindTargetSubContentException extends RuntimeException {
     }
+
+    public abstract void setThisExpressionRecord(ListAttachSubRecordEntity subRecord, TextExpressionRecord teRecord);
+
+    public boolean hasThisExpression(ListAttachSubRecordEntity subRecord) {
+        return getThisExpressionRecord(subRecord) != ListAttachSubRecordEntity.EMPTY;
+    }
+
+    public abstract TextExpressionRecord getThisExpressionRecord(ListAttachSubRecordEntity subRecord);
 
 }

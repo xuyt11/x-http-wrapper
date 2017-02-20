@@ -7,6 +7,7 @@ import cn.ytxu.http_wrapper.template.expression.record.list_attach.attr.ListAtta
 import cn.ytxu.http_wrapper.template.expression.record.list_attach.attr.ListAttachAttrParser;
 import cn.ytxu.http_wrapper.template.expression.record.list_attach.sub.ListAttachSubExpression;
 import cn.ytxu.http_wrapper.template.expression.record.list_attach.sub.ListAttachSubParser;
+import cn.ytxu.http_wrapper.template.expression.record.list_attach.sub.ListAttachSubRecordEntity;
 import cn.ytxu.http_wrapper.template.expression.record.retain.RetainModel;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class ListAttachExpressionRecord extends ExpressionRecord {
     private static final String END_TAG = "</t:list_attach>";// 结束标签
 
     private ListAttachAttrParser attrParser;
-    private ListAttachSubParser subParser;
+    private ListAttachSubRecordEntity subRecordEntity;
 
     private final List<String> subContents = new ArrayList<>(ListAttachSubExpression.values().length);
 
@@ -67,14 +68,13 @@ public class ListAttachExpressionRecord extends ExpressionRecord {
     @Override
     public void parseRecordAndSubRecords() {
         attrParser = new ListAttachAttrParser(PATTERN, startLineContent).parse();
-        subParser = new ListAttachSubParser(subContents).parse();
+        subRecordEntity = new ListAttachSubParser(subContents).parse();
     }
 
 
     @Override
     public StringBuffer getWriteBuffer(BaseModel reflectModel, RetainModel retain) {
-        ListAttachCreater creater = new ListAttachCreater(attrParser.getMethodName(),
-                subParser.getTextStartRecord(), subParser.getTextTempRecord(), subParser.getTextEndRecord());
+        ListAttachCreater creater = new ListAttachCreater(attrParser.getMethodName(), subRecordEntity);
         String attachContent = creater.getAttachContent(reflectModel, retain);
         reflectModel.attach(attrParser.getAttach(), attachContent);
         return new StringBuffer();

@@ -1,6 +1,8 @@
 package cn.ytxu.http_wrapper.template.expression.record.list_attach;
 
 import cn.ytxu.http_wrapper.model.BaseModel;
+import cn.ytxu.http_wrapper.template.expression.record.list_attach.sub.ListAttachSubExpression;
+import cn.ytxu.http_wrapper.template.expression.record.list_attach.sub.ListAttachSubRecordEntity;
 import cn.ytxu.http_wrapper.template.expression.record.retain.RetainModel;
 import cn.ytxu.http_wrapper.template.expression.record.text.TextExpressionRecord;
 import cn.ytxu.http_wrapper.template.expression.util.ReflectiveUtil;
@@ -13,14 +15,11 @@ import java.util.List;
  */
 public class ListAttachCreater {
     private String methodName;
-    private TextExpressionRecord textStartRecord, textTempRecord, textEndRecord;
+    private ListAttachSubRecordEntity subRecordEntity;
 
-    public ListAttachCreater(String methodName, TextExpressionRecord textStartRecord,
-                             TextExpressionRecord textTempRecord, TextExpressionRecord textEndRecord) {
+    public ListAttachCreater(String methodName, ListAttachSubRecordEntity subRecordEntity) {
         this.methodName = methodName;
-        this.textStartRecord = textStartRecord;
-        this.textTempRecord = textTempRecord;
-        this.textEndRecord = textEndRecord;
+        this.subRecordEntity = subRecordEntity;
     }
 
 
@@ -33,7 +32,7 @@ public class ListAttachCreater {
     }
 
     private StringBuffer getTextStart(BaseModel reflectModel, RetainModel retain) {
-        return textStartRecord.getNormalWriteBuffer(reflectModel, retain);
+        return ListAttachSubExpression.text_start.getThisExpressionRecord(subRecordEntity).getNormalWriteBuffer(reflectModel, retain);
     }
 
     private StringBuffer getTextTemp(BaseModel reflectModel, RetainModel retain) {
@@ -46,14 +45,29 @@ public class ListAttachCreater {
 
     private StringBuffer parseAndGetTempContent(RetainModel retain, List<BaseModel> subModels) {
         StringBuffer tempBuffer = new StringBuffer();
-        for (BaseModel subModel : subModels) {
-            tempBuffer.append(textTempRecord.getNormalWriteBuffer(subModel, retain));
+        for (int i = 0, count = subModels.size(); i < count; i++) {
+            TextExpressionRecord listTempRecord = getListTempRecord(i, count);
+            BaseModel subModel = subModels.get(i);
+            tempBuffer.append(listTempRecord.getNormalWriteBuffer(subModel, retain));
         }
         return tempBuffer;
     }
 
+    private TextExpressionRecord getListTempRecord(int i, int count) {
+        if (i == 0) {// start
+            if (ListAttachSubExpression.list_temp_start.hasThisExpression(subRecordEntity)) {
+                return ListAttachSubExpression.list_temp_start.getThisExpressionRecord(subRecordEntity);
+            }
+        } else if (i + 1 == count) {// end
+            if (ListAttachSubExpression.list_temp_end.hasThisExpression(subRecordEntity)) {
+                return ListAttachSubExpression.list_temp_end.getThisExpressionRecord(subRecordEntity);
+            }
+        }
+        return ListAttachSubExpression.list_temp.getThisExpressionRecord(subRecordEntity);
+    }
+
     private StringBuffer getTextEnd(BaseModel reflectModel, RetainModel retain) {
-        return textEndRecord.getNormalWriteBuffer(reflectModel, retain);
+        return ListAttachSubExpression.text_end.getThisExpressionRecord(subRecordEntity).getNormalWriteBuffer(reflectModel, retain);
     }
 
 }

@@ -1,7 +1,5 @@
 package cn.ytxu.http_wrapper.template.expression.record.list_attach.sub;
 
-import cn.ytxu.http_wrapper.template.expression.record.text.TextExpressionRecord;
-
 import java.util.List;
 
 /**
@@ -10,29 +8,17 @@ import java.util.List;
 public class ListAttachSubParser {
 
     private final List<String> subContents;
-    private TextExpressionRecord textStartRecord, textTempRecord, textEndRecord;
+    private final ListAttachSubRecordEntity subRecord = new ListAttachSubRecordEntity();
 
     public ListAttachSubParser(List<String> subContents) {
         this.subContents = subContents;
     }
 
-    public ListAttachSubParser parse() {
-        textStartRecord = ListAttachSubExpression.text_start.getTextER(subContents);
-        textTempRecord = ListAttachSubExpression.list_temp.getTextER(subContents);
-        textEndRecord = ListAttachSubExpression.text_end.getTextER(subContents);
-        return this;
-    }
-
-    public TextExpressionRecord getTextStartRecord() {
-        return textStartRecord;
-    }
-
-    public TextExpressionRecord getTextTempRecord() {
-        return textTempRecord;
-    }
-
-    public TextExpressionRecord getTextEndRecord() {
-        return textEndRecord;
+    public ListAttachSubRecordEntity parse() {
+        for (ListAttachSubExpression listAttachSubExpression : ListAttachSubExpression.values()) {
+            listAttachSubExpression.setThisExpressionRecord(subRecord, listAttachSubExpression.getTextER(subContents));
+        }
+        return subRecord;
     }
 
 }
