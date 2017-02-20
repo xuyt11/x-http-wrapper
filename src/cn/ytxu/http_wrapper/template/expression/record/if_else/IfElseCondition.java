@@ -3,6 +3,7 @@ package cn.ytxu.http_wrapper.template.expression.record.if_else;
 import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.template.expression.util.ReflectiveUtil;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,10 +28,24 @@ public enum IfElseCondition {
         @Override
         public boolean getBoolean(BaseModel reflectModel, String methodName) {
             String text = ReflectiveUtil.getString(reflectModel, methodName);
-            if (text.trim().isEmpty()) {
+            if (text.isEmpty()) {
                 return false;
             }
             return true;
+        }
+    },
+    /**
+     * String类型判断：字符串是否一样，不需要大小写判断
+     */
+    ListSize("ListSize=\"", "\"", Pattern.compile("(ListSize=\")\\w+(,)\\w+(\")")) {
+        @Override
+        public boolean getBoolean(BaseModel reflectModel, String methodName) {
+            String[] datas = methodName.split(",");
+            String realMethodName = datas[0];
+            int expectedSize = Integer.parseInt(datas[1]);
+            List list = ReflectiveUtil.getList(reflectModel, realMethodName);
+            int actualSize = Objects.isNull(list) ? 0 : list.size();
+            return actualSize == expectedSize;
         }
     },
     /**
