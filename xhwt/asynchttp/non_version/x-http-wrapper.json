@@ -20,27 +20,39 @@
   "template_file_infos": {
     "HttpApi": {
       "need_generate": false,
-      "path": "ncm_a_n-httpapi.xhwt"
+      "paths": [
+        "ncm_a_n-httpapi.xhwt"
+      ]
     },
     "Request": {
       "need_generate": true,
-      "path": "ncm_a_n-request.xhwt"
+      "paths": [
+        "ncm_a_n-request.xhwt"
+      ]
     },
     "RequestParam": {
       "need_generate": true,
-      "path": "ncm_a_n-requestparam.xhwt"
+      "paths": [
+        "ncm_a_n-requestparam.xhwt"
+      ]
     },
     "Response": {
       "need_generate": true,
-      "path": "ncm_a_n-response.xhwt"
+      "paths": [
+        "ncm_a_n-response.xhwt"
+      ]
     },
     "StatusCode": {
       "need_generate": false,
-      "path": "ncm_a_n-statuscode.xhwt"
+      "paths": [
+        "ncm_a_n-statuscode.xhwt"
+      ]
     },
     "BaseResponse": {
       "need_generate": false,
-      "path": "ncm_a_n-baseresponse.xhwt",
+      "paths": [
+        "ncm_a_n-baseresponse.xhwt"
+      ],
       "is_polymerization": true
     }
   },

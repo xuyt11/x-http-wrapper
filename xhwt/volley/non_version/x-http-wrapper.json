@@ -16,27 +16,39 @@
   "template_file_infos": {
     "HttpApi": {
       "need_generate": true,
-      "path": "volley_n-httpapi.xhwt"
+      "paths": [
+        "volley_n-httpapi.xhwt"
+      ]
     },
     "Request": {
       "need_generate": true,
-      "path": "volley_n-request.xhwt"
+      "paths": [
+        "volley_n-request.xhwt"
+      ]
     },
     "RequestParam": {
       "need_generate": false,
-      "path": "volley_n-requestparam.xhwt"
+      "paths": [
+        "volley_n-requestparam.xhwt"
+      ]
     },
     "Response": {
       "need_generate": false,
-      "path": "volley_n-response.xhwt"
+      "paths": [
+        "volley_n-response.xhwt"
+      ]
     },
     "StatusCode": {
       "need_generate": false,
-      "path": "volley_n-statuscode.xhwt"
+      "paths": [
+        "volley_n-statuscode.xhwt"
+      ]
     },
     "BaseResponse": {
       "need_generate": false,
-      "path": "volley_n-baseresponse.xhwt"
+      "paths": [
+        "volley_n-baseresponse.xhwt"
+      ]
     }
   },
   "base_config": {

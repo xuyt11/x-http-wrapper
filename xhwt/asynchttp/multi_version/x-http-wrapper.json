@@ -16,27 +16,39 @@
   "template_file_infos": {
     "HttpApi": {
       "need_generate": true,
-      "path": "ncm_a_m-httpapi.xhwt"
+      "paths": [
+        "ncm_a_m-httpapi.xhwt"
+      ]
     },
     "Request": {
       "need_generate": true,
-      "path": "ncm_a_m-request.xhwt"
+      "paths": [
+        "ncm_a_m-request.xhwt"
+      ]
     },
     "RequestParam": {
       "need_generate": true,
-      "path": "ncm_a_m-requestparam.xhwt"
+      "paths": [
+        "ncm_a_m-requestparam.xhwt"
+      ]
     },
     "Response": {
       "need_generate": false,
-      "path": "ncm_a_m-response.xhwt"
+      "paths": [
+        "ncm_a_m-response.xhwt"
+      ]
     },
     "StatusCode": {
       "need_generate": false,
-      "path": "ncm_a_m-statuscode.xhwt"
+      "paths": [
+        "ncm_a_m-statuscode.xhwt"
+      ]
     },
     "BaseResponse": {
       "need_generate": false,
-      "path": "ncm_a_m-baseresponse.xhwt"
+      "paths": [
+        "ncm_a_m-baseresponse.xhwt"
+      ]
     }
   },
   "base_config": {
